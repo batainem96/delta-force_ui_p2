@@ -2,6 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
+import { Principal } from '../dtos/principal';
+import { logout } from '../remote/auth-service';
+
 import { alpha, makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, Divider, List, ListItem, ListItemText, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -10,6 +13,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
+interface INavbarProps {
+  currentUser: Principal | undefined,
+  setCurrentUser: (nextUser: Principal | undefined) => void
+}
 
 const drawerWidth = 240;
 
@@ -124,8 +132,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props: INavbarProps) {
   const classes = useStyles();
+
+  // For logging out :)
+  function doLogout() {
+        logout(props.setCurrentUser);
+    }
 
   // For user profile button
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -166,7 +179,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My Account</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
+      <MenuItem onClick={doLogout}>Log out</MenuItem>
 
     </Menu>
   );
@@ -190,7 +203,7 @@ export default function PrimarySearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Team-Delta
+            DeltaForce News
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

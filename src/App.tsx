@@ -10,8 +10,9 @@ function App() {
 
   return (
       <BrowserRouter>
-        <NavbarComponent />
+        <NavbarComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         <Switch>
+            {/* <Route path="/" render={() => <IndexComponent/> } /> */}
             {/* <Route exact path="/dashboard" render={() => <DashboardComponent currentUser={currentUser} /> } /> */}
             <Route path="/login" render={() => <LoginComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             {/* <Route path="/register" render={() => <RegisterComponent currentUser={currentUser} /> } /> */}
