@@ -1,22 +1,17 @@
 import { Principal } from "../dtos/principal";
+import { deltaforceClient } from "../remote/deltaforce-client";
 
 export const authenticate = async(credentials: {username: string, password: string}) => {
 
-    let resp = await fetch(`/auth`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    });
+    let resp = await deltaforceClient.post('/auth', credentials);
 
-    if(resp.status === 401){
-        throw await resp.json();
+    if (resp.status >= 400 && resp.status <= 599) {
+        throw resp.data;
     }
 
     let token: string | null = resp.headers.get('Authorization');
 
-    let principal: Principal = await resp.json();
+    let principal: Principal = await resp.data;
     console.log(principal)
     if(token && principal) principal.token = token;
 
