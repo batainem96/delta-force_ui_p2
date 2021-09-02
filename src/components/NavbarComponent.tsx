@@ -1,8 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 import { alpha, makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, Divider, List, ListItem, ListItemText } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, Divider, List, ListItem, ListItemText, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -164,7 +165,9 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My Account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
+
     </Menu>
   );
 
@@ -204,6 +207,14 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <Button 
+              size="small" 
+              variant="contained" 
+              color="primary"
+              href="/login"
+            >
+              Log In
+            </Button>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
