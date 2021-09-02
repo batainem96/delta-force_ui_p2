@@ -16,8 +16,7 @@ const useStyles = makeStyles({
     registerContainer: {
         justifyContent: 'center',
         textAlign: 'center',
-        marginTop: '15rem',
-        width: "25%"
+        marginTop: '3rem',
     }
 });
 
@@ -77,63 +76,11 @@ function RegisterComponent(props: IRegisterProps) {
 
             <div id="register-component" className={classes.registerContainer}>
                 <Typography align="center" variant="h4">Register for a DeltaForce News Account!</Typography>
-                <TextField id='firstName' label="First Name" name="firstName" type="text" onChange={handleChange}/> <br/>
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="firstName">First Name</InputLabel>
-                    <Input
-                        onChange={handleChange}
-                        id="firstName"
-                        name="firstName"
-                        type="text"
-                        placeholder="Enter your first name"
-                    />
-                </FormControl>
-
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="lastName">Last Name</InputLabel>
-                    <Input
-                        onChange={handleChange}
-                        id="lastName"
-                        name="lastName"
-                        type="text"
-                        placeholder="Enter your last name"
-                    />
-                </FormControl>
-
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="email">Email Address</InputLabel>
-                    <Input
-                        onChange={handleChange}
-                        id="email"
-                        name="email"
-                        type="text"
-                        placeholder="Enter your email address"
-                    />
-                </FormControl>
-
-
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="username">Username</InputLabel>
-                    <Input
-                        onChange={handleChange}
-                        id="username"
-                        name="username"
-                        type="text"
-                        placeholder="Enter your username"
-                    />
-                </FormControl>
-
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="password">Password</InputLabel>
-                    <Input
-                        onChange={handleChange}
-                        id="password"
-                        name="password"
-                        type="password"
-                        placeholder="Enter your password"
-                    />
-                </FormControl>
-
+                <TextField id='firstName' label="First Name" name="firstName" type="text" onChange={handleChange}/> <br/><br/>
+                <TextField id='lastName' label="Last Name" name="lastName" type="text" onChange={handleChange}/> <br/><br/>
+                <TextField id='email' label="Email" name="email" type="email" onChange={handleChange}/> <br/><br/>
+                <TextField id='username' label="Username" name="username" type="text" onChange={handleChange}/> <br/><br/>
+                <TextField id='password' label="Password" name="password" type="password" onChange={handleChange}/> <br/><br/>
                 <br/><br/>
 
                 <Button

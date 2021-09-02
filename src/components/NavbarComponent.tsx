@@ -177,10 +177,17 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Login</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Register</MenuItem>
-      <MenuItem onClick={() =>{doLogout(); handleMenuClose();}}>Log out</MenuItem>
-
+      {props.currentUser? // If User is logged in display these options.
+      <>
+        <MenuItem component={Link} to={'/profile'} onClick={() =>{doLogout(); handleMenuClose();}}>My Profile</MenuItem>
+        <MenuItem component={Link} to={'/'} onClick={() =>{doLogout(); handleMenuClose();}}>Log out</MenuItem>
+      </>
+      :                   // If User is not logged in, display these options.
+      <>
+        <MenuItem component={Link} to={'/login'}onClick={handleMenuClose}>Login</MenuItem>
+        <MenuItem component={Link} to={'/register'} onClick={handleMenuClose}>Register</MenuItem>
+      </>
+    }
     </Menu>
   );
 
@@ -220,14 +227,14 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Button 
+            {/* <Button 
               size="small" 
               variant="contained" 
               color="default"
               href="/login"
             >
               Log In
-            </Button>
+            </Button> */}
             {/* <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
