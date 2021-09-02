@@ -6,6 +6,7 @@ import {Button, FormControl, Input, InputLabel, makeStyles, Typography} from "@m
 import ErrorMessageComponent from "./ErrorMessageComponent";
 import {Principal} from "../dtos/principal";
 import {registerNewUser} from "../remote/user-service";
+import { TextField } from "@material-ui/core";
 
 interface IRegisterProps {
     currentUser: Principal | undefined
@@ -13,10 +14,9 @@ interface IRegisterProps {
 
 const useStyles = makeStyles({
     registerContainer: {
-        justifyContent: "center",
-        marginLeft: "25rem",
-        marginTop: "10rem",
-        padding: 20,
+        justifyContent: 'center',
+        textAlign: 'center',
+        marginTop: '15rem',
         width: "25%"
     }
 });
@@ -63,7 +63,11 @@ function RegisterComponent(props: IRegisterProps) {
             await registerNewUser(formData);
             history.push('/login');
         } catch (e) {
-            setErrorMessage(e.message);
+            if (e instanceof Error) {
+                setErrorMessage(e.message);
+              } else {
+                console.error("🤷‍♂️"); // Who knows?
+              }
         }
     }
 
@@ -73,7 +77,7 @@ function RegisterComponent(props: IRegisterProps) {
 
             <div id="register-component" className={classes.registerContainer}>
                 <Typography align="center" variant="h4">Register for a DeltaForce News Account!</Typography>
-
+                <TextField id='firstName' label="First Name" name="firstName" type="text" onChange={handleChange}/> <br/>
                 <FormControl margin="normal" fullWidth>
                     <InputLabel htmlFor="firstName">First Name</InputLabel>
                     <Input

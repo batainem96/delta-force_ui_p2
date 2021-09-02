@@ -177,9 +177,9 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My Account</MenuItem>
-      <MenuItem onClick={doLogout}>Log out</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Register</MenuItem>
+      <MenuItem onClick={() =>{doLogout(); handleMenuClose();}}>Log out</MenuItem>
 
     </Menu>
   );
@@ -223,16 +223,16 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
             <Button 
               size="small" 
               variant="contained" 
-              color="primary"
+              color="default"
               href="/login"
             >
               Log In
             </Button>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            {/* <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
               </Badge>
-            </IconButton>
+            </IconButton> */}
             <IconButton
               edge="end"
               aria-label="account of current user"

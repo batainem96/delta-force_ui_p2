@@ -1,4 +1,4 @@
-import { Button, makeStyles, TextField } from "@material-ui/core";
+import { Button, makeStyles, TextField, Typography } from "@material-ui/core";
 import { useState } from "react";
 import {Redirect} from "react-router-dom";
 import {Principal} from "../dtos/principal";
@@ -56,12 +56,16 @@ function LoginComponent(props: ILoginProps){
     return(
         props.currentUser ? <Redirect to="/"/> :
         <>
-            <div className={classes.loginContainer}>
+            <div className={classes.loginContainer} color="inherit">
+                <Typography align="center" variant="h4">Login</Typography>
                 <TextField id="username-input" label="Username" name="username" type="text" onChange={handleChange}/>
                 <br/>
                 <TextField id="password-input" label="Password" name="password" type="password" onChange={handleChange}/>
                 <br/><br/>
                 <Button id="login-bt" variant="contained" color="primary" onClick={login}>Login</Button>
+                <br /><br />
+                <p>No account yet?</p>
+                <Button id="register-bt" variant="contained" color="primary" href="/register">Register!</Button>
             </div>
             <br/>
             { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }
