@@ -1,52 +1,70 @@
+import { Button, makeStyles, TextField } from "@material-ui/core";
 import { useState } from "react";
 import {Redirect} from "react-router-dom";
 import {Principal} from "../dtos/principal";
 import {authenticate} from "../services/auth-service";
+import ErrorMessageComponent from "./ErrorMessageComponent";
 
 interface ILoginProps {
     currentUser: Principal | undefined,
     setCurrentUser: (nextUser: Principal | undefined) => void
 }
 
+const useStyles = makeStyles({
+    loginContainer: {
+        justifyContent: 'center',
+        textAlign: 'center',
+        marginTop: '15rem',
+    }
+});
+
 function LoginComponent(props: ILoginProps){
 
-    let[username, setUsename] = useState('');
-    let[password, setPassword] = useState('');
-    let[errorMessage, setErrorMessage] = useState('');
+    const classes = useStyles();
 
-    function updateUsername(e:any){
-        setUsename(e.currentTarget.value);
-    }
+    const [formData, setFormData] = useState({
+        username: '',
+        password: ''
+    });
 
-    function updatePassword(e:any){
-        setPassword(e.currentTarget.value);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    let handleChange = (e : any) => {
+        const { name, value } = e.target;
+        setFormData({...formData, [name] : value});
     }
 
     async function login() {
-        console.log('Button clicked: ', username, password);
+
+        if (!formData.username || !formData.password) {
+            setErrorMessage('You need to provide a username and password');
+            return;
+        }
+
+        console.log(formData.username);
+        console.log(formData.password);
 
         try{
-            if(username && password){
-                let principal = await authenticate({username, password});
-                console.log(principal);
-                props.setCurrentUser(principal);
-            }
-        }catch (e){
-                setErrorMessage(e.message);
+            let principal = await authenticate({username : formData.username, password : formData.password});
+            console.log(principal);
+            props.setCurrentUser(principal);
+        }catch (e : any){
+            setErrorMessage(e.message);
         }
     }
 
     return(
         props.currentUser ? <Redirect to="/"/> :
         <>
-            <div>
-                <input id="username-input" type="text" onChange={updateUsername}/>
-                <br></br>
-                <input id="password-input" type="text" onChange={updatePassword}/>
-                <br></br>
-                <button id="login-bt" onClick={login}>Login</button>
-                <br></br>
+            <div className={classes.loginContainer}>
+                <TextField id="username-input" label="Username" name="username" type="text" onChange={handleChange}/>
+                <br/>
+                <TextField id="password-input" label="Password" name="password" type="password" onChange={handleChange}/>
+                <br/><br/>
+                <Button id="login-bt" variant="contained" color="primary" onClick={login}>Login</Button>
             </div>
+            <br/>
+            { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }
         </>
     );
 
