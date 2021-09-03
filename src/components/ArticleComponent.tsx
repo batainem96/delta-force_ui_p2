@@ -2,11 +2,12 @@ import React from 'react';
 import { Typography, Container, makeStyles } from '@material-ui/core';
 import { Principal } from '../dtos/principal';
 
-
+// Current User data
 interface IArticleProps {
     currentUser: Principal | undefined
 }
 
+// Styling
 const useStyles = makeStyles({
     welcomeContainer: {
         justifyContent: 'center',
@@ -15,11 +16,15 @@ const useStyles = makeStyles({
     }
 });
 
+
+// Building Component
 function ArticleComponent(props:IArticleProps){
 
+    // Get Styles
     const classes = useStyles();
 
     return(
+        // If currentUser is undefined/not logged in
         !props.currentUser?
             <>
             <Container className={classes.welcomeContainer}>
@@ -34,7 +39,7 @@ function ArticleComponent(props:IArticleProps){
                 </Typography>
             </Container>
             </>
-            :
+            :// If currentUser is defined/logged in
             <>
                 <Typography align="center" variant="h4">
                     Welcome, {props.currentUser.username}!
@@ -43,5 +48,5 @@ function ArticleComponent(props:IArticleProps){
         );
 }
 
-
+// Export so router can see
 export default ArticleComponent;
