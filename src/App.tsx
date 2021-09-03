@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import ArticleComponent from './components/ArticleComponent';
+import LoginComponent from './components/LoginComponent';
+import NavbarComponent from "./components/NavbarComponent";
+import RegisterComponent from './components/RegisterComponent';
+import { Principal } from './dtos/principal';
 
 function App() {
+
+  let [currentUser, setCurrentUser] = useState(undefined as Principal | undefined);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <NavbarComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+
+        <Switch>
+            <Route exact path="/">
+                <Redirect to="/dashboard" />
+            </Route>
+            <Route exact path="/dashboard" render={() => <ArticleComponent currentUser={currentUser} /> } />
+            <Route exact path="/login" render={() => <LoginComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
+            <Route exact path="/register" render={() => <RegisterComponent currentUser={currentUser} /> } />
+        </Switch>
+      </BrowserRouter>
   );
 }
 
