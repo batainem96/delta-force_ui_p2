@@ -11,7 +11,9 @@ export const authenticate = async (credentials: Credentials) => {
         throw resp.data;
     }
 
+
     localStorage.setItem('api-token', resp.headers['authorization']);
+    console.log(resp.headers['Authorization']);
 
     return resp.data;
 

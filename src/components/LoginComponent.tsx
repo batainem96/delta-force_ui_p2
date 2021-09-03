@@ -2,7 +2,7 @@ import { Button, makeStyles, TextField, Typography } from "@material-ui/core";
 import { useState } from "react";
 import {Redirect} from "react-router-dom";
 import {Principal} from "../dtos/principal";
-import {authenticate} from "../services/auth-service";
+import {authenticate} from "../remote/auth-service";
 import ErrorMessageComponent from "./ErrorMessageComponent";
 
 interface ILoginProps {
