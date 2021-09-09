@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Container, makeStyles } from '@material-ui/core';
 import { Principal } from '../dtos/principal';
+// import { deltaforceClient } from '../remote/deltaforce-client';
+import { getArticles } from '../remote/mock-user-service';
+import { Article } from '../dtos/article';
+import ArticleContainerComponent from './ArticleContainerComponent';
 
 // Current User data
 interface IArticleProps {
@@ -13,12 +17,34 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         textAlign: 'center',
         marginTop: '3rem',
+        // background: '#f7f9fa'
     }
 });
 
 
 // Building Component
 function ArticleComponent(props:IArticleProps){
+
+    // Fetch articles [Testing Article Containers - Marwan]
+    const [data, setData] = useState([] as Article[]);
+    const [test, setTest] = useState('one');
+
+    useEffect(() => {
+        getArticles().then(articles => {
+            setData(articles);
+
+            console.log(articles);
+            console.log(data);
+        });
+
+        setTest('two');
+        console.log(test);//
+
+        return () => {
+            setData([]);
+        }
+
+    }, []);
 
     // Get Styles
     const classes = useStyles();
@@ -37,6 +63,7 @@ function ArticleComponent(props:IArticleProps){
                 <Typography variant="subtitle1">
                     Log in or register now to begin setting up your very own personalized News Feed!
                 </Typography>
+                <ArticleContainerComponent article={data}></ArticleContainerComponent>
             </Container>
             </>
             :// If currentUser is defined/logged in
