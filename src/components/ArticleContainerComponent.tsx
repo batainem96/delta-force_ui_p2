@@ -8,6 +8,59 @@ interface IArticles {
     article: Article[];
 }
 
+function ArticleContainerComponent(articles: IArticles) {
+    const classes = useStyles();
+    let containers: JSX.Element[] = [];
+    let currentDate = new Date();
+
+    articles.article.forEach(element => {
+        let oldDate = new Date(element.publishedAt);
+        // let age = currentDate - oldDate;
+        containers.push(
+            <Container fixed maxWidth='sm' className={classes.articleContainer}>
+                <div className={classes.articleHeader}>
+                    <p className={classes.headerSource}>{element.source.name}</p>
+                    <p className={classes.headerDivider}>|</p>
+                    <p className={classes.headerAuthor}>{element.author}</p>
+                    <p className={classes.headerAge}>{getAge(currentDate, oldDate)}</p>
+                </div>
+                <div className={classes.articleBody}>
+                    <h3 className={classes.bodyTitle}>{trimTitle(element.title)}</h3>
+                    <p className={classes.bodyContent}>{trimContent(element.content)}</p>
+                    <img className={classes.bodyImg} src={element.urlToImage} />
+                </div>
+                <div className={classes.articleFooter}>
+                    <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
+                </div>
+            </Container>
+        );
+    });
+
+    return (
+        <>
+            {containers}
+        </>
+    );
+}
+
+export default ArticleContainerComponent;
+
+// Remove the source at the end of the title (follows a dash)
+function trimTitle(title: string): string {
+    let titleSplit = title.split('-');
+    let result = titleSplit[0];
+    for(let i = 1; i < titleSplit.length-1; i++) { // Put non-closing dashes back in the string
+        result += '-' + titleSplit[i];
+    }
+    return result;
+}
+
+// Remove the characters remaining tag at the end of content
+function trimContent(content: string): string {
+    return content.split("…")[0] + '...';
+}
+
+// Calculate the age of the article and return the highest order representation (year > month > day > hour > minute)
 function getAge(current: Date, old: Date): string {
 
     let years = current.getFullYear() - old.getFullYear(); // i.e. 2021 - 2020 = 1 year
@@ -48,41 +101,7 @@ function getAge(current: Date, old: Date): string {
     return age;
 }
 
-function ArticleContainerComponent(articles: IArticles) {
-    const classes = useStyles();
-    let containers: JSX.Element[] = [];
-    let currentDate = new Date();
-
-    articles.article.forEach(element => {
-        let oldDate = new Date(element.publishedAt);
-        // let age = currentDate - oldDate;
-        containers.push(
-            <Container fixed maxWidth='sm' className={classes.articleContainer}>
-                <div className={classes.articleHeader}>
-                    <p className={classes.headerSource}>{element.source.name}</p>
-                    <p className={classes.headerDivider}>|</p>
-                    <p className={classes.headerAuthor}>{element.author}</p>
-                    <p className={classes.headerAge}>{getAge(currentDate, oldDate)}</p>
-                </div>
-                <div className={classes.articleBody}>
-                    <h3 className={classes.bodyTitle}>{element.title}</h3>
-                    <p className={classes.bodyContent}>{element.content}</p>
-                    <img className={classes.bodyImg} src={element.urlToImage} />
-                </div>
-                <div className={classes.articleFooter}>
-                    <a className={classes.footerURL} href={element.url}>Read Full Story</a>
-                </div>
-            </Container>
-        );
-    });
-
-    return (
-        <>
-            {containers}
-        </>
-    );
-}
-
+// Some colors I liked :>
 const GREY = '#9E9E9E';
 const FAINTGREY = '#9b9b9b';
 const SHADOWGRAY = 'rgba(61,99,140,.08)';
@@ -150,7 +169,7 @@ const useStyles = makeStyles({
     bodyTitle: {
         textAlign: 'left',
         fontSize: '.875rem',
-        margin: '0 0 .5rem 0'
+        margin: '0 0 1rem 0'
     },
 
     bodyContent: {
@@ -178,5 +197,3 @@ const useStyles = makeStyles({
     }
 
 });
-
-export default ArticleContainerComponent;
