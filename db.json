@@ -1,6 +1,7 @@
 {
     "articles1": [
         {
+            "id": "613a7e8963eb475fc7c68f6f",
             "source": {
                 "id": null,
                 "name": "CBS Sports"
@@ -14,6 +15,7 @@
             "content": "The final round of one of the longest seasons in PGA Tour history is finally here. The last 18 holes of the 2021 Tour Championship will be played at East Lake Golf Club on Sunday as $46 million is wa… [+1320 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f70",
             "source": {
                 "id": null,
                 "name": "The Guardian"
@@ -27,6 +29,7 @@
             "content": "Police in Montenegro have fired teargas at protesters as the new head of the Serbian Orthodox church in the country arrived by helicopter for his inauguration.\r\nThe decision to anoint Bishop Joanikij… [+1942 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f71",
             "source": {
                 "id": null,
                 "name": "PEOPLE"
@@ -40,6 +43,7 @@
             "content": "Kate Hudson and Demi Moore are a cut above the rest.\r\nThe longtime friends confidently flaunted their fabulous figures at the Celebration of Women in Cinema Gala on Saturday during the Venice Film Fe… [+2722 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f72",
             "source": {
                 "id": "fox-news",
                 "name": "Fox News"
@@ -53,6 +57,7 @@
             "content": "The U.S. Navy on Sunday identified the five sailors now presumed dead after a more than 72-hour search and rescue mission was called off following their helicopter crash off the coast of San Diego. \r… [+1842 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f73",
             "source": {
                 "id": "fox-news",
                 "name": "Fox News"
@@ -66,6 +71,7 @@
             "content": "Larry Elder charges that the 2020 presidential election was full of \"shenanigans\" and says he worried about potential voting irregularities in the Sept. 14 California recall election of embattled Dem… [+5593 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f74",
             "source": {
                 "id": null,
                 "name": "New York Times"
@@ -79,6 +85,7 @@
             "content": "After the winds died down, Mr. Raum rowed home in the kayak, fearing the worst. When he found only a little water and mud on the floor, he fell to his knees. Im so grateful that this house survived, … [+1076 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f75",
             "source": {
                 "id": "fox-news",
                 "name": "Fox News"
@@ -92,6 +99,7 @@
             "content": "Dr. Anthony Fauci has stressed the need for approval from the Food and Drug Administration (FDA) before proceeding with COVID-19vaccine booster shots amid a spat between the White House and health of… [+3009 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f76",
             "source": {
                 "id": "usa-today",
                 "name": "USA Today"
@@ -105,6 +113,7 @@
             "content": "The official College Football Playoff rankings don’t come out for four weeks, giving things time to play out before releasing the real thing.\r\nBut Georgia just beat Clemson in the season-opener, so i… [+4866 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f77",
             "source": {
                 "id": "usa-today",
                 "name": "USA Today"
@@ -118,6 +127,7 @@
             "content": "LAKELAND, Fla. — Four people were killed, an 11-year-old girl was shot and deputies came under fire early Sunday in a neighborhood in North Lakeland, Florida.\r\nPolk County Sheriff Grady Judd said the… [+3474 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f78",
             "source": {
                 "id": null,
                 "name": "ESPN"
@@ -131,6 +141,7 @@
             "content": "FRISCO, Texas -- The Dallas Cowboys will be without Zack Martin for Thursday's season opener against the Tampa Bay Buccaneers after the six-time Pro Bowl right guard tested positive for the coronavir… [+2470 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f79",
             "source": {
                 "id": null,
                 "name": "Www.https"
@@ -144,6 +155,7 @@
             "content": "Girls Aloud singer Sarah Harding passed away early Sunday morning after losing her battle with breast cancer. She was just 39 years old.\r\nHardings mom, Marie, shared the sad news of her death on Inst… [+2268 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f7a",
             "source": {
                 "id": null,
                 "name": "New York Times"
@@ -157,6 +169,7 @@
             "content": "In April, the president who had ruled Chad for three decades was killed on the battlefield and replaced by his son in what academics called a covert coup. In May, Malis vice president, Assimi Goïta, … [+956 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f7b",
             "source": {
                 "id": null,
                 "name": "CBS Sports"
@@ -170,6 +183,7 @@
             "content": "Tom Brady is one of the 40 million Americans who have tested positive for COVID-19 so far. Brady recently told Rick Stroud of the Tampa Bay Times that he contracted the virus shortly after the Buccan… [+3047 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f7c",
             "source": {
                 "id": "the-washington-post",
                 "name": "The Washington Post"
@@ -183,6 +197,7 @@
             "content": "Thecessation of this jobless aid, first put in place by Congress nearly 18 months ago, could upend the lives of millions of Americans still struggling to find work at a time when the pandemics delta … [+11069 chars]"
         },
         {
+            "id": "613a7e8963eb475fc7c68f7d",
             "source": {
                 "id": "the-verge",
                 "name": "The Verge"
@@ -194,71 +209,6 @@
             "urlToImage": "https://cdn.vox-cdn.com/thumbor/Ko5e27rMVhWLA4AgRtPYki5eRYg=/0x343:2400x1600/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22828176/2020_09_26_Image_D638345.jpg",
             "publishedAt": "2021-09-05T16:00:00Z",
             "content": "The EQB gets a full debut in Germany\r\nImages: Mercedes-Benz\r\nJust months after Mercedes-Benz launched its first true compact electric SUV, the EQA, the German automaker now has a slightly larger and … [+2999 chars]"
-        },
-        {
-            "source": {
-                "id": "cnn",
-                "name": "CNN"
-            },
-            "author": "Chandelis Duster, CNN",
-            "title": "Klobuchar calls for eliminating Senate filibuster to protect abortion rights - CNN",
-            "description": "Democratic Sen. Amy Klobuchar called for immediate action from Democrats in the wake of the US Supreme Court allowing Texas' restrictive abortion law to stand and said the filibuster should be abolished in order to codify abortion rights protections.",
-            "url": "https://www.cnn.com/2021/09/05/politics/amy-klobuchar-texas-abortion-law-cnntv/index.html",
-            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/210905100409-screengrab-amy-klobuchar-cnn-09-05-2021-super-tease.jpg",
-            "publishedAt": "2021-09-05T15:47:00Z",
-            "content": "(CNN)Democratic Sen. Amy Klobuchar called for immediate action from Democrats in the wake of the US Supreme Court allowing Texas' restrictive abortion law to stand and said the filibuster should be a… [+3885 chars]"
-        },
-        {
-            "source": {
-                "id": null,
-                "name": "Variety"
-            },
-            "author": "Brent Lang",
-            "title": "Box Office: ‘Shang-Chi’ Dazzles With Mighty $71.4 Million Opening Weekend - Variety",
-            "description": "“Shang-Chi and the Legend of the Ten Rings” delivered the sizzle that struggling movie theaters so desperately needed, debuting to $71.4 million in its inaugural weekend. The Marvel adventure is on pace to rack up a mighty $83.5 million over the four-day Labo…",
-            "url": "https://variety.com/2021/film/news/shang-chi-marvel-box-office-opening-weekend-simu-liu-1235056782/",
-            "urlToImage": "https://variety.com/wp-content/uploads/2021/09/SBT-13336.jpg?w=1024",
-            "publishedAt": "2021-09-05T15:42:00Z",
-            "content": "“Shang-Chi and the Legend of the Ten Rings” delivered the sizzle that struggling movie theaters so desperately needed, debuting to $71.4 million in its inaugural weekend. The Marvel adventure is on p… [+3357 chars]"
-        },
-        {
-            "source": {
-                "id": null,
-                "name": "XXLMAG.COM"
-            },
-            "author": "cvernoncoleman",
-            "title": "Consequence Disses Drake on New Song 'Party Time' - Listen - XXLMAG.COM",
-            "description": "Details here.",
-            "url": "https://www.xxlmag.com/consequence-drake-diss-song-party-time/",
-            "urlToImage": "https://townsquare.media/site/812/files/2021/09/attachment-Cons-Drake.jpg?w=1200&h=0&zc=1&s=0&a=t&q=89",
-            "publishedAt": "2021-09-05T15:13:55Z",
-            "content": "Consequence is stepping up to bat for his mans Kanye West and has released a new Drake diss track called, \"Party Time.\"\r\nThe new song dropped on Saturday (Sept. 5), amid Drizzy's and 'Ye's beef, whic… [+1570 chars]"
-        },
-        {
-            "source": {
-                "id": null,
-                "name": "New York Times"
-            },
-            "author": "Austin Ramzy",
-            "title": "In Hong Kong, Jimmy Lai's Next Digital Says It Has Been Forced to Close - The New York Times",
-            "description": "Next Digital, which has published criticism of China for decades, said a crackdown had left it with no way to operate. Its main newspaper, Apple Daily, closed in June.",
-            "url": "https://www.nytimes.com/2021/09/05/business/next-digital-jimmy-lai-hong-kong.html",
-            "urlToImage": "https://static01.nyt.com/images/2021/09/05/world/05hk-media-HFO1/05hk-media-HFO1-facebookJumbo.jpg",
-            "publishedAt": "2021-09-05T15:09:31Z",
-            "content": "Next Digitals founder and controlling shareholder, Jimmy Lai, is in jail, charged with crimes that include violating the security law. In June, Hong Kong officials froze some of the companys bank acc… [+1488 chars]"
-        },
-        {
-            "source": {
-                "id": "associated-press",
-                "name": "Associated Press"
-            },
-            "author": "Kathy Gannon",
-            "title": "Taliban resume some flights, press assault on final holdout - Associated Press",
-            "description": "KABUL, Afghanistan (AP) — At least four planes chartered to evacuate several hundred people seeking to escape the Taliban's takeover of Afghanistan have been unable to leave the country for days, officials said Sunday, with conflicting accounts emerging about…",
-            "url": "https://apnews.com/article/middle-east-religion-taliban-dbe38a9a3c0b33f3532aac5ff1b50078",
-            "urlToImage": "https://storage.googleapis.com/afs-prod/media/f8a7bfa5a9f9436a9b99753f559ab057/3000.jpeg",
-            "publishedAt": "2021-09-05T14:32:46Z",
-            "content": "KABUL, Afghanistan (AP) At least four planes chartered to evacuate several hundred people seeking to escape the Talibans takeover of Afghanistan have been unable to leave the country for days, offici… [+6163 chars]"
         }
     ],
 
