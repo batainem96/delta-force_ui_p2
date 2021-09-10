@@ -1,5 +1,5 @@
 {
-    "articles": [
+    "articles1": [
         {
             "source": {
                 "id": null,
@@ -259,6 +259,269 @@
             "urlToImage": "https://storage.googleapis.com/afs-prod/media/f8a7bfa5a9f9436a9b99753f559ab057/3000.jpeg",
             "publishedAt": "2021-09-05T14:32:46Z",
             "content": "KABUL, Afghanistan (AP) At least four planes chartered to evacuate several hundred people seeking to escape the Talibans takeover of Afghanistan have been unable to leave the country for days, offici… [+6163 chars]"
+        }
+    ],
+
+    "articles2": [
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Kareem Khadder and Mostafa Salem, CNN",
+            "title": "A second Qatar Airways passenger flight has arrived in Kabul - CNN",
+            "description": "A second Qatar Airways passenger flight arrived in Kabul airport on Friday, Qatari-owned Al Jazeera Arabic television showed.",
+            "url": "https://www.cnn.com/2021/09/10/asia/second-qatar-airways-flight-kabul-intl/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/210910121738-01-afghanistan-0910-kabul-airport-restricted-super-tease.jpg",
+            "publishedAt": "2021-09-10T12:10:00Z",
+            "content": null
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "CNBC"
+            },
+            "author": "Matthew J. Belvedere",
+            "title": "5 things to know before the stock market opens Friday - CNBC",
+            "description": "U.S. stock futures bounced after the Dow and S&P 500 posted their fourth session of losses.",
+            "url": "https://www.cnbc.com/2021/09/10/5-things-to-know-before-the-stock-market-opens-friday-sept-10.html",
+            "urlToImage": "https://image.cnbcfm.com/api/v1/image/106931833-1629812138310-106931833-1629738864558-gettyimages-1234833912-US_STOCKS.jpg?v=1631122596",
+            "publishedAt": "2021-09-10T12:02:39Z",
+            "content": "Here are the most important news, trends and analysis that investors need to start their trading day:\r\n1. Dow, S&amp;P 500 set to bounce after four sessions of losses\r\nA trader works on the floor of … [+4374 chars]"
+        },
+        {
+            "source": {
+                "id": "fox-news",
+                "name": "Fox News"
+            },
+            "author": "Ryan Gaydos",
+            "title": "Bucs' Chris Godwin appears to get away with pass interference on game-winning drive: 'Bailed out again' - Fox News",
+            "description": "Tom Brady led the Tampa Bay Buccaneers on a vintage game-winning drive against the Dallas Cowboys, which ended in a field goal that gave the team the 31-29 win at the end.",
+            "url": "https://www.foxnews.com/sports/bucs-chris-godwin-pass-interference-cowboys",
+            "urlToImage": "https://static.foxnews.com/foxnews.com/content/uploads/2021/09/Chris-Godwin.jpg",
+            "publishedAt": "2021-09-10T11:59:09Z",
+            "content": "Tom Brady led the Tampa Bay Buccaneers on a vintage game-winning drive against the Dallas Cowboys, which ended in a field goal that gave the team the 31-29 win at the end.\r\nThere was one play on the … [+1321 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "ESPN"
+            },
+            "author": "ESPN staff",
+            "title": "NFL Week 1 game picks, schedule guide, fantasy football tips, odds, injuries and more - ESPN",
+            "description": "What to watch for in every game. Bold predictions. Fantasy advice. Key stats to know. And, of course, score predictions. It's all here for Week 1.",
+            "url": "https://www.espn.com/nfl/story/_/id/32165576/nfl-week-1-game-picks-schedule-guide-fantasy-football-tips-odds-injuries-more",
+            "urlToImage": "https://a2.espncdn.com/combiner/i?img=%2Fphoto%2F2020%2F1214%2Fr789874_1296x729_16%2D9.jpg",
+            "publishedAt": "2021-09-10T11:09:30Z",
+            "content": "The Week 1 NFL schedule for the 2021 season is stacked with great matchups, and we have you covered with what you need to know heading into the weekend. Our NFL Nation reporters bring us the biggest … [+34818 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Trust.org"
+            },
+            "author": "Thomson Reuters Foundation",
+            "title": "All jokes aside, scientists find talking duck - Thomson Reuters Foundation",
+            "description": "NETHERLANDS-DUCK/ (TV):All jokes aside, scientists find talking duck",
+            "url": "https://news.trust.org/item/20210910105122-1jmtc",
+            "urlToImage": "https://d8zcwdvc14g2e.cloudfront.net/contentAsset/image/7f3a9545-7d76-4715-8c62-a3971b8bc950/image/byInode/1/filter/Resize,Jpeg/jpeg_q/70/resize_w/1100",
+            "publishedAt": "2021-09-10T10:51:00Z",
+            "content": "AMSTERDAM, Sept 10 (Reuters) - A Dutch scientist has uncovered old recordings of a musk duck mimicking the phrase, \"You bloody fool!\" - learnt when it was raised by humans in an Australian bird park.… [+1490 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "MarketWatch"
+            },
+            "author": "Steve Goldstein",
+            "title": "This Wall Street firm is sticking to its S&P 500 price target. Here's why it says a correction is overdue. - MarketWatch",
+            "description": "Critical information for the U.S. trading day",
+            "url": "https://www.marketwatch.com/story/this-wall-street-firm-is-sticking-to-its-s-p-500-price-target-heres-why-it-says-a-correction-is-overdue-11631270767",
+            "urlToImage": "https://images.mktw.net/im-390998/social",
+            "publishedAt": "2021-09-10T10:46:00Z",
+            "content": "Theres nothing like higher prices to change the minds of investors and Wall Street analysts.Witness the recent upward flurry of S&amp;P 500 \r\n SPX,\r\n -0.46%\r\nprice targets. Wells Fargo went from bein… [+3922 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "HuffPost"
+            },
+            "author": "Ron Dicker",
+            "title": "Phil Collins Says He Can No Longer Play Drums As Genesis Embarks On Reunion Tour - HuffPost",
+            "description": "The '80s pop icon gave a concerning interview on British television.",
+            "url": "https://www.huffpost.com/entry/phil-collins-cant-drum-anymore_n_613b2143e4b0628d0959eb3c",
+            "urlToImage": "https://img.huffingtonpost.com/asset/613b241f410000edf5838e08.jpeg?ops=1778_1000",
+            "publishedAt": "2021-09-10T10:46:00Z",
+            "content": "Pop music icon Phil Collins sadly admitted Thursday he could no longer play the drums.\r\nId love to but I mean, I can barely hold a stick with this hand, the frail-looking rocker told BBC Breakfast ah… [+1348 chars]"
+        },
+        {
+            "source": {
+                "id": "the-washington-post",
+                "name": "The Washington Post"
+            },
+            "author": "Rachel Siegel, Eli Rosenberg",
+            "title": "Biden vaccine mandates reach millions of workers and businesses, reactions mixed - The Washington Post",
+            "description": "Thursday’s announcement was met with support and criticism as the delta variant drags on the economic recovery.",
+            "url": "https://www.washingtonpost.com/business/2021/09/10/biden-vaccine-mandate-workers-businesses/",
+            "urlToImage": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://d1i4t8bqe7zgj6.cloudfront.net/09-10-2021/t_ade9f14482ed4848b91410fc9047dd64_name_biden0909.png&w=1440",
+            "publishedAt": "2021-09-10T10:05:07Z",
+            "content": "The employer mandates, which the White House estimates could reach as many as 80 million people, or two-thirds of U.S. workers, would be the most extensive government intervention into private compan… [+8755 chars]"
+        },
+        {
+            "source": {
+                "id": "the-hill",
+                "name": "The Hill"
+            },
+            "author": "Jordain Carney and Aris Folley",
+            "title": "Manchin, Sanders set for clash over Biden spending package | TheHill - The Hill",
+            "description": "Sens. Joe Manchin (D-W.Va.) and Bernie Sanders (I-Vt.) are hurtli...",
+            "url": "https://thehill.com/homenews/senate/571605-manchin-sanders-set-for-clash-over-biden-spending-package",
+            "urlToImage": "https://thehill.com/sites/default/files/article_images/manchinjoe_sandersbernie_090921gn_split.jpg",
+            "publishedAt": "2021-09-10T10:00:17Z",
+            "content": "Sens. Joe ManchinJoe ManchinOvernight Energy &amp; Environment Democrats detail clean electricity programOn The Money Biden launches vaccine crackdownMedicare trustees sound alarm, but progressives p… [+9804 chars]"
+        },
+        {
+            "source": {
+                "id": "google-news",
+                "name": "Google News"
+            },
+            "author": null,
+            "title": "15 BIGGEST NEW PS5 Game Announcements That Broke The Internet - GamingBolt",
+            "description": null,
+            "url": "https://news.google.com/__i/rss/rd/articles/CBMiK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9LW1QUVJPZllqdkHSAQA?oc=5",
+            "urlToImage": null,
+            "publishedAt": "2021-09-10T09:30:01Z",
+            "content": null
+        },
+        {
+            "source": {
+                "id": "cbs-news",
+                "name": "CBS News"
+            },
+            "author": null,
+            "title": "Delusions about sex-trafficked girl led man to slay four members of Florida family, sheriff says - CBS News",
+            "description": "Chance encounter with father set off fatal series of events spurred by \"fiction, all made up\" by suspect, sheriff adds. Four family members were shot, including infant being held by mother.",
+            "url": "https://www.cbsnews.com/news/florida-shooting-bryan-riley-justice-gleason-family-killed-delusions-sex-trafficked-girl/",
+            "urlToImage": "https://cbsnews3.cbsistatic.com/hub/i/r/2021/09/10/4b65a9a4-9891-49b1-a44e-a8b37fd52c21/thumbnail/1200x630/905f41237096d05b6d46fedce961a9e9/ap21249408617198.jpg",
+            "publishedAt": "2021-09-10T09:27:00Z",
+            "content": "A chance encounter with a former Marine beset by delusions of child sex trafficking ultimately led to the massacre of four members of a Florida family, including a mother holding her baby boy, a sher… [+4393 chars]"
+        },
+        {
+            "source": {
+                "id": "fortune",
+                "name": "Fortune"
+            },
+            "author": "Bernhard Warner",
+            "title": "Stocks and futures rebound, crypto flat as the markets head for a down week - Fortune",
+            "description": "U.S. futures are on the rise, following Europe and Asia higher.",
+            "url": "https://fortune.com/2021/09/10/stocks-futures-rebound-crypto-flat-ecb-tapering/",
+            "urlToImage": "https://content.fortune.com/wp-content/uploads/2021/09/GettyImages-1235142477.jpg?resize=1200,600",
+            "publishedAt": "2021-09-10T09:20:47Z",
+            "content": "Skip to Content"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NPR"
+            },
+            "author": "",
+            "title": "Black Opioid Overdose Deaths Increasing Faster Than Whites, Study Finds - NPR",
+            "description": "Black communities are suffering a growing share of overdoses, while addiction treatment resources and attention are still focused on white communities.",
+            "url": "https://www.npr.org/sections/health-shots/2021/09/10/1035445899/black-opioid-overdose-deaths-increasing-faster-than-whites-study-finds",
+            "urlToImage": "https://media.npr.org/assets/img/2021/09/09/gettyimages-688430042_wide-71aa3deeb368d4308be87556f37b290ff3ab6dad.jpg?s=1400",
+            "publishedAt": "2021-09-10T09:00:23Z",
+            "content": "New research shows racial disparities in opioid overdose rates, with the rate of deaths among Blacks growing faster than other racial and ethnic groups.\r\nKrisanapong Detraphiphat/Getty Images\r\nA stud… [+7964 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NPR"
+            },
+            "author": "Krishnadev Calamur",
+            "title": "Justice Breyer Welcomes Resumption Of Oral Arguments At The Supreme Court - NPR",
+            "description": "\"If the Democrats can do it, the Republicans can do it,\" Supreme Court Justice Stephen Breyer told NPR's Nina Totenberg.",
+            "url": "https://www.npr.org/2021/09/10/1035592358/breyer-warns-against-remaking-the-court-what-goes-around-comes-around",
+            "urlToImage": "https://media.npr.org/assets/img/2021/09/09/2021-0908_breyer-07_wide-7938364b5c63278148834c58e34ac7d53dfb8194.jpg?s=1400",
+            "publishedAt": "2021-09-10T09:00:00Z",
+            "content": "Justice Stephen Breyer welcomes the resumption of in-person oral arguments at the high court this fall.\r\nElizabeth Gillis/NPR\r\nU.S. Supreme Court Justice Stephen Breyer has a warning to those who wan… [+2555 chars]"
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Madeline Holcombe, CNN",
+            "title": "Los Angeles schools are requiring vaccinations for eligible students. Hear what parents have to say - CNN",
+            "description": "The Los Angeles Unified School District wants to guarantee that children attend classes in person, not online -- which is why it voted to require vaccinations against Covid-19 for all eligible students in a move that was praised by the teacher's union and man…",
+            "url": "https://www.cnn.com/2021/09/10/us/los-angeles-schools-vaccine-mandate-friday/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/210910032810-los-angeles-schools-vaccine-mandate-friday-super-tease.jpg",
+            "publishedAt": "2021-09-10T08:59:00Z",
+            "content": "(CNN)The Los Angeles Unified School District wants to guarantee that children attend classes in person, not online -- which is why it voted to require vaccinations against Covid-19 for all eligible s… [+5317 chars]"
+        },
+        {
+            "source": {
+                "id": "nbc-news",
+                "name": "NBC News"
+            },
+            "author": "The Associated Press",
+            "title": "Teen dream: Raducanu, 18, Fernandez, 19, into U.S. Open final - NBC News",
+            "description": "Emma Raducanu and Leylah Fernandez will meet in the U.S. Open Final on Saturday for the first major final between two teens since 1999.",
+            "url": "https://www.nbcnews.com/news/sports/teen-dream-raducanu-18-fernandez-19-u-s-open-final-n1278891",
+            "urlToImage": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2021_36/3504814/210910-emma-raducanu-mb-0940.JPG",
+            "publishedAt": "2021-09-10T08:57:00Z",
+            "content": "NEW YORK Emma Raducanu and Leylah Fernandez are so similar in so many ways: They possess enviable quickness and anticipation. They take balls low to the ground and redirect them with ease. They dont … [+3679 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NPR"
+            },
+            "author": "",
+            "title": "Kacey Musgraves Returns With 'Star-Crossed' - NPR",
+            "description": "\"We're all taught that the success of a relationship has to somehow correlate with the length of it... I just don't think that that's fully accurate.\" The singer-songwriter's new album is out today.",
+            "url": "https://www.npr.org/2021/09/10/1035553570/kacey-musgraves-star-crossed-and-thriving",
+            "urlToImage": "https://media.npr.org/assets/img/2021/09/09/km-tears-main_wide-7170ff7c6b98da3ffe88cf1e24baf0b4fd713ae2.jpg?s=1400",
+            "publishedAt": "2021-09-10T08:52:00Z",
+            "content": "Kacey Musgraves, whose follow-up to her Album of the Year-winning Golden Hour, titled Star-Crossed, was released Sep. 10, 2021.\r\nCourtesy of the artist\r\nKacey Musgraves wrote her last album, Golden H… [+11268 chars]"
+        },
+        {
+            "source": {
+                "id": "nbc-news",
+                "name": "NBC News"
+            },
+            "author": "Jonathan Allen",
+            "title": "'A heavy price': Two decades of war, wariness and the post-9/11 security state - NBC News",
+            "description": "Now two decades old, and with a fourth president at the helm, the post-9/11 U.S. war on terror has changed dramatically in important ways",
+            "url": "https://www.nbcnews.com/politics/national-security/heavy-price-two-decades-war-wariness-post-9-11-security-n1278846",
+            "urlToImage": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2021_35/3503594/210903-9-11-politics-presidents-2x1-cs.jpg",
+            "publishedAt": "2021-09-10T08:30:00Z",
+            "content": "By 2006, voters had become weary and wary of war, particularly in Iraq, a country that had not attacked the U.S. The Bush administration's expansive use of executive power to prosecute the wars inclu… [+3948 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "The Times of Israel"
+            },
+            "author": null,
+            "title": "Report: Palestinians agree to help Israel track down escaped inmates - The Times of Israel",
+            "description": "Abbas had been seen as reluctant to aid capture of popular escapees, but report in Lebanese paper linked to Ramallah's rivals claims PA is feeling pressure to tamp down on unrest",
+            "url": "https://www.timesofisrael.com/report-palestinians-agree-to-help-israel-track-down-escaped-inmates/",
+            "urlToImage": "https://static.timesofisrael.com/www/uploads/2021/09/000_9MG2EU-1024x640.jpg",
+            "publishedAt": "2021-09-10T07:27:59Z",
+            "content": "A report Friday claimed that the Palestinian Authority had agreed to cooperate with an Israeli manhunt for six inmates who escaped from prison earlier this week, some of whom are thought to be hiding… [+4773 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Vulture"
+            },
+            "author": "Charu Sinha",
+            "title": "Blackpink’s Lisa Makes Her Solo Debut With Lalisa - Vulture",
+            "description": "The project also includes the song “Money.”",
+            "url": "https://www.vulture.com/2021/09/watch-blackpinks-lisa-makes-her-solo-debut-with-lalisa.html",
+            "urlToImage": "https://pyxis.nymag.com/v1/imgs/2af/a03/d452fc0e19d8af79c2b19b3857820a6fcf-lisa-.1x.rsocial.w1200.png",
+            "publishedAt": "2021-09-10T06:32:59Z",
+            "content": "Lisa is the latest member of Blackpink to make her solo debut with her newest single album, Lalisa, dropping the music video for the title track on Friday. In addition to its title track, Lalisa the … [+592 chars]"
         }
     ]
 }

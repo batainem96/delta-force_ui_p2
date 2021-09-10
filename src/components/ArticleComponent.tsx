@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 function ArticleComponent(props:IArticleProps){
 
     // Fetch articles [Testing Article Containers - Marwan]
-    const [data, setData] = useState([] as Article[]);
+    const [articles, setData] = useState([] as Article[]);
     const [test, setTest] = useState('one');
 
     useEffect(() => {
@@ -34,7 +34,7 @@ function ArticleComponent(props:IArticleProps){
             setData(articles);
 
             console.log(articles);
-            console.log(data);
+            console.log(articles);
         });
 
         setTest('two');
@@ -63,7 +63,7 @@ function ArticleComponent(props:IArticleProps){
                 <Typography variant="subtitle1">
                     Log in or register now to begin setting up your very own personalized News Feed!
                 </Typography>
-                <ArticleContainerComponent article={data}></ArticleContainerComponent>
+                <ArticleContainerComponent article={articles}></ArticleContainerComponent>
             </Container>
             </>
             :// If currentUser is defined/logged in

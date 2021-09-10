@@ -46,18 +46,25 @@ function ArticleContainerComponent(articles: IArticles) {
 export default ArticleContainerComponent;
 
 // Remove the source at the end of the title (follows a dash)
-function trimTitle(title: string): string {
-    let titleSplit = title.split('-');
-    let result = titleSplit[0];
-    for(let i = 1; i < titleSplit.length-1; i++) { // Put non-closing dashes back in the string
-        result += '-' + titleSplit[i];
+function trimTitle(title: string | null): string {
+    let result = '';
+    if(title) {
+        let titleSplit = title.split('-');
+        result = titleSplit[0];
+        for(let i = 1; i < titleSplit.length-1; i++) { // Put non-closing dashes back in the string
+            result += '-' + titleSplit[i];
+        }
     }
     return result;
 }
 
 // Remove the characters remaining tag at the end of content
-function trimContent(content: string): string {
-    return content.split("…")[0] + '...';
+function trimContent(content: string | null): string {
+    return (
+        content? content.split("…")[0] + '...'
+        :
+        ''
+    );
 }
 
 // Calculate the age of the article and return the highest order representation (year > month > day > hour > minute)

@@ -5,12 +5,12 @@ export class Article {
         name: string;
     };
     author: string;
-    title: string;
+    title: string | null;
     description: string;
     url: string;
     urlToImage: string;
     publishedAt: string;
-    content: string;
+    content: string | null;
     likes: string[] | undefined;
     dislikes: string[] | undefined;
     comments: string[] | undefined;
