@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import { Article } from '../dtos/article';
 import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
 import { Principal } from "../dtos/principal";
-import { likeArticle } from "../remote/article-service";
+import { dislikeArticle, likeArticle } from "../remote/article-service";
 
 interface IArticles {
     currentUser: Principal | undefined;
@@ -30,9 +30,14 @@ function ArticleContainerComponent(articles: IArticles) {
         }
     }
 
-    async function dislike() {
+    async function dislike(currentUser: Principal | undefined, articleId: string) {
+        if (currentUser === undefined) {
+            console.log("No User");
+            return;
+        }
+
         try {
-            
+            let resp = await dislikeArticle({username: currentUser.username}, articleId);
         } catch (e: any) {
             console.log(e);
         }
@@ -58,7 +63,7 @@ function ArticleContainerComponent(articles: IArticles) {
                     <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
                     <ButtonGroup size="small" aria-label="small outlined button group">
                         <Button onClick={() => like(articles.currentUser, element.id)}>Like</Button>
-                        <Button onClick={dislike}>Dislike</Button>
+                        <Button onClick={() => dislike(articles.currentUser, element.id)}>Dislike</Button>
                     </ButtonGroup>
                 </div>
             </Container>
