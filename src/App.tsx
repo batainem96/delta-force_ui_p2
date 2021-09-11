@@ -6,6 +6,7 @@ import LoginComponent from './components/LoginComponent';
 import NavbarComponent from "./components/NavbarComponent";
 import RegisterComponent from './components/RegisterComponent';
 import { Principal } from './dtos/principal';
+import UserProfileComponent from './components/UserProfileComponent';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
             <Route exact path="/dashboard" render={() => <DashboardComponent currentUser={currentUser} /> } />
             <Route exact path="/login" render={() => <LoginComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             <Route exact path="/register" render={() => <RegisterComponent currentUser={currentUser} /> } />
+            <Route exact path="/userProfile" render={() => <UserProfileComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
         </Switch>
       </BrowserRouter>
   );

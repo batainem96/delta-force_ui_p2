@@ -473,5 +473,14 @@
             "publishedAt": "2021-09-10T06:32:59Z",
             "content": "Lisa is the latest member of Blackpink to make her solo debut with her newest single album, Lalisa, dropping the music video for the title track on Friday. In addition to its title track, Lalisa the … [+592 chars]"
         }
-    ]
+    ],
+    "users": 
+    {
+      "firstName": "kim",
+      "lastName": "tran",
+      "email": "kim@gmail.com",
+      "username": "kim",
+      "password": "kim"
+
+    }
 }
