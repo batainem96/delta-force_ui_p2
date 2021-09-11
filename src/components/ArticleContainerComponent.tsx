@@ -2,9 +2,12 @@ import { useState } from "react";
 import Container from '@material-ui/core/Container';
 
 import { Article } from '../dtos/article';
-import { makeStyles } from "@material-ui/core";
+import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
+import { Principal } from "../dtos/principal";
+import { dislikeArticle, likeArticle } from "../remote/article-service";
 
 interface IArticles {
+    currentUser: Principal | undefined;
     article: Article[];
 }
 
@@ -12,6 +15,34 @@ function ArticleContainerComponent(articles: IArticles) {
     const classes = useStyles();
     let containers: JSX.Element[] = [];
     let currentDate = new Date();
+
+    async function like(currentUser: Principal | undefined, articleId: string) {
+        if (currentUser === undefined) {
+            console.log("No user");
+            return;
+        }
+
+        try {
+            let resp = await likeArticle({username: currentUser.username}, articleId);
+            console.log(resp);
+        } catch (e: any) {
+            console.log(e);
+        }
+    }
+
+    async function dislike(currentUser: Principal | undefined, articleId: string) {
+        if (currentUser === undefined) {
+            console.log("No User");
+            return;
+        }
+
+        try {
+            let resp = await dislikeArticle({username: currentUser.username}, articleId);
+            console.log(resp);
+        } catch (e: any) {
+            console.log(e);
+        }
+    }
 
     articles.article.forEach(element => {
         let oldDate = new Date(element.publishedAt);
@@ -31,6 +62,10 @@ function ArticleContainerComponent(articles: IArticles) {
                 </div>
                 <div className={classes.articleFooter}>
                     <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
+                    <ButtonGroup size="small" aria-label="small outlined button group">
+                        <Button onClick={() => like(articles.currentUser, element.id)}>Like</Button>
+                        <Button onClick={() => dislike(articles.currentUser, element.id)}>Dislike</Button>
+                    </ButtonGroup>
                 </div>
             </Container>
         );

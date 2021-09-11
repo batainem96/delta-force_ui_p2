@@ -41,9 +41,6 @@ function LoginComponent(props: ILoginProps){
             return;
         }
 
-        console.log(formData.username);
-        console.log(formData.password);
-
         try{
             let principal = await authenticate({username : formData.username, password : formData.password});
             console.log(principal);

@@ -1,5 +1,6 @@
 export class Article {
 
+    id: string;
     source: {
         id: string | undefined;
         name: string;
@@ -15,8 +16,9 @@ export class Article {
     dislikes: string[] | undefined;
     comments: string[] | undefined;
 
-    constructor(source: {id: string, name: string}, author: string, title: string, description: string, url: string, urlToImage: string, publishedAt: string,
+    constructor(id: string, source: {id: string, name: string}, author: string, title: string, description: string, url: string, urlToImage: string, publishedAt: string,
         content: string, likes: string[], dislikes: string[], comments:string[]) {
+            this.id = id;
             this.source = source;
             this.author = author;
             this.title = title;

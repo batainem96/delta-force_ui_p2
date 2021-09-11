@@ -1,8 +1,9 @@
+import { deltaforceClient } from "./deltaforce-client";
 import { mockClient } from "./mock-client";
 
 export const getArticles = async () => {
 
-    let resp = await mockClient.get('/articles2');
+    let resp = await deltaforceClient.get('/news');
 
     if (resp.status >= 400 && resp.status <= 599) {
         throw resp.data;

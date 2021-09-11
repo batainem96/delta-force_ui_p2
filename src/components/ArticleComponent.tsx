@@ -32,9 +32,6 @@ function ArticleComponent(props:IArticleProps){
     useEffect(() => {
         getArticles().then(articles => {
             setData(articles);
-
-            console.log(articles);
-            console.log(articles);
         });
 
         setTest('two');
@@ -63,7 +60,6 @@ function ArticleComponent(props:IArticleProps){
                 <Typography variant="subtitle1">
                     Log in or register now to begin setting up your very own personalized News Feed!
                 </Typography>
-                <ArticleContainerComponent article={articles}></ArticleContainerComponent>
             </Container>
             </>
             :// If currentUser is defined/logged in
