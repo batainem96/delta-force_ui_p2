@@ -13,13 +13,16 @@ export const authenticate = async (credentials: Credentials) => {
 
 
     localStorage.setItem('api-token', resp.headers['authorization']);
-    console.log(resp.headers['Authorization']);
+    console.log(resp.headers['authorization']);
+
+    deltaforceClient.defaults.headers["Authorization"] = localStorage.getItem("api-token");
 
     return resp.data;
 
 }
 
 export const logout = (setCurrentUser: (nextUser: Principal | undefined) => void) => {
+    deltaforceClient.defaults.headers["Authorization"] = undefined;
     localStorage.removeItem('api-token')
     setCurrentUser(undefined);
 }

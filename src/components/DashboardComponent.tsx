@@ -6,10 +6,12 @@ import { Principal } from "../dtos/principal";
 import { getArticles } from "../remote/mock-user-service";
 import ArticleContainerComponent from "./ArticleContainerComponent";
 
+// Current User data
 interface IDashboardProps {
     currentUser : Principal | undefined
 }
 
+// Styling
 const useStyles = makeStyles({
     welcomeContainer: {
         justifyContent: "center",
@@ -19,10 +21,12 @@ const useStyles = makeStyles({
 });
 
 function DashboardComponent(props: IDashboardProps) {
+
+    // Get Styles
     const classes = useStyles();
 
+    // Fetching articles
     const [data, setData] = useState([] as Article[]);
-
     useEffect(() => {
         getArticles().then(articles => {
             setData(articles);
@@ -33,6 +37,7 @@ function DashboardComponent(props: IDashboardProps) {
     }, []);
 
     return (
+        // If currentUser is undefined or not logged in
         !props.currentUser
         ?
         <>
@@ -49,6 +54,7 @@ function DashboardComponent(props: IDashboardProps) {
             </Container>
         </>
         :
+        // If currentUser is logged in
         <>
             <Container className={classes.welcomeContainer}>
                 <Typography variant="h4">

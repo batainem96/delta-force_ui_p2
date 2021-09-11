@@ -38,6 +38,7 @@ function ArticleContainerComponent(articles: IArticles) {
 
         try {
             let resp = await dislikeArticle({username: currentUser.username}, articleId);
+            console.log(resp);
         } catch (e: any) {
             console.log(e);
         }
