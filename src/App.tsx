@@ -7,14 +7,16 @@ import NavbarComponent from "./components/NavbarComponent";
 import RegisterComponent from './components/RegisterComponent';
 import { Principal } from './dtos/principal';
 import UserProfileComponent from './components/UserProfileComponent';
+import { ArticleQuery } from './models/acticle-query';
 
 function App() {
 
   let [currentUser, setCurrentUser] = useState(undefined as Principal | undefined);
+  let [searchQuery, setSearchQuery] = useState(undefined as ArticleQuery | undefined);
 
   return (
       <BrowserRouter>
-        <NavbarComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        <NavbarComponent currentUser={currentUser} setCurrentUser={setCurrentUser} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
 
         <Switch>
             <Route exact path="/">
