@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import ArticleComponent from './components/ArticleComponent';
 import DashboardComponent from './components/DashboardComponent';
 import LoginComponent from './components/LoginComponent';
 import NavbarComponent from "./components/NavbarComponent";

@@ -28,11 +28,15 @@ function DashboardComponent(props: IDashboardProps) {
     // Fetching articles
     const [data, setData] = useState([] as Article[]);
     useEffect(() => {
-        getArticles().then(articles => {
-            setData(articles);
-        });
-        return () => {
-            setData([]);
+        if (props.currentUser) {
+            getArticles().then(articles => {
+                setData(articles);
+            });
+            return () => {
+                setData([]);
+            }
+        } else {
+            return;
         }
     }, []);
 

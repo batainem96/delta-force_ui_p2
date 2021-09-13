@@ -16,6 +16,7 @@ function ArticleContainerComponent(articles: IArticles) {
     let containers: JSX.Element[] = [];
     let currentDate = new Date();
 
+    // like function
     async function like(currentUser: Principal | undefined, articleId: string) {
         if (currentUser === undefined) {
             console.log("No user");
@@ -24,12 +25,26 @@ function ArticleContainerComponent(articles: IArticles) {
 
         try {
             let resp = await likeArticle({username: currentUser.username}, articleId);
-            console.log(resp);
+
+            let likeCountId = "likeCount" + articleId;
+            let likeCountElement: HTMLElement | null = document.getElementById(`${likeCountId}`);
+            if (likeCountElement !== null) {
+                likeCountElement.innerText = resp.likes.length;
+            }
+
+            let dislikeCountId = "dislikeCount" + articleId;
+            let dislikeCountElement: HTMLElement | null = document.getElementById(`${dislikeCountId}`);
+            if (dislikeCountElement !== null) {
+                dislikeCountElement.innerText = resp.dislikes.length;
+            }
+
         } catch (e: any) {
             console.log(e);
         }
+
     }
 
+    // dislike function
     async function dislike(currentUser: Principal | undefined, articleId: string) {
         if (currentUser === undefined) {
             console.log("No User");
@@ -38,13 +53,32 @@ function ArticleContainerComponent(articles: IArticles) {
 
         try {
             let resp = await dislikeArticle({username: currentUser.username}, articleId);
-            console.log(resp);
+            
+            let likeCountId = "likeCount" + articleId;
+            let likeCountElement: HTMLElement | null = document.getElementById(`${likeCountId}`);
+            if (likeCountElement !== null) {
+                likeCountElement.innerText = resp.likes.length;
+            }
+
+            let dislikeCountId = "dislikeCount" + articleId;
+            let dislikeCountElement: HTMLElement | null = document.getElementById(`${dislikeCountId}`);
+            if (dislikeCountElement !== null) {
+                dislikeCountElement.innerText = resp.dislikes.length;
+            }
+
         } catch (e: any) {
             console.log(e);
         }
     }
-
+    
     articles.article.forEach(element => {
+        let likeCount: number = (element?.likes?.length !== undefined) ? element.likes.length : 0;
+        let dislikeCount: number = (element?.dislikes?.length !== undefined) ? element.dislikes.length : 0;
+        
+        let likeCountId = "likeCount" + element.id;
+        let dislikeCountId = "dislikeCount" + element.id;
+
+
         let oldDate = new Date(element.publishedAt);
         // let age = currentDate - oldDate;
         containers.push(
@@ -63,14 +97,20 @@ function ArticleContainerComponent(articles: IArticles) {
                 <div className={classes.articleFooter}>
                     <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
                     <ButtonGroup size="small" aria-label="small outlined button group">
-                        <Button onClick={() => like(articles.currentUser, element.id)}>Like</Button>
-                        <Button onClick={() => dislike(articles.currentUser, element.id)}>Dislike</Button>
+                        <Button onClick={() => like(articles.currentUser, element.id)}>
+                            Like
+                            <span id={likeCountId}>{likeCount}</span>
+                        </Button>
+                        <Button onClick={() => dislike(articles.currentUser, element.id)}>
+                            Dislike
+                            <span id={dislikeCountId}>{dislikeCount}</span>
+                        </Button>
                     </ButtonGroup>
                 </div>
             </Container>
         );
-    });
 
+    });
     return (
         <>
             {containers}
