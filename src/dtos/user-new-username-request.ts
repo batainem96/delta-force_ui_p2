@@ -1,6 +1,6 @@
 export class UserNewUsernameRequest {
 
-    id: string;
+    id: string | undefined;
     newUsername: string;
     password: string;
 

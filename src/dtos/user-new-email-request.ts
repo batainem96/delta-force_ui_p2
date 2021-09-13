@@ -1,6 +1,6 @@
 export class UserNewEmailRequest {
 
-    id: string;
+    id: string | undefined;
     newEmail: string;
     password: string;
 

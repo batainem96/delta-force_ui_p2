@@ -33,8 +33,8 @@ function EditPassComponent (props: IProfile){
     const history = useHistory();
 
     const [formData, setFormData] = useState({
-        id: '',
-        newPass: '',
+        id: props.currentUser?.id,
+        newPassword: '',
         password: ''
     });
   
@@ -64,7 +64,7 @@ function EditPassComponent (props: IProfile){
             <>
                 <div id="edit-profile" className={classes.profileContainer} >
                 <Typography align="center" variant="h4">Update your profile!</Typography>
-                <TextField id='newPass' label="New Password" name="newPass" type="password" onChange={handleChange}/> <br/><br/>
+                <TextField id='newPassword' label="New Password" name="newPassword" type="password" onChange={handleChange}/> <br/><br/>
                 <TextField id='password' label="Old Password" name="password" type="password" onChange={handleChange}/> <br/><br/>
                 <br/><br/>
 

@@ -7,7 +7,7 @@ import {Redirect, useHistory} from "react-router-dom";
 
 
 interface IEditProfile{
-    currentUser: Principal | undefined
+    currentUser: Principal | undefined,
     setCurrentUser: (nextUser: Principal | undefined) => void
 }
 
@@ -33,7 +33,7 @@ function EditProfileComponent (props: IEditProfile){
     const history = useHistory();
 
     const [formData, setFormData] = useState({
-        id: '',
+        id: props.currentUser?.id,
         newFirstName: '',
         newLastName: '',
         password: ''

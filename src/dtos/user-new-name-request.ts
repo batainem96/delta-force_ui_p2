@@ -1,6 +1,6 @@
 export class UserNewNameRequest {
 
-    id: string;
+    id: string | undefined;
     newFirstName: string;
     newLastName: string;
     password: string;

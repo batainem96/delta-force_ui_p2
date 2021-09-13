@@ -33,7 +33,7 @@ function EditEmailComponent (props: IProfile){
     const history = useHistory();
 
     const [formData, setFormData] = useState({
-        id: '',
+        id: props.currentUser?.id,
         newEmail: '',
         password: ''
     });
