@@ -2,11 +2,11 @@ import { Button, Container, responsiveFontSizes, TextField, Typography } from "@
 import { makeStyles } from "@material-ui/styles";
 import { useState, useEffect } from "react";
 import { Principal } from "../dtos/principal";
-import { updateName } from "../remote/user-service";
+import { updateEmail } from "../remote/user-service";
 import {Redirect, useHistory} from "react-router-dom";
 
 
-interface IEditProfile{
+interface IProfile{
     currentUser: Principal | undefined
     setCurrentUser: (nextUser: Principal | undefined) => void
 }
@@ -27,15 +27,14 @@ const useStyles = makeStyles({
 });
 
 
-function EditProfileComponent (props: IEditProfile){
+function EditEmailComponent (props: IProfile){
 
     const classes = useStyles();
     const history = useHistory();
 
     const [formData, setFormData] = useState({
         id: '',
-        newFirstName: '',
-        newLastName: '',
+        newEmail: '',
         password: ''
     });
   
@@ -49,9 +48,9 @@ function EditProfileComponent (props: IEditProfile){
     let name = async () => {
 
         try {
-            await updateName(formData);
-        }catch (error) {
-            console.log(error);
+            await updateEmail(formData);
+        }catch (e) {
+            console.log(e);
         }
     }
 
@@ -64,8 +63,7 @@ function EditProfileComponent (props: IEditProfile){
             <>
                 <div id="edit-profile" className={classes.profileContainer} >
                 <Typography align="center" variant="h4">Update your profile!</Typography>
-                <TextField id='newFirstName' label="First Name" name="newFirstName" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='newLastName' label="Last Name" name="newLastName" type="text" onChange={handleChange}/> <br/><br/>
+                <TextField id='newEmail' label="Email" name="newEmail" type="text" onChange={handleChange}/> <br/><br/>
                 <TextField id='password' label="Password" name="password" type="password" onChange={handleChange}/> <br/><br/>
                 <br/><br/>
 
@@ -93,4 +91,4 @@ function EditProfileComponent (props: IEditProfile){
         );
     
 }
-export default EditProfileComponent;
+export default EditEmailComponent;

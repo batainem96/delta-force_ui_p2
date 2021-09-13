@@ -2,11 +2,11 @@ import { Button, Container, responsiveFontSizes, TextField, Typography } from "@
 import { makeStyles } from "@material-ui/styles";
 import { useState, useEffect } from "react";
 import { Principal } from "../dtos/principal";
-import { updateName } from "../remote/user-service";
+import { updatePass } from "../remote/user-service";
 import {Redirect, useHistory} from "react-router-dom";
 
 
-interface IEditProfile{
+interface IProfile{
     currentUser: Principal | undefined
     setCurrentUser: (nextUser: Principal | undefined) => void
 }
@@ -27,15 +27,14 @@ const useStyles = makeStyles({
 });
 
 
-function EditProfileComponent (props: IEditProfile){
+function EditPassComponent (props: IProfile){
 
     const classes = useStyles();
     const history = useHistory();
 
     const [formData, setFormData] = useState({
         id: '',
-        newFirstName: '',
-        newLastName: '',
+        newPass: '',
         password: ''
     });
   
@@ -49,24 +48,24 @@ function EditProfileComponent (props: IEditProfile){
     let name = async () => {
 
         try {
-            await updateName(formData);
-        }catch (error) {
-            console.log(error);
+            await updatePass(formData);
+        }catch (e) {
+            console.log(e);
         }
     }
 
     const handleGoBack = () => {
         history.push('/userprofile');
     }
+
     
         return (
 
             <>
                 <div id="edit-profile" className={classes.profileContainer} >
                 <Typography align="center" variant="h4">Update your profile!</Typography>
-                <TextField id='newFirstName' label="First Name" name="newFirstName" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='newLastName' label="Last Name" name="newLastName" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='password' label="Password" name="password" type="password" onChange={handleChange}/> <br/><br/>
+                <TextField id='newPass' label="New Password" name="newPass" type="password" onChange={handleChange}/> <br/><br/>
+                <TextField id='password' label="Old Password" name="password" type="password" onChange={handleChange}/> <br/><br/>
                 <br/><br/>
 
                 <Button
@@ -93,4 +92,4 @@ function EditProfileComponent (props: IEditProfile){
         );
     
 }
-export default EditProfileComponent;
+export default EditPassComponent;

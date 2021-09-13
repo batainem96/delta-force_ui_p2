@@ -7,6 +7,9 @@ import RegisterComponent from './components/RegisterComponent';
 import { Principal } from './dtos/principal';
 import UserProfileComponent from './components/UserProfileComponent';
 import EditProfileComponent from './components/EditProfileComponent';
+import EditEmailComponent from './components/EditEmailComponent';
+import EditUsernameComponent from './components/EditUsernameComponent';
+import EditPassComponent from './components/EditPassComponent';
 
 function App() {
 
@@ -25,6 +28,9 @@ function App() {
             <Route exact path="/register" render={() => <RegisterComponent currentUser={currentUser} /> } />
             <Route exact path="/userProfile" render={() => <UserProfileComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             <Route exact path="/editProfile" render={() => <EditProfileComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
+            <Route exact path="/editEmail" render={() => <EditEmailComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
+            <Route exact path="/editUsername" render={() => <EditUsernameComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
+            <Route exact path="/editPass" render={() => <EditPassComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
         </Switch>
       </BrowserRouter>
   );

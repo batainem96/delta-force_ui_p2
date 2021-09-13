@@ -27,64 +27,95 @@ const useStyles = makeStyles({
 
 function UserProfileComponent(props: IUserProfile){
 
-    const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        username: '',
-        password: ''
-    });
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const history = useHistory();
     const classes = useStyles();
 
-    //get and display user infor
-    const getUser = () => {
-        fetch(`http://localhost:5000/user/${props.currentUser?.id}`)
-            .then((resp) => resp.json())
-            .then((json) => {
-                console.log(json);
-                setFormData(json);
-                
-            });
-    };
+    
+    useEffect(() => {
+        getUsers();
+    }, [])
 
-    const handleChange = () => {
-        history.push('/profile');
+    //displaying user infor
+    async function getUsers() {
+        props.currentUser?
+        await fetch(`http://localhost:5000/user/${props.currentUser.id} `)
+
+            .then((result) => {
+                return result.json()
+            }).then((resp) => {
+
+                setFirstName(resp.firstName)
+                setLastName(resp.lastName)
+                setEmail(resp.email)
+                setUsername(resp.username)
+                setPassword(resp.password)
+            })
+            : console.log('test');
     }
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-       
+    const handleNameChange = () => {
+        history.push('/editprofile');
     }
+
+    const handleEmailChange = () => {
+        history.push('/editemail');
+    }
+
+    const handleUsernameChange = () => {
+        history.push('/editusername');
+    }
+
+    const handlePassChange = () => {
+        history.push('/editpass');
+    }
+
 
     return (
 
-       
         <>
-            <div id="edit-profile" className={classes.profileContainer} >
-                <h1>Your profile</h1>
+            <div id="register-component" className={classes.profileContainer}>
 
-                <form onSubmit={handleSubmit}>
+                <Typography align="center" variant="h4">Your Profile!</Typography>
+                
+                <TextField id='firstName' label="First Name" value={firstName} name="firstName" type="text" /> <br/><br/>
+                <TextField id='lastName' label="Last Name" value={lastName} name="lastName" type="text" /> <br/><br/>
+                <Button 
+                    onClick={handleNameChange}
+                    variant="contained"
+                    color="primary"
+                    size="small"> Edit </Button> <br/><br/>
 
-                    <button onClick={getUser}> View your profile</button>
-                    <button ref="/profile" > Edit your profile</button>
 
-                <div>
-                    <h3> First Name:  {formData.firstName} </h3>
+                <TextField id='email' label="Email" value={email} name="email" type="email" /> <br/><br/>
+                <Button 
+                    onClick={handleEmailChange}
+                    variant="contained"
+                    color="primary"
+                    size="small"> Edit </Button> <br/><br/>
 
-                    <h3> Last Name:  {formData.lastName} </h3>
 
-                    <h3> Email:  {formData.email} </h3>
-                    
-                    <h3> Username:  {formData.username} </h3>
+                <TextField id='username' label="Username" value={username} name="username" type="text" /> <br/><br/>
+                <Button 
+                    onClick={handleUsernameChange}
+                    variant="contained"
+                    color="primary"
+                    size="small"> Edit </Button> <br/><br/>
 
-                    <h3> Password:  {formData.password} </h3>
-                     
+                <TextField id='password' label="Password" value={password} name="password" type="password" /> <br/><br/>
+                <Button 
+                    onClick={handlePassChange}
+                    variant="contained"
+                    color="primary"
+                    size="small"> Edit </Button>
 
-                </div>
-    
-                </form>
+                <br/><br/>
+
 
             </div>
         

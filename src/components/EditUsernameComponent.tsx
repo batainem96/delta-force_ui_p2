@@ -2,8 +2,8 @@ import { Button, Container, responsiveFontSizes, TextField, Typography } from "@
 import { makeStyles } from "@material-ui/styles";
 import { useState, useEffect } from "react";
 import { Principal } from "../dtos/principal";
-import { getProfileInfo } from "../remote/user-service";
-import { Redirect } from "react-router-dom";
+import { updateUsername } from "../remote/user-service";
+import {Redirect, useHistory} from "react-router-dom";
 
 
 interface IProfile{
@@ -27,16 +27,14 @@ const useStyles = makeStyles({
 });
 
 
-function ProfileComponent (props: IProfile){
+function EditUsernameComponent (props: IProfile){
 
     const classes = useStyles();
+    const history = useHistory();
 
     const [formData, setFormData] = useState({
         id: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        username: '',
+        newUsername: '',
         password: ''
     });
   
@@ -46,29 +44,27 @@ function ProfileComponent (props: IProfile){
         setFormData({...formData, [name]: value});
     }
 
-
-    //update user name
     
     let name = async () => {
 
         try {
-            await getProfileInfo(formData);
+            await updateUsername(formData);
         }catch (e) {
             console.log(e);
         }
     }
 
+    const handleGoBack = () => {
+        history.push('/userprofile');
+    }
+
     
         return (
 
-        //    props.currentUser ? <Redirect to="/"/> :
             <>
                 <div id="edit-profile" className={classes.profileContainer} >
                 <Typography align="center" variant="h4">Update your profile!</Typography>
-                <TextField id='firstName' label="First Name" name="firstName" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='lastName' label="Last Name" name="lastName" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='email' label="Email" name="email" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='username' label="Username" name="username" type="text" onChange={handleChange}/> <br/><br/>
+                <TextField id='newUsername' label="Username" name="newUsername" type="text" onChange={handleChange}/> <br/><br/>
                 <TextField id='password' label="Password" name="password" type="password" onChange={handleChange}/> <br/><br/>
                 <br/><br/>
 
@@ -81,10 +77,19 @@ function ProfileComponent (props: IProfile){
 
                 <br/><br/>
 
+                <Button
+                    id="edit-button"
+                    onClick={handleGoBack}
+                    variant="contained"
+                    color="primary"
+                    size="medium">back</Button>
+
+                <br/><br/>
+
                 </div>
             
             </>
         );
     
 }
-export default ProfileComponent;
+export default EditUsernameComponent;
