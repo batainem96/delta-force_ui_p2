@@ -1,5 +1,8 @@
 import {RegisterUserRequest} from "../dtos/register-user-request";
+import { UserNewNameRequest } from "../dtos/user-new-name-request";
+import { UserProfileRequest } from "../dtos/user-profile-request";
 import {deltaforceClient} from "./deltaforce-client";
+
 
 // export const getAllUsers = async () => {
 
@@ -20,6 +23,12 @@ export const registerNewUser = async (newUser: RegisterUserRequest) => {
 
 };
 
-export const getMyProfileInfo = async () => {
+export const updateName = async (newName:  UserNewNameRequest) => {
 
-}
+    let resp = await deltaforceClient.put('/user/edit/userinfo', newName);
+};
+
+export const getProfileInfo = async (profile: UserProfileRequest) => {
+
+    let resp = await deltaforceClient.get('/user/{id}');
+};

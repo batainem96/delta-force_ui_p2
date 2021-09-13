@@ -1,7 +1,9 @@
-import { Button, Container, TextField, Typography } from "@material-ui/core";
+import { Button, Container, responsiveFontSizes, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useState, useEffect } from "react";
 import { Principal } from "../dtos/principal";
+import {Redirect, useHistory} from "react-router-dom";
+
 
 interface IUserProfile{
     currentUser: Principal | undefined,
@@ -12,81 +14,77 @@ const useStyles = makeStyles({
     profileContainer: {
         textAlign: 'center',
         justifyContent: 'center', 
-        marginTop: '3rem',
-    
+        marginTop: '1rem',
+        marginBottom: '3rem',
+        marginLeft: '20rem',
+        marginRight: '20rem',
+        border: 'double', 
+        borderColor: '#4b6fe4',
+        borderRadius: '12px',
+        borderWidth: '5px 20px',
     }
 });
 
 function UserProfileComponent(props: IUserProfile){
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        username: '',
+        password: ''
+    });
 
+    const history = useHistory();
     const classes = useStyles();
 
-    useEffect(() => {
-        getUsers();
-    }, [])
-
-    async function getUsers() {
-        props.currentUser?
-        await fetch(`http://localhost:5000/user/${props.currentUser.id}`)
-
-            .then((result) => {
-                return result.json()
-            }).then((resp) => {
-
-                setFirstName(resp.firstName)
-                setLastName(resp.lastName)
-                setEmail(resp.email)
-                setUsername(resp.username)
-                setPassword(resp.password)
+    //get and display user infor
+    const getUser = () => {
+        fetch(`http://localhost:5000/user/${props.currentUser?.id}`)
+            .then((resp) => resp.json())
+            .then((json) => {
+                console.log(json);
+                setFormData(json);
                 
-            })
-            : console.log('test');
-    }   
+            });
+    };
+
+    const handleChange = () => {
+        history.push('/profile');
+    }
+
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+       
+    }
 
     return (
+
+       
         <>
             <div id="edit-profile" className={classes.profileContainer} >
-                <h1>Update your profile</h1>
+                <h1>Your profile</h1>
+
+                <form onSubmit={handleSubmit}>
+
+                    <button onClick={getUser}> View your profile</button>
+                    <button ref="/profile" > Edit your profile</button>
 
                 <div>
+                    <h3> First Name:  {formData.firstName} </h3>
+
+                    <h3> Last Name:  {formData.lastName} </h3>
+
+                    <h3> Email:  {formData.email} </h3>
                     
-                    <div>
-                    <label>First Name: </label>
-                    <input type="text" value={firstName} onChange={e=>setFirstName(e.target.value)}></input>
-                    <button>Save</button>
-                    </div>
+                    <h3> Username:  {formData.username} </h3>
 
-                    <div>
-                    <label>Last Name: </label>
-                    <input type="text" value={lastName} onChange={e=>setLastName(e.target.value)}></input>
-                    <button >Save</button>
-                    </div>
-
-                    <div>
-                    <label>Email: </label>
-                    <input type="text" value={email} onChange={e=>setEmail(e.target.value)}></input>
-                    <button >Save</button>
-                    </div>
-
-                    <div>
-                    <label>Username: </label>
-                    <input type="text" value={username} onChange={e=>setUsername(e.target.value)}></input>
-                    <button >Save</button>
-                    </div>
-
-                    <div>
-                    <label>Password: </label>
-                    <input type="text" value={password} onChange={e=>setPassword(e.target.value)}></input>
-                    <button >Save</button>
-                    </div>
+                    <h3> Password:  {formData.password} </h3>
+                     
 
                 </div>
+    
+                </form>
 
             </div>
         
