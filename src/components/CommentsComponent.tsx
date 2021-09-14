@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core";
+import { Container, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Divider, Avatar, Grid, Paper } from "@material-ui/core";
 import { useState } from "react";
@@ -44,20 +44,17 @@ function CommentsComponent(props: ICommentsProps) {
     return(
         <>
             <div className={classes.commentsBox}>
-                <button className={classes.closeCommentsButton}onClick={() => closeComments()}>X</button>
-
                 <Container fixed maxWidth='md' className={classes.commentsContainer}>
                     <div className={classes.commentsPane}>
-
                         <div style={{ padding: "40px 20px" }}>
-                            <h1 className={classes.commentsHeader}>Comments</h1>
-
+                            <div className={classes.paneHeader}>
+                                <h1 className={classes.commentsHeader}>Comments</h1>
+                                <Button className={classes.closeCommentsButton}onClick={() => closeComments()}>X</Button>
+                            </div>
                             {containers}
                         </div>
 
                     </div>
-
-
                 </Container>
 
             
@@ -100,20 +97,20 @@ const useStyles = makeStyles ({
         overflow: 'scroll'
     },
 
+    paneHeader: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
     commentsHeader: {
         textAlign: 'left'
     },
 
     closeCommentsButton: {
-        position: 'absolute',
-        top: '1rem',
-        right: '1rem',
-        height: '50px',
-        width: '50px',
-
-        '&:hover': {
-            transform: 'scale(50)'
-        }
+        height: '30px',
+        width: '5px',
+        justifySelf: 'flex-start'
     }
 
 });
