@@ -20,7 +20,7 @@ export function getAge(current: Date, old: Date): string {
     let minutes = current.getMinutes() - old.getMinutes(); // ditto
     if(minutes < 0) {
         hours--;
-        minutes *= -1;
+        minutes *= -1; // 2:36 - 1:51 (36 - 51 = -15 => 15min)
     }
 
     let age = '';
