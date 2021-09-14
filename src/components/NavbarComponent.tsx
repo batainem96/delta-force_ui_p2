@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
+      cursor: 'pointer',
+      textDecoration: 'none',
+      color: 'white'
     },
     search: {
       position: 'relative',
@@ -224,7 +227,9 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap
+          component={Link} to={'/dashboard'}
+          >
             DeltaForce News
           </Typography>
           <div className={classes.search}>
