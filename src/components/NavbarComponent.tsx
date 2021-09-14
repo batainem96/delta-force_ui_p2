@@ -14,6 +14,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { ArticleQuery } from '../models/acticle-query';
 
+
 interface INavbarProps {
   currentUser: Principal | undefined,
   setCurrentUser: (nextUser: Principal | undefined) => void,
@@ -139,7 +140,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
   const classes = useStyles();
 
   // For sidebar
-  const test: String[] = ['bananas', 'apples', 'socks']; // This needs to be changed to get user's favorites. Maybe include it with the principal?
+  const userFaves: String[] | undefined = props.currentUser?.favTopics; // This needs to be changed to get user's favorites. Maybe include it with the principal?
   const articleCategories: string[] = ['Business','Entertainment','General','Health','Science','Sports','Technology'];
 
   // For sidebar and search bar
@@ -274,11 +275,13 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           </Typography>
         <Divider />
         <List>
-          {test.map((text, index) => (
+          {userFaves? userFaves.map((text, index) => (
             <ListItem button onClick={() =>{setQuery('search',`${text}`)}} key={index}>
               <ListItemText primary={text} />
             </ListItem>
-          ))}
+          ))
+          :
+          <Typography variant="subtitle2" align="center">Sign in to access saved topics!</Typography>}
         </List>
         <Divider />
           <Typography variant='h6' align='center'>
