@@ -224,7 +224,29 @@
             "url": "https://www.cnn.com/2021/09/10/asia/second-qatar-airways-flight-kabul-intl/index.html",
             "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/210910121738-01-afghanistan-0910-kabul-airport-restricted-super-tease.jpg",
             "publishedAt": "2021-09-10T12:10:00Z",
-            "content": null
+            "content": null,
+            "likes": [
+                "user",
+                "user2",
+                "user33"
+            ],
+            "dislikes": [
+                "user444",
+                "non-user-user",
+                "user-user-user",
+                "idklmao"
+            ],
+            "comments": [
+                {
+                    "username": "itchybrikki",
+                    "content": "lmaoooo"
+                },
+                {
+                    "username": "Flambo",
+                    "content": "ayyyyyy"
+                }
+            ]
+
         },
         {
             "source": {
@@ -472,6 +494,301 @@
             "urlToImage": "https://pyxis.nymag.com/v1/imgs/2af/a03/d452fc0e19d8af79c2b19b3857820a6fcf-lisa-.1x.rsocial.w1200.png",
             "publishedAt": "2021-09-10T06:32:59Z",
             "content": "Lisa is the latest member of Blackpink to make her solo debut with her newest single album, Lalisa, dropping the music video for the title track on Friday. In addition to its title track, Lalisa the … [+592 chars]"
+        }
+    ],
+    "articles3": [
+        {
+            "source": {
+                "id": null,
+                "name": "New York Times"
+            },
+            "author": "Jonathan Weisman, Jim Tankersley",
+            "title": "House Democrats’ Plan to Tax the Rich Leaves Vast Fortunes Unscathed - The New York Times",
+            "description": "The House Ways and Means Committee’s proposal to pay for trillions in social spending leaves wealth gains and inheritances largely alone. It focuses instead on a more traditional target: income.",
+            "url": "https://www.nytimes.com/2021/09/13/us/politics/tax-plan-democrats.html",
+            "urlToImage": "https://static01.nyt.com/images/2021/09/13/business/13dc-taxes/13dc-taxes-facebookJumbo.jpg",
+            "publishedAt": "2021-09-13T23:51:41Z",
+            "content": "In other areas, the committee appears to be making only glancing blows at the wealthiest Americans. Former President Barack Obama, Mr. Trump and Mr. Biden have all vowed to close the so-called carrie… [+2314 chars]",
+            "likes": [
+                "user",
+                "user2",
+                "user33"
+            ],
+            "dislikes": [
+                "user444",
+                "non-user-user",
+                "user-user-user",
+                "idklmao"
+            ],
+            "comments": [
+                {
+                    "username": "itchybrikki",
+                    "content": "lmaoooo I one time found a cricket in my pajamas and it was littie fam whoooaaaahhh boy was that one hell of a Spring.",
+                    "time": "Mon Sep 6 2021 22:30:08 GMT-0500 (Central Daylight Time)"
+                },
+                {
+                    "username": "Flambo",
+                    "content": "ayyyyyy my guy I had the EXACT SAME thing happen to me at band camp. memememe me me me me me me me me me momomomo mo mo mo mo mo mo mo mo mo mo momomomo om omo mo momo mom om omom mom omo mo mo mo mo mo MOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO yeeehaaaHWWWWWWWWWWWWWWWWWWwwWWWwwwWwwWWW",
+                    "time": "Mon Sep 13 2021 20:30:08 GMT-0500 (Central Daylight Time)"
+                },
+                {
+                    "username": "BipBopBoo",
+                    "content": "Chimmichanga??",
+                    "time": "Mon Sep 14 2021 10:30:08 GMT-0500 (Central Daylight Time)"
+                },
+                {
+                    "username": "BipBopBoo",
+                    "content": "Oh wait wrong chat.",
+                    "time": "Mon Sep 14 2021 10:31:08 GMT-0500 (Central Daylight Time)"
+                }
+            ]
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "New York Times"
+            },
+            "author": "Nicole Perlroth",
+            "title": "Apple Security Update Closes Spyware Flaw in iPhones, Macs and iWatches - The New York Times",
+            "description": "Researchers at Citizen Lab found that NSO Group, an Israeli spyware company, had infected Apple products without so much as a click.",
+            "url": "https://www.nytimes.com/2021/09/13/technology/apple-software-update-spyware-nso-group.html",
+            "urlToImage": "https://static01.nyt.com/images/2021/09/13/business/13spyware1/13spyware1-facebookJumbo.jpg",
+            "publishedAt": "2021-09-13T23:49:48Z",
+            "content": "The consortium did not disclose how it had obtained the list, and it was unclear whether the list was aspirational or whether the people had actually been targeted with NSO spyware.\r\nLet Us Help You … [+1948 chars]"
+        },
+        {
+            "source": {
+                "id": "politico",
+                "name": "Politico"
+            },
+            "author": "Daniel Lippman, Meridith McGraw",
+            "title": "Melania Trump ‘will be right there’ if Donald Trump runs again - POLITICO",
+            "description": "The former first lady is not enamored with national politics — she reportedly fell asleep before Trump’s remarks on election night — but would support a ‘24 bid.",
+            "url": "https://www.politico.com/news/2021/09/13/melania-donald-trump-runs-again-511715",
+            "urlToImage": "https://static.politico.com/73/3a/98870a3c4b5dbc6c8ada0f3b5ca4/210913-melania-trump-getty-773.jpg",
+            "publishedAt": "2021-09-13T23:35:14Z",
+            "content": "In the months following her familys messy exit from the White House, the former first lady has spent her time tucked away at Trumps Mar-a-Lago and Bedminster clubs with family, occasionally appearing… [+6154 chars]"
+        },
+        {
+            "source": {
+                "id": "google-news",
+                "name": "Google News"
+            },
+            "author": null,
+            "title": "Billie Eilish's Marilyn Monroe Inspired Dress Stuns at 2021 Met Gala - E! Red Carpet & Award Shows",
+            "description": null,
+            "url": "https://news.google.com/__i/rss/rd/articles/CBMiK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9YlMxWHdFRkJlRG_SAQA?oc=5",
+            "urlToImage": null,
+            "publishedAt": "2021-09-13T23:10:28Z",
+            "content": null
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "Daily Beast"
+            },
+            "author": "Pilar Melendez",
+            "title": "Cops Turn Up Heat on Lawyer in Wild South Carolina Shooting Saga - The Daily Beast",
+            "description": "Days after he said he was shot in the head and entered rehab, a disgraced lawyer whose family members were assassinated is under state investigation for misusing funds.",
+            "url": "https://www.thedailybeast.com/cops-turn-up-heat-on-alex-murdaugh-in-wild-south-carolina-shooting-saga",
+            "urlToImage": "https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1688,w_3000,x_0,y_0/dpr_2.0/c_limit,w_740/fl_lossy,q_auto/v1631571166/210913-Alex-Murdaugh-tease_eebw7i",
+            "publishedAt": "2021-09-13T23:09:01Z",
+            "content": "Alex Murdaugh is officially at the center of a state investigation.\r\nThe South Carolina State Law Enforcement Division (SLED) announced Monday that it has opened a probe into Murdaugh, 53, just days … [+6165 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NBCSports.com"
+            },
+            "author": "Charean Williams",
+            "title": "Monday Night Football: Clelin Ferrell, Jimmy Smith among inactives - ProFootballTalk - NBC Sports",
+            "description": "The Raiders used the fourth overall choice on Clelin Ferrell in 2019. He has made 65 tackles and 6.5 sacks in 26 games and will not appear in a 27th game tonight. Ferrell is a healthy scratch for Monday Night Football. He was among the team’s inactives. Runni…",
+            "url": "https://profootballtalk.nbcsports.com/2021/09/13/monday-night-football-clelin-ferrell-jimmy-smith-among-inactives/",
+            "urlToImage": "https://profootballtalk.nbcsports.com/wp-content/uploads/sites/25/2021/09/GettyImages-1334237369-e1631574091489.jpg",
+            "publishedAt": "2021-09-13T23:02:00Z",
+            "content": "The Raiders used the fourth overall choice on Clelin Ferrell in 2019. He has made 65 tackles and 6.5 sacks in 26 games and will not appear in a 27th game tonight.\r\nFerrell is a healthy scratch for Mo… [+816 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "CNET"
+            },
+            "author": "Stephen Shankland",
+            "title": "CRISPR startup wants to resurrect the woolly mammoth by 2027 - CNET",
+            "description": "Colossal has landed $15m in funding to restore the woolly mammoth to the Arctic -- and it thinks it can birth calves in four to six years.",
+            "url": "https://www.cnet.com/news/crispr-startup-wants-to-resurrect-the-woolly-mammoth-by-2027/",
+            "urlToImage": "https://www.cnet.com/a/img/4Vqmuozj7hKrs8_Gr2NwLxi8awo=/1200x630/2021/09/08/3ec47182-3258-4ddf-907a-a2db3af15399/woolly-mammoth-getty-images-1192609757.jpg",
+            "publishedAt": "2021-09-13T23:00:07Z",
+            "content": "Colossal hopes to help bring the woolly mammoth back from extinction.\r\nGetty Images/Orla\r\nYou've heard of startups building computer chips, delivery drones and social networks. One called Colossal ha… [+5960 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "WDSU New Orleans"
+            },
+            "author": "Gabbii King",
+            "title": "Flash flood watch issued for parts of Louisiana as Tropical Storm Nicholas approaches - WDSU New Orleans",
+            "description": "The National Weather Service in New Orleans has issued flash flood watch from Tuesday morning through Thursday morning for over a dozen parishes across Louisiana.",
+            "url": "https://www.wdsu.com/article/flash-flood-watch-issued-for-parts-of-louisiana-as-tropical-storm-nicholas-approaches/37581799",
+            "urlToImage": "https://kubrick.htvapps.com/htv-prod-media.s3.amazonaws.com/images/hurricane-wind-2-1631567567.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
+            "publishedAt": "2021-09-13T22:59:00Z",
+            "content": ", La. —The National Weather Service in New Orleans has issued flash flood watch from Tuesday morning through Thursday morning for over a dozen parishes across Louisiana.\r\nAccording to the NWS, widesp… [+1098 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "CBS Sports"
+            },
+            "author": "",
+            "title": "USC coaching candidates: Luke Fickell, Bob Stoops, Chris Petersen among names to replace Clay Helton - CBS Sports",
+            "description": "There is an obvious top candidate, but the Trojans may have their pick of quality coaches",
+            "url": "https://www.cbssports.com/college-football/news/usc-coaching-candidates-luke-fickell-bob-stoops-chris-petersen-among-names-to-replace-clay-helton/",
+            "urlToImage": "https://sportshub.cbsistatic.com/i/r/2021/09/13/a7ac3e48-a049-404d-8784-05aa383b7229/thumbnail/1200x675/3015ddbcbd56af29fdec1fdb85cf5c79/luke-fickell-cincinnati-2021-g.png",
+            "publishedAt": "2021-09-13T22:46:00Z",
+            "content": "Clay Helton is gone and there is one obvious candidate to replace him. Luke Fickell was the best hire of athletic director Mike Bohn's career. That was at Cincinnati. Now Bohn has a chance to bring F… [+5578 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "HuffPost"
+            },
+            "author": "David Moye",
+            "title": "Nicki Minaj Declines To Get Vaccinated For Met Gala - HuffPost",
+            "description": "The entertainer says she’ll get the COVID-19 shot once she thinks she’s done enough research.",
+            "url": "https://www.huffpost.com/entry/nicki-minaj-coronavirus-vaccination-met-gala_n_613fcb68e4b09519c5086b43",
+            "urlToImage": "https://img.huffingtonpost.com/asset/613fcbfb2600008bed540b75.jpeg?cache=xpxoibdzrr&ops=1778_1000",
+            "publishedAt": "2021-09-13T22:41:00Z",
+            "content": "Monday nights Met Gala is expected to attract some of the worlds most famous fashionistas, but Nicki Minaj wont be one of them.\r\nThe hip-hop entertainer announced via Twitter on Monday that she would… [+2993 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "TribLIVE"
+            },
+            "author": "Chris Adamski",
+            "title": "Execution, belief in plan lead to rare 'splash' punt block for Steelers - TribLIVE",
+            "description": "Every week for 16 &mdash; now, 17 &mdash; weeks, Pittsburgh Steelers special teams coach Danny Smith pores over opponents film of dozens of punts, kickoffs and placekicks. He&rsquo;s hoping to find a vulnerability in a protection or coverage team that can giv…",
+            "url": "https://triblive.com/sports/execution-belief-in-plan-lead-to-rare-splash-punt-block-for-steelers/",
+            "urlToImage": "https://assets-varnish.triblive.com/2021/09/4234971_web1_ptr-Steelers13-091421.jpg",
+            "publishedAt": "2021-09-13T22:37:09Z",
+            "content": "Every week for 16 — now, 17 — weeks, Pittsburgh Steelers special teams coach Danny Smith pores over opponents film of dozens of punts, kickoffs and placekicks. He’s hoping to find a vulnerability in … [+4300 chars]"
+        },
+        {
+            "source": {
+                "id": "nbc-news",
+                "name": "NBC News"
+            },
+            "author": "Alex Seitz-Wald, Allan Smith, Jacob Soboroff",
+            "title": "As Newsom leads California recall polls, Larry Elder pushes baseless fraud claims - NBC News",
+            "description": "California Republican gubernatorial candidate Larry Elder and former President Donald Trump baselessly claim the California recall election is rigged.",
+            "url": "https://www.nbcnews.com/politics/elections/newsom-leads-california-recall-polls-larry-elder-pushes-baseless-fraud-n1279080",
+            "urlToImage": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2021_37/3505418/210913-larry-elder-mn-1045.jpg",
+            "publishedAt": "2021-09-13T22:32:00Z",
+            "content": "WASHINGTON Republicans in Tuesday's California gubernatorial recall election are already laying the groundwork to argue the election was stolen even before a single ballot is reported or a victor dec… [+6919 chars]"
+        },
+        {
+            "source": {
+                "id": "reuters",
+                "name": "Reuters"
+            },
+            "author": null,
+            "title": "England to offer COVID vaccine to all 12- to 15-year-olds - Reuters UK",
+            "description": "All 12- to 15-year-olds in England will be offered a COVID-19 vaccine after top medical advisers said on Monday that children would benefit from reduced disruption to their education.",
+            "url": "https://www.reuters.com/world/uk/britains-top-medics-recommend-12-15-year-olds-get-covid-vaccine-2021-09-13/",
+            "urlToImage": "https://www.reuters.com/resizer/oWOw99tldU8rIOTVx5_mYSjqaC0=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/LOOZGBF6XRKNNIRTMNXOOHI3GM.jpg",
+            "publishedAt": "2021-09-13T22:32:00Z",
+            "content": "LONDON, Sept 13 (Reuters) - All 12- to 15-year-olds in England will be offered a COVID-19 vaccine after top medical advisers said on Monday that children would benefit from reduced disruption to thei… [+2455 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "MacRumors"
+            },
+            "author": "Joe Rossignol",
+            "title": "Apple's Back to School Promotion Might Hint at Date of October Apple Event - MacRumors",
+            "description": "Apple will be hosting a virtual event tomorrow that is expected to revolve around the iPhone 13, Apple Watch Series 7, and third-generation AirPods....",
+            "url": "https://www.macrumors.com/2021/09/13/when-is-apples-october-event/",
+            "urlToImage": "https://images.macrumors.com/t/rvxt7Aczgf6NpN9qrS5JCxLnmN8=/1824x/https://images.macrumors.com/article-new/2021/08/M1X-MBP-Feature.jpg",
+            "publishedAt": "2021-09-13T22:14:31Z",
+            "content": "Apple will be hosting a virtual event tomorrow that is expected to revolve around the iPhone 13, Apple Watch Series 7, and third-generation AirPods. With new Mac and iPad models also rumored to be on… [+1986 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "NPR"
+            },
+            "author": null,
+            "title": "Secretary Of State Antony Blinken: Trump Administration To Blame In Afghanistan - NPR",
+            "description": "In a contentious hearing on Capitol Hill, Secretary of State Antony Blinken said the Biden administration inherited a Trump deal with the Taliban to end the war, but no plan for carrying it out.",
+            "url": "https://www.npr.org/2021/09/13/1036736805/afghanistan-withdrawal-blinken-criticism",
+            "urlToImage": "https://media.npr.org/assets/img/2021/09/13/ap21256707609769_wide-4240584815b86b4a9271853ca26a493b4ab002bd.jpg?s=1400",
+            "publishedAt": "2021-09-13T22:10:59Z",
+            "content": "Secretary of State Antony Blinken appears remotely on a TV monitor to answer questions from the House Foreign Affairs Committee about the U.S. withdrawal from Afghanistan, at the Capitol in Washingto… [+5071 chars]"
+        },
+        {
+            "source": {
+                "id": "axios",
+                "name": "Axios"
+            },
+            "author": "Shawna Chen",
+            "title": "Texas judge blocks anti-abortion group from enforcing new law - Axios",
+            "description": "The injunction bars Texas Right for Life from suing Planned Parenthood for possible violations of the abortion ban.",
+            "url": "https://www.axios.com/texas-abortion-ban-planned-parenthood-injunction-6adc256a-54fd-4530-bdcd-7b6660571b02.html",
+            "urlToImage": "https://images.axios.com/X30TrgPsrlQzfINJkAfiMD0wgpg=/0x854:8191x5461/1366x768/2021/09/13/1631566318608.jpg",
+            "publishedAt": "2021-09-13T21:32:08Z",
+            "content": "A Texas state judge issued an injunction on Monday blocking anti-abortion group Texas Right for Life from enforcing the state's new law against Planned Parenthood in Texas.\r\nWhy it matters: Texas' re… [+2198 chars]"
+        },
+        {
+            "source": {
+                "id": "the-verge",
+                "name": "The Verge"
+            },
+            "author": "Joey Roulette",
+            "title": "SpaceX is about to send its first crew of private citizens to space - The Verge",
+            "description": "A physician assistant, a doctor, a data engineer, and a billionaire entrepreneur will launch to space for three days on September 15th as SpaceX’s first all-civilian crew.",
+            "url": "https://www.theverge.com/2021/9/13/22667339/spacex-inspiration4-first-all-civilian-crew-dragon",
+            "urlToImage": "https://cdn.vox-cdn.com/thumbor/1Ya4pKr3s-q_6war80DPFIBP5K4=/0x275:3840x2285/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22846129/E_I1GNOUcAY2E4x.jpg",
+            "publishedAt": "2021-09-13T21:17:27Z",
+            "content": "Another bellwether mission for a budding era of space tourism is lifting off this week\r\nSpaceX\r\nFour people are set to launch to space Wednesday night aboard a SpaceX capsule, and none of them are pr… [+8228 chars]"
+        },
+        {
+            "source": {
+                "id": "fox-news",
+                "name": "Fox News"
+            },
+            "author": "Paulina Dedaj",
+            "title": "Jameis Winston claims Saints first win for New Orleans following Hurricane Ida devastation - Fox News",
+            "description": "Jameis Winston had a stellar night in his debut as the New Orleans Saints starting quarterback but for him, Sunday night’s win over the Green Bay Packers was especially important for the city as it recovers from the devastation left behind by Hurricane Ida.",
+            "url": "https://www.foxnews.com/sports/jameis-winston-saints-new-orleans-hurricane-ida",
+            "urlToImage": "https://static.foxnews.com/foxnews.com/content/uploads/2021/09/Jameis-Winston2.jpg",
+            "publishedAt": "2021-09-13T21:08:08Z",
+            "content": "Jameis Winston\r\n had a stellar night in his debut as the New Orleans Saints\r\n starting quarterback but for him, Sunday nights win over the Green Bay Packers\r\n was especially important for the city as… [+1570 chars]"
+        },
+        {
+            "source": {
+                "id": "fox-news",
+                "name": "Fox News"
+            },
+            "author": "Joseph Wulfsohn",
+            "title": "White House abruptly cuts feed of Biden mid-sentence as he asks question at wildfires briefing - Fox News",
+            "description": "The White House abruptly cut the feed of President Biden's briefing on wildfires with federal and state officials.",
+            "url": "https://www.foxnews.com/media/white-house-cuts-feed-biden-wildfires-briefing",
+            "urlToImage": "https://static.foxnews.com/foxnews.com/content/uploads/2021/09/BIDEN-IN-IDAHO.jpg",
+            "publishedAt": "2021-09-13T21:02:34Z",
+            "content": "The White House abruptly cut the feed of President Biden's briefing on wildfires with federal and state officials. \r\nDuring Monday's visit to Boise, Idaho, Biden received a briefing about the ongoing… [+1567 chars]"
+        },
+        {
+            "source": {
+                "id": null,
+                "name": "New York Times"
+            },
+            "author": "Noah Weiland, Apoorva Mandavilli",
+            "title": "In Review, Top F.D.A. Scientists Question Imminent Need for Booster Shots - The New York Times",
+            "description": "An article, written with other vaccine experts, put the regulators at odds with key federal health officials, including Dr. Anthony S. Fauci.",
+            "url": "https://www.nytimes.com/2021/09/13/health/fda-coronavirus-booster-shots.html",
+            "urlToImage": "https://static01.nyt.com/images/2021/09/13/us/13dc-virus-boosters/13dc-virus-boosters-facebookJumbo.jpg",
+            "publishedAt": "2021-09-13T20:59:21Z",
+            "content": "Federal health officials have said that one reason they announced the booster plan was to stay ahead of the virus and be ready for when vaccines may no longer protect as well against severe cases of … [+2040 chars]"
         }
     ],
     "users": 

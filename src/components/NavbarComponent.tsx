@@ -10,13 +10,17 @@ import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Me
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { ArticleQuery } from '../models/acticle-query';
+
 
 interface INavbarProps {
   currentUser: Principal | undefined,
-  setCurrentUser: (nextUser: Principal | undefined) => void
+  setCurrentUser: (nextUser: Principal | undefined) => void,
+
+  searchQuery: ArticleQuery | undefined,
+  setSearchQuery: (nextQuery: ArticleQuery | undefined) => void
 }
 
 const drawerWidth = 240;
@@ -51,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
+      cursor: 'pointer',
+      textDecoration: 'none',
+      color: 'white'
     },
     search: {
       position: 'relative',
@@ -135,6 +142,16 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function PrimarySearchAppBar(props: INavbarProps) {
   const classes = useStyles();
 
+  // For sidebar
+  const userFaves: String[] | undefined = props.currentUser?.favTopics; // This needs to be changed to get user's favorites. Maybe include it with the principal?
+  const articleCategories: string[] = ['Business','Entertainment','General','Health','Science','Sports','Technology'];
+
+  // For sidebar and search bar
+  function setQuery(queryType: string, query: string){
+    let articleQuery = {queryType: queryType, query: query};
+    props.setSearchQuery(articleQuery);
+  }
+
   // For logging out :)
   function doLogout() {
         logout(props.setCurrentUser);
@@ -179,7 +196,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
     >
       {props.currentUser? // If User is logged in display these options.
       <div>
-        <MenuItem component={Link} to={'/userProfile'} onClick={() =>{handleMenuClose();}}>My Profile</MenuItem>
+        <MenuItem component={Link} to={'/userProfile'} onClick={handleMenuClose}>My Profile</MenuItem>
         <MenuItem component={Link} to={'/'} onClick={() =>{doLogout(); handleMenuClose();}}>Log out</MenuItem>
       </div>
       :                   // If User is not logged in, display these options.
@@ -210,7 +227,9 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap
+          component={Link} to={'/dashboard'}
+          >
             DeltaForce News
           </Typography>
           <div className={classes.search}>
@@ -228,19 +247,6 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            {/* <Button 
-              size="small" 
-              variant="contained" 
-              color="default"
-              href="/login"
-            >
-              Log In
-            </Button> */}
-            {/* <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -269,17 +275,27 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {['one', 'two', 'three', 'four'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+          <Typography variant='h6' align='center'>
+              Saved Topics
+          </Typography>
         <Divider />
         <List>
-          {['one', 'two', 'three'].map((text, index) => (
-            <ListItem button key={text}>
+          {userFaves? userFaves.map((text, index) => (
+            <ListItem button onClick={() =>{setQuery('search',`${text}`)}} key={index}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))
+          :
+          <Typography variant="subtitle2" align="center">Sign in to access saved topics!</Typography>}
+        </List>
+        <Divider />
+          <Typography variant='h6' align='center'>
+              Top Articles
+          </Typography>
+        <Divider />
+        <List>
+          {articleCategories.map((text, index) => (
+            <ListItem button onClick={() =>{setQuery('category',`${text}`)}} key={index}>
               <ListItemText primary={text} />
             </ListItem>
           ))}

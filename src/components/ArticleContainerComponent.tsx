@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from '@material-ui/core/Container';
 
 import { Article } from '../dtos/article';
 import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
 import { Principal } from "../dtos/principal";
 import { dislikeArticle, likeArticle } from "../remote/article-service";
+import { Comment } from "../dtos/comment";
+import CommentsComponent from "./CommentsComponent";
+
+import { getAge } from "../functions/get-age";
 
 interface IArticles {
     currentUser: Principal | undefined;
@@ -13,7 +17,16 @@ interface IArticles {
 
 function ArticleContainerComponent(articles: IArticles) {
     const classes = useStyles();
+    const [isCommentsOpen, setCommentsOpen] = useState(false);
+    const [comments, setComments] = useState([
+        {
+            username: '',
+            content: 'No Comments'
+        }
+    ] as Comment[])
+
     let containers: JSX.Element[] = [];
+
     let currentDate = new Date();
 
     // like function
@@ -26,13 +39,13 @@ function ArticleContainerComponent(articles: IArticles) {
         try {
             let resp = await likeArticle({username: currentUser.username}, articleId);
 
-            let likeCountId = "likeCount" + articleId;
+            let likeCountId = "likes" + articleId;
             let likeCountElement: HTMLElement | null = document.getElementById(`${likeCountId}`);
             if (likeCountElement !== null) {
                 likeCountElement.innerText = resp.likes.length;
             }
 
-            let dislikeCountId = "dislikeCount" + articleId;
+            let dislikeCountId = "dislikes" + articleId;
             let dislikeCountElement: HTMLElement | null = document.getElementById(`${dislikeCountId}`);
             if (dislikeCountElement !== null) {
                 dislikeCountElement.innerText = resp.dislikes.length;
@@ -54,13 +67,13 @@ function ArticleContainerComponent(articles: IArticles) {
         try {
             let resp = await dislikeArticle({username: currentUser.username}, articleId);
             
-            let likeCountId = "likeCount" + articleId;
+            let likeCountId = "likes" + articleId;
             let likeCountElement: HTMLElement | null = document.getElementById(`${likeCountId}`);
             if (likeCountElement !== null) {
                 likeCountElement.innerText = resp.likes.length;
             }
 
-            let dislikeCountId = "dislikeCount" + articleId;
+            let dislikeCountId = "dislikes" + articleId;
             let dislikeCountElement: HTMLElement | null = document.getElementById(`${dislikeCountId}`);
             if (dislikeCountElement !== null) {
                 dislikeCountElement.innerText = resp.dislikes.length;
@@ -70,17 +83,29 @@ function ArticleContainerComponent(articles: IArticles) {
             console.log(e);
         }
     }
-    
+
+    function openComments(artComments: Comment[]) {
+        console.log('openComments clicked!')
+        if(!isCommentsOpen) {
+
+            setComments(artComments);
+
+            console.log('openComments clicked (prev: false)');
+            setCommentsOpen(true);
+            
+        }
+    }
+
     articles.article.forEach(element => {
-        let likeCount: number = (element?.likes?.length !== undefined) ? element.likes.length : 0;
-        let dislikeCount: number = (element?.dislikes?.length !== undefined) ? element.dislikes.length : 0;
+        let likes: number = (element?.likes?.length !== undefined) ? element.likes.length : 0;
+        let dislikes: number = (element?.dislikes?.length !== undefined) ? element.dislikes.length : 0;
         
-        let likeCountId = "likeCount" + element.id;
-        let dislikeCountId = "dislikeCount" + element.id;
+        let likesId = "likes" + element.id;
+        let dislikesId = "dislikes" + element.id;
 
 
         let oldDate = new Date(element.publishedAt);
-        // let age = currentDate - oldDate;
+        let artComments = element.comments? element.comments : [];
         containers.push(
             <Container fixed maxWidth='sm' className={classes.articleContainer}>
                 <div className={classes.articleHeader}>
@@ -92,28 +117,44 @@ function ArticleContainerComponent(articles: IArticles) {
                 <div className={classes.articleBody}>
                     <h3 className={classes.bodyTitle}>{trimTitle(element.title)}</h3>
                     <p className={classes.bodyContent}>{trimContent(element.content)}</p>
-                    <img className={classes.bodyImg} src={element.urlToImage} />
+                    <img className={classes.bodyImg} src={element.urlToImage} alt=""/>
                 </div>
                 <div className={classes.articleFooter}>
                     <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
-                    <ButtonGroup size="small" aria-label="small outlined button group">
+                    {
+                    !isCommentsOpen
+                    ?
+                    <div>
                         <Button onClick={() => like(articles.currentUser, element.id)}>
-                            Like
-                            <span id={likeCountId}>{likeCount}</span>
+                            <img src='./outline_thumb_up_black_24dp.png' alt='Like'/>
+                            <span id={likesId}>{likes}</span>
                         </Button>
                         <Button onClick={() => dislike(articles.currentUser, element.id)}>
-                            Dislike
-                            <span id={dislikeCountId}>{dislikeCount}</span>
+                            <img src='./outline_thumb_down_black_24dp.png' alt='Dislike'/>
+                            <span id={dislikesId}>{dislikes}</span>
                         </Button>
-                    </ButtonGroup>
+
+                        <Button onClick={() => openComments(artComments)}><img src='./outline_chat_black_24dp.png' alt='Comment'/></Button>
+                    </div>
+                    :
+                    null
+                    }
                 </div>
-            </Container>
+            </Container>   
         );
 
     });
     return (
         <>
+            { 
+            isCommentsOpen 
+            ? 
+            <CommentsComponent comments={comments} setCommentsOpen={setCommentsOpen} />
+            :
+            null
+            }
             {containers}
+            
         </>
     );
 }
@@ -136,51 +177,12 @@ function trimTitle(title: string | null): string {
 // Remove the characters remaining tag at the end of content
 function trimContent(content: string | null): string {
     return (
-        content? content.split("…")[0] + '...'
+        content
+        ?
+        content.split("…")[0] + '...'
         :
         ''
     );
-}
-
-// Calculate the age of the article and return the highest order representation (year > month > day > hour > minute)
-function getAge(current: Date, old: Date): string {
-
-    let years = current.getFullYear() - old.getFullYear(); // i.e. 2021 - 2020 = 1 year
-    let months = current.getMonth() - old.getMonth(); // i.e. June (6) - February (2) = 4 months (note: if this is < 0, subtract 1 year [i.e. January (1) 2021 - December (12) 2020 is not a year!])
-    if(months < 0) {
-        years--;
-        months *= -1; // The year rolled over, thus the months passed are out of order (1 - 12 = -11... not likely!)
-    }
-    let days = current.getDay() - old.getDay(); // ditto
-    if(days < 0) {
-        months--;
-        days *= -1;
-    }
-    let hours = current.getHours() - old.getHours(); // ditto
-    if(hours < 0) {
-        days--;
-        hours *= -1;
-    }
-    let minutes = current.getMinutes() - old.getMinutes(); // ditto
-    if(minutes < 0) {
-        hours--;
-        minutes *= -1;
-    }
-
-    let age = '';
-    if(years > 0) {
-        age += `${years}y`;
-    } else if(months > 0) {
-        age += `${months}mo`;
-    } else if(days > 0) {
-        age += `${days}d`;
-    } else if(minutes > 0) {
-        age += `${minutes}min`;
-    } else {
-        age = 'now';
-    }
-
-    return age;
 }
 
 // Some colors I liked :>
@@ -189,7 +191,14 @@ const FAINTGREY = '#9b9b9b';
 const SHADOWGRAY = 'rgba(61,99,140,.08)';
 const HEADERED = '#d34343';
 
-const useStyles = makeStyles({
+let hover = 'none';
+
+export interface StyleProps {
+    hover: 'none'
+}
+
+const useStyles = makeStyles<StyleProps>({
+
     articleContainer: {
         borderRadius: '8px',
         boxShadow: `0px 0px 16px ${SHADOWGRAY}`,
@@ -201,7 +210,8 @@ const useStyles = makeStyles({
         transition: 'all .5s ease-in-out',
 
         '&:hover': {
-            transform: 'scale(1.025)',
+            
+            transform: 'scale(1.025)'
         }
     },
 
@@ -268,7 +278,7 @@ const useStyles = makeStyles({
 
     articleFooter: {
         display: 'flex',
-        WebkitJustifyContent: 'flex-start',
+        WebkitJustifyContent: 'space-between',
         flexDirection: 'row'
     },
 
@@ -277,5 +287,4 @@ const useStyles = makeStyles({
         alignSelf: 'start',
         margin: '.5rem 0 0 0'
     }
-
 });
