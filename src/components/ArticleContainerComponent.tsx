@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from '@material-ui/core/Container';
 
 import { Article } from '../dtos/article';
-import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import { Principal } from "../dtos/principal";
 import { dislikeArticle, likeArticle } from "../remote/article-service";
+import { Comment } from "../dtos/comment";
+import CommentsComponent from "./CommentsComponent";
 
 interface IArticles {
     currentUser: Principal | undefined;
@@ -13,8 +15,21 @@ interface IArticles {
 
 function ArticleContainerComponent(articles: IArticles) {
     const classes = useStyles();
+    const [isCommentsOpen, setCommentsOpen] = useState(false);
+    const [comments, setComments] = useState([
+        {
+            username: '',
+            content: 'No Comments'
+        }
+    ] as Comment[])
+
     let containers: JSX.Element[] = [];
+
     let currentDate = new Date();
+
+    useEffect(() => {
+
+    }, [])
 
     async function like(currentUser: Principal | undefined, articleId: string) {
         if (currentUser === undefined) {
@@ -44,36 +59,67 @@ function ArticleContainerComponent(articles: IArticles) {
         }
     }
 
+    function openComments(artComments: Comment[]) {
+        console.log('openComments clicked!')
+        if(!isCommentsOpen) {
+
+            setComments(artComments);
+
+            console.log('openComments clicked (prev: false)');
+            setCommentsOpen(true);
+            
+        }
+    }
+
     articles.article.forEach(element => {
         let oldDate = new Date(element.publishedAt);
-        // let age = currentDate - oldDate;
+        let likes = element.likes? element.likes.length : '';
+        let dislikes = element.dislikes? element.dislikes.length : '';
+        let artComments = element.comments? element.comments : [];
         containers.push(
-            <Container fixed maxWidth='sm' className={classes.articleContainer}>
-                <div className={classes.articleHeader}>
-                    <p className={classes.headerSource}>{element.source.name}</p>
-                    <p className={classes.headerDivider}>|</p>
-                    <p className={classes.headerAuthor}>{element.author}</p>
-                    <p className={classes.headerAge}>{getAge(currentDate, oldDate)}</p>
-                </div>
-                <div className={classes.articleBody}>
-                    <h3 className={classes.bodyTitle}>{trimTitle(element.title)}</h3>
-                    <p className={classes.bodyContent}>{trimContent(element.content)}</p>
-                    <img className={classes.bodyImg} src={element.urlToImage} />
-                </div>
-                <div className={classes.articleFooter}>
-                    <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
-                    <ButtonGroup size="small" aria-label="small outlined button group">
-                        <Button onClick={() => like(articles.currentUser, element.id)}>Like</Button>
-                        <Button onClick={() => dislike(articles.currentUser, element.id)}>Dislike</Button>
-                    </ButtonGroup>
-                </div>
-            </Container>
+            <>
+                <Container fixed maxWidth='sm' className={classes.articleContainer}>
+                    <div className={classes.articleHeader}>
+                        <p className={classes.headerSource}>{element.source.name}</p>
+                        <p className={classes.headerDivider}>|</p>
+                        <p className={classes.headerAuthor}>{element.author}</p>
+                        <p className={classes.headerAge}>{getAge(currentDate, oldDate)}</p>
+                    </div>
+                    <div className={classes.articleBody}>
+                        <h3 className={classes.bodyTitle}>{trimTitle(element.title)}</h3>
+                        <p className={classes.bodyContent}>{trimContent(element.content)}</p>
+                        <img className={classes.bodyImg} src={element.urlToImage} alt=""/>
+                    </div>
+                    <div className={classes.articleFooter}>
+                        <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
+                            {
+                            !isCommentsOpen
+                            ?
+                            <div>
+                                <Button><img src='./outline_thumb_up_black_24dp.png' alt='Like' onClick={() => like(articles.currentUser, element.id)}/>{likes}</Button>
+                                <Button><img src='./outline_thumb_down_black_24dp.png' alt='Dislike' onClick={() => dislike(articles.currentUser, element.id)}/>{dislikes}</Button>
+                                <Button><img src='./outline_chat_black_24dp.png' alt='Comment' onClick={() => openComments(artComments)}/></Button>
+                            </div>
+                            :
+                            null
+                            }
+                    </div>
+                </Container>   
+            </>
         );
     });
 
     return (
         <>
+            { 
+            isCommentsOpen 
+            ? 
+            <CommentsComponent comments={comments} setCommentsOpen={setCommentsOpen} />
+            :
+            null
+            }
             {containers}
+            
         </>
     );
 }
@@ -96,7 +142,9 @@ function trimTitle(title: string | null): string {
 // Remove the characters remaining tag at the end of content
 function trimContent(content: string | null): string {
     return (
-        content? content.split("…")[0] + '...'
+        content
+        ?
+        content.split("…")[0] + '...'
         :
         ''
     );
@@ -149,7 +197,14 @@ const FAINTGREY = '#9b9b9b';
 const SHADOWGRAY = 'rgba(61,99,140,.08)';
 const HEADERED = '#d34343';
 
-const useStyles = makeStyles({
+let hover = 'none';
+
+export interface StyleProps {
+    hover: 'none'
+}
+
+const useStyles = makeStyles<StyleProps>({
+
     articleContainer: {
         borderRadius: '8px',
         boxShadow: `0px 0px 16px ${SHADOWGRAY}`,
@@ -161,7 +216,8 @@ const useStyles = makeStyles({
         transition: 'all .5s ease-in-out',
 
         '&:hover': {
-            transform: 'scale(1.025)',
+            
+            transform: 'scale(1.025)'
         }
     },
 
@@ -228,7 +284,7 @@ const useStyles = makeStyles({
 
     articleFooter: {
         display: 'flex',
-        WebkitJustifyContent: 'flex-start',
+        WebkitJustifyContent: 'space-between',
         flexDirection: 'row'
     },
 
@@ -237,5 +293,4 @@ const useStyles = makeStyles({
         alignSelf: 'start',
         margin: '.5rem 0 0 0'
     }
-
 });

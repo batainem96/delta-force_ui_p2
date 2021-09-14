@@ -1,7 +1,9 @@
-import { Button, Container, TextField, Typography } from "@material-ui/core";
+import { Button, Container, responsiveFontSizes, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useState, useEffect } from "react";
 import { Principal } from "../dtos/principal";
+import {Redirect, useHistory} from "react-router-dom";
+
 
 interface IUserProfile{
     currentUser: Principal | undefined,
@@ -12,8 +14,14 @@ const useStyles = makeStyles({
     profileContainer: {
         textAlign: 'center',
         justifyContent: 'center', 
-        marginTop: '3rem',
-    
+        marginTop: '1rem',
+        marginBottom: '3rem',
+        marginLeft: '20rem',
+        marginRight: '20rem',
+        border: 'double', 
+        borderColor: '#4b6fe4',
+        borderRadius: '12px',
+        borderWidth: '5px 20px',
     }
 });
 
@@ -25,15 +33,18 @@ function UserProfileComponent(props: IUserProfile){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const history = useHistory();
     const classes = useStyles();
 
+    
     useEffect(() => {
         getUsers();
     }, [])
 
+    //displaying user infor
     async function getUsers() {
         props.currentUser?
-        await fetch(`http://localhost:5000/user/${props.currentUser.id}`)
+        await fetch(`http://localhost:5000/user/${props.currentUser.id} `)
 
             .then((result) => {
                 return result.json()
@@ -44,49 +55,67 @@ function UserProfileComponent(props: IUserProfile){
                 setEmail(resp.email)
                 setUsername(resp.username)
                 setPassword(resp.password)
-                
             })
             : console.log('test');
-    }   
+    }
+
+    const handleNameChange = () => {
+        history.push('/editprofile');
+    }
+
+    const handleEmailChange = () => {
+        history.push('/editemail');
+    }
+
+    const handleUsernameChange = () => {
+        history.push('/editusername');
+    }
+
+    const handlePassChange = () => {
+        history.push('/editpass');
+    }
+
 
     return (
+
         <>
-            <div id="edit-profile" className={classes.profileContainer} >
-                <h1>Update your profile</h1>
+            <div id="register-component" className={classes.profileContainer}>
 
-                <div>
-                    
-                    <div>
-                    <label>First Name: </label>
-                    <input type="text" value={firstName} onChange={e=>setFirstName(e.target.value)}></input>
-                    <button>Save</button>
-                    </div>
+                <Typography align="center" variant="h4">Your Profile!</Typography>
+                
+                <TextField id='firstName' label="First Name" value={firstName} name="firstName" type="text" /> <br/><br/>
+                <TextField id='lastName' label="Last Name" value={lastName} name="lastName" type="text" /> <br/><br/>
+                <Button 
+                    onClick={handleNameChange}
+                    variant="contained"
+                    color="primary"
+                    size="small"> Edit </Button> <br/><br/>
 
-                    <div>
-                    <label>Last Name: </label>
-                    <input type="text" value={lastName} onChange={e=>setLastName(e.target.value)}></input>
-                    <button >Save</button>
-                    </div>
 
-                    <div>
-                    <label>Email: </label>
-                    <input type="text" value={email} onChange={e=>setEmail(e.target.value)}></input>
-                    <button >Save</button>
-                    </div>
+                <TextField id='email' label="Email" value={email} name="email" type="email" /> <br/><br/>
+                <Button 
+                    onClick={handleEmailChange}
+                    variant="contained"
+                    color="primary"
+                    size="small"> Edit </Button> <br/><br/>
 
-                    <div>
-                    <label>Username: </label>
-                    <input type="text" value={username} onChange={e=>setUsername(e.target.value)}></input>
-                    <button >Save</button>
-                    </div>
 
-                    <div>
-                    <label>Password: </label>
-                    <input type="text" value={password} onChange={e=>setPassword(e.target.value)}></input>
-                    <button >Save</button>
-                    </div>
+                <TextField id='username' label="Username" value={username} name="username" type="text" /> <br/><br/>
+                <Button 
+                    onClick={handleUsernameChange}
+                    variant="contained"
+                    color="primary"
+                    size="small"> Edit </Button> <br/><br/>
 
-                </div>
+                <TextField id='password' label="Password" value={password} name="password" type="password" /> <br/><br/>
+                <Button 
+                    onClick={handlePassChange}
+                    variant="contained"
+                    color="primary"
+                    size="small"> Edit </Button>
+
+                <br/><br/>
+
 
             </div>
         
