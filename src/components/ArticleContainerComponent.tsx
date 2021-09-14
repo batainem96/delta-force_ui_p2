@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Container from '@material-ui/core/Container';
 
 import { Article } from '../dtos/article';
-import { Button, makeStyles } from "@material-ui/core";
+import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
 import { Principal } from "../dtos/principal";
 import { dislikeArticle, likeArticle } from "../remote/article-service";
 import { Comment } from "../dtos/comment";
@@ -29,10 +29,7 @@ function ArticleContainerComponent(articles: IArticles) {
 
     let currentDate = new Date();
 
-    useEffect(() => {
-
-    }, [])
-
+    // like function
     async function like(currentUser: Principal | undefined, articleId: string) {
         if (currentUser === undefined) {
             console.log("No user");
@@ -41,12 +38,26 @@ function ArticleContainerComponent(articles: IArticles) {
 
         try {
             let resp = await likeArticle({username: currentUser.username}, articleId);
-            console.log(resp);
+
+            let likeCountId = "likes" + articleId;
+            let likeCountElement: HTMLElement | null = document.getElementById(`${likeCountId}`);
+            if (likeCountElement !== null) {
+                likeCountElement.innerText = resp.likes.length;
+            }
+
+            let dislikeCountId = "dislikes" + articleId;
+            let dislikeCountElement: HTMLElement | null = document.getElementById(`${dislikeCountId}`);
+            if (dislikeCountElement !== null) {
+                dislikeCountElement.innerText = resp.dislikes.length;
+            }
+
         } catch (e: any) {
             console.log(e);
         }
+
     }
 
+    // dislike function
     async function dislike(currentUser: Principal | undefined, articleId: string) {
         if (currentUser === undefined) {
             console.log("No User");
@@ -55,7 +66,19 @@ function ArticleContainerComponent(articles: IArticles) {
 
         try {
             let resp = await dislikeArticle({username: currentUser.username}, articleId);
-            console.log(resp);
+            
+            let likeCountId = "likes" + articleId;
+            let likeCountElement: HTMLElement | null = document.getElementById(`${likeCountId}`);
+            if (likeCountElement !== null) {
+                likeCountElement.innerText = resp.likes.length;
+            }
+
+            let dislikeCountId = "dislikes" + articleId;
+            let dislikeCountElement: HTMLElement | null = document.getElementById(`${dislikeCountId}`);
+            if (dislikeCountElement !== null) {
+                dislikeCountElement.innerText = resp.dislikes.length;
+            }
+
         } catch (e: any) {
             console.log(e);
         }
@@ -74,43 +97,53 @@ function ArticleContainerComponent(articles: IArticles) {
     }
 
     articles.article.forEach(element => {
+        let likes: number = (element?.likes?.length !== undefined) ? element.likes.length : 0;
+        let dislikes: number = (element?.dislikes?.length !== undefined) ? element.dislikes.length : 0;
+        
+        let likesId = "likes" + element.id;
+        let dislikesId = "dislikes" + element.id;
+
+
         let oldDate = new Date(element.publishedAt);
-        let likes = element.likes? element.likes.length : '';
-        let dislikes = element.dislikes? element.dislikes.length : '';
         let artComments = element.comments? element.comments : [];
         containers.push(
-            <>
-                <Container fixed maxWidth='sm' className={classes.articleContainer}>
-                    <div className={classes.articleHeader}>
-                        <p className={classes.headerSource}>{element.source.name}</p>
-                        <p className={classes.headerDivider}>|</p>
-                        <p className={classes.headerAuthor}>{element.author}</p>
-                        <p className={classes.headerAge}>{getAge(currentDate, oldDate)}</p>
-                    </div>
-                    <div className={classes.articleBody}>
-                        <h3 className={classes.bodyTitle}>{trimTitle(element.title)}</h3>
-                        <p className={classes.bodyContent}>{trimContent(element.content)}</p>
-                        <img className={classes.bodyImg} src={element.urlToImage} alt=""/>
-                    </div>
-                    <div className={classes.articleFooter}>
-                        <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
-                            {
-                            !isCommentsOpen
-                            ?
-                            <div>
-                                <Button><img src='./outline_thumb_up_black_24dp.png' alt='Like' onClick={() => like(articles.currentUser, element.id)}/>{likes}</Button>
-                                <Button><img src='./outline_thumb_down_black_24dp.png' alt='Dislike' onClick={() => dislike(articles.currentUser, element.id)}/>{dislikes}</Button>
-                                <Button><img src='./outline_chat_black_24dp.png' alt='Comment' onClick={() => openComments(artComments)}/></Button>
-                            </div>
-                            :
-                            null
-                            }
-                    </div>
-                </Container>   
-            </>
-        );
-    });
+            <Container fixed maxWidth='sm' className={classes.articleContainer}>
+                <div className={classes.articleHeader}>
+                    <p className={classes.headerSource}>{element.source.name}</p>
+                    <p className={classes.headerDivider}>|</p>
+                    <p className={classes.headerAuthor}>{element.author}</p>
+                    <p className={classes.headerAge}>{getAge(currentDate, oldDate)}</p>
+                </div>
+                <div className={classes.articleBody}>
+                    <h3 className={classes.bodyTitle}>{trimTitle(element.title)}</h3>
+                    <p className={classes.bodyContent}>{trimContent(element.content)}</p>
+                    <img className={classes.bodyImg} src={element.urlToImage} alt=""/>
+                </div>
+                <div className={classes.articleFooter}>
+                    <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
+                    {
+                    !isCommentsOpen
+                    ?
+                    <div>
+                        <Button onClick={() => like(articles.currentUser, element.id)}>
+                            <img src='./outline_thumb_up_black_24dp.png' alt='Like'/>
+                            <span id={likesId}>{likes}</span>
+                        </Button>
+                        <Button onClick={() => dislike(articles.currentUser, element.id)}>
+                            <img src='./outline_thumb_down_black_24dp.png' alt='Dislike'/>
+                            <span id={dislikesId}>{dislikes}</span>
+                        </Button>
 
+                        <Button onClick={() => openComments(artComments)}><img src='./outline_chat_black_24dp.png' alt='Comment'/></Button>
+                    </div>
+                    :
+                    null
+                    }
+                </div>
+            </Container>   
+        );
+
+    });
     return (
         <>
             { 

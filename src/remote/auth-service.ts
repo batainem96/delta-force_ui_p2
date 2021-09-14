@@ -11,7 +11,6 @@ export const authenticate = async (credentials: Credentials) => {
         throw resp.data;
     }
 
-
     localStorage.setItem('api-token', resp.headers['authorization']);
     console.log(resp.headers['authorization']);
 
@@ -22,6 +21,7 @@ export const authenticate = async (credentials: Credentials) => {
 }
 
 export const logout = (setCurrentUser: (nextUser: Principal | undefined) => void) => {
+    deltaforceClient.defaults.headers["Authorization"] = undefined;
     localStorage.removeItem('api-token')
     setCurrentUser(undefined);
 }
