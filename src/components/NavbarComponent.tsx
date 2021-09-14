@@ -14,6 +14,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { ArticleQuery } from '../models/acticle-query';
 
+
 interface INavbarProps {
   currentUser: Principal | undefined,
   setCurrentUser: (nextUser: Principal | undefined) => void,
