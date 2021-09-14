@@ -1,3 +1,5 @@
+import { Comment } from "./comment";
+
 export class Article {
 
     id: string;
@@ -12,12 +14,12 @@ export class Article {
     urlToImage: string;
     publishedAt: string;
     content: string | null;
-    likes: string[] | undefined;
-    dislikes: string[] | undefined;
-    comments: string[] | undefined;
+    likes: string[];
+    dislikes: string[];
+    comments: Comment[];
 
     constructor(id: string, source: {id: string, name: string}, author: string, title: string, description: string, url: string, urlToImage: string, publishedAt: string,
-        content: string, likes: string[], dislikes: string[], comments:string[]) {
+        content: string, likes: string[], dislikes: string[], comments: Comment[]) {
             this.id = id;
             this.source = source;
             this.author = author;
@@ -27,9 +29,10 @@ export class Article {
             this.urlToImage = urlToImage;
             this.publishedAt = publishedAt;
             this.content = content;
-            this.likes = likes;
-            this.dislikes = dislikes;
-            this.comments = comments;
+            
+            this.likes = likes? likes : [];
+            this.dislikes = dislikes? dislikes : [];
+            this.comments = comments? comments : [];
         }
 
 }
