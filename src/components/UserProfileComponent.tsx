@@ -41,10 +41,11 @@ function UserProfileComponent(props: IUserProfile){
         getUsers();
     }, [])
 
-    //displaying user infor
+    //displaying user information
+    // TODO: Use the axios function declared in deltaforce-client and user-service to do this
     async function getUsers() {
         props.currentUser?
-        await fetch(`http://localhost:5000/user/${props.currentUser.id} `)
+        await fetch(`http://deltaforcetakeover-env.eba-3fzzi4kr.us-east-2.elasticbeanstalk.com/user/${props.currentUser.id} `)
 
             .then((result) => {
                 return result.json()

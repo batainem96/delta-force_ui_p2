@@ -13,6 +13,7 @@ import EditProfileComponent from './components/EditProfileComponent';
 import EditEmailComponent from './components/EditEmailComponent';
 import EditUsernameComponent from './components/EditUsernameComponent';
 import EditPassComponent from './components/EditPassComponent';
+import AdminControlPanelComponent from './components/AdminControlPanelComponent';
 
 function App() {
 
@@ -35,6 +36,8 @@ function App() {
             <Route exact path="/editEmail" render={() => <EditEmailComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             <Route exact path="/editUsername" render={() => <EditUsernameComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             <Route exact path="/editPass" render={() => <EditPassComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
+            <Route exact path="/admin-dashboard" render={() => <AdminControlPanelComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
+            <Route exact path="/admin-dashboard/ban" render={() => <AdminControlPanelComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
         </Switch>
       </BrowserRouter>
   );
