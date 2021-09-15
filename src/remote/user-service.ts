@@ -15,6 +15,16 @@ import { UserNewPassRequest } from "../dtos/user-new-pass-request";
 
 // };
 
+export const getUserById = async (id : string | undefined) => {
+    let resp = await deltaforceClient.get(`/user/${id}`)
+
+    if (resp.status >= 400 && resp.status <= 599) {
+        throw resp.data;
+    }
+    return resp.data;
+
+};
+
 export const registerNewUser = async (newUser: RegisterUserRequest) => {
 
     let resp = await deltaforceClient.post('/register', newUser);
