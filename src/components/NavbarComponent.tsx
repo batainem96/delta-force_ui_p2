@@ -154,38 +154,34 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
     topic:''
   });
 
+  const [userFaves, setUserFaves] = useState(
+    props.currentUser?.favTopics as string[]
+  );
+
   async function updateFavorites() {
+
     if(!faveData.topic)
     {
       console.log("it's blank");
+      return;
     }
 
     try{
-      if(props.currentUser?.id){
         await addFavorite(props.currentUser?.id,faveData.topic);
-        userFaves?userFaves.push(faveData.topic): console.log('aw geez');
-      }else{
-        console.log("User shouldn't have access to this function if the ID is null, but TS is finicky.");
-      }
+        if(userFaves.length>0){
+        setUserFaves([...userFaves, faveData.topic]);
+      }else{setUserFaves([faveData.topic]);}
 
     }catch(e :any){
       console.log(e);
     }
   }
 
-  async function removeFave(favorite : String){
+  async function removeFave(favorite : string){
     try{
-      if(props.currentUser?.id){
         await removeFavorite(props.currentUser?.id, favorite);
-
-        let index = userFaves?.indexOf(favorite);
-        if(index != undefined){
-          userFaves?userFaves.splice(index, 1):console.log('aw geez');
-        }
-
-      }else{
-        console.log("User shouldn't have access to this function if the ID is null, but TS is finicky.");
-      }
+        let index = userFaves.indexOf(favorite);
+        setUserFaves(userFaves!.splice(index, 1));
     }catch(e:any){
       console.log(e);
     }
@@ -197,7 +193,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
   }
 
   // For sidebar
-  const userFaves: String[] | undefined = props.currentUser?.favTopics;
+  // const userFaves: String[] | undefined = props.currentUser?.favTopics;
   const articleCategories: string[] = ['Business','Entertainment','General','Health','Science','Sports','Technology'];
 
   // For sidebar and search bar
@@ -336,8 +332,10 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
               Saved Topics
           </Typography>
         <Divider />
+        {props.currentUser?
+        <>
         <List>
-          {userFaves? userFaves.map((text, index) => (
+          {userFaves?.map((text, index) => (
             <>
               <ListItem button onClick={() =>{setQuery('search',`${text}`)}} key={index}>
                 <ListItemText primary={text} />
@@ -346,10 +344,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
                 </ListItemSecondaryAction>
               </ListItem>
             </>
-          ))
-          : 
-          <Typography variant="subtitle2" align="center">Sign in to access saved topics!</Typography>
-          }
+          ))}
         </List>
         <TextField id="topic-input" label="New Favorite" name="topic" type="text" onChange={handleChange}/>
           <br/>
@@ -361,6 +356,14 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
             size="small"
             >Add Favorite</Button>
             <br/>
+            </>
+            :
+            <>
+              <br/>
+                <Typography variant="subtitle2" align="center">Sign in to access saved topics!</Typography>
+              <br/>
+            </>
+            }
         <Divider />
           <Typography variant='h6' align='center'>
               Top Articles
