@@ -45,3 +45,8 @@ export const updatePass = async (newPass: UserNewPassRequest) => {
 
     let resp = await deltaforceClient.put('/user/edit/password', newPass);
 };
+
+export const banUser = async (username: string ) => {
+
+    let resp = await deltaforceClient.delete(`/user/${username}`)
+};

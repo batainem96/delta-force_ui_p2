@@ -196,6 +196,9 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
     >
       {props.currentUser? // If User is logged in display these options.
       <div>
+        {props.currentUser.role==='admin'?
+        <MenuItem component={Link} to={'/admin-dashboard'} onClick={handleMenuClose}>Admin Dashboard</MenuItem>:
+        <></>}
         <MenuItem component={Link} to={'/userProfile'} onClick={handleMenuClose}>My Profile</MenuItem>
         <MenuItem component={Link} to={'/'} onClick={() =>{doLogout(); handleMenuClose();}}>Log out</MenuItem>
       </div>
@@ -203,7 +206,6 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
       <div>
         <MenuItem component={Link} to={'/login'}onClick={handleMenuClose}>Login</MenuItem>
         <MenuItem component={Link} to={'/register'} onClick={handleMenuClose}>Register</MenuItem>
-        <MenuItem component={Link} to={'/userProfile'} onClick={handleMenuClose}>Profile</MenuItem>
       </div>
     }
     </Menu>
