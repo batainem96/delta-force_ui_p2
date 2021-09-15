@@ -25,7 +25,7 @@ export const getArticles = async(queryType: string, query: string) => {
 
     }else if(queryType ==='category'){
 
-        let resp = await(deltaforceClient.get(`/news/q?category=${query}`));
+        let resp = await(deltaforceClient.get(`/news/${query}`));
 
         if (resp.status >= 400 && resp.status < 500) {
             throw resp.data;
