@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
@@ -6,13 +6,14 @@ import { Principal } from '../dtos/principal';
 import { logout } from '../remote/auth-service';
 
 import { alpha, makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, Divider, List, ListItem, ListItemText, Button } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, Divider, List, ListItem, ListItemText, Button, TextField, ListItemSecondaryAction } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { ArticleQuery } from '../models/acticle-query';
+import { addFavorite, removeFavorite } from '../remote/user-service';
 
 
 interface INavbarProps {
@@ -136,19 +137,73 @@ const useStyles = makeStyles((theme: Theme) =>
         }),
         marginLeft: 0,
       },
+      favoriteButton:{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%'
+      },
   }),
 );
 
 export default function PrimarySearchAppBar(props: INavbarProps) {
   const classes = useStyles();
 
+  // For adding user faves
+  const [faveData, setFaveData] = useState({
+    topic:''
+  });
+
+  async function updateFavorites() {
+    if(!faveData.topic)
+    {
+      console.log("it's blank");
+    }
+
+    try{
+      if(props.currentUser?.id){
+        await addFavorite(props.currentUser?.id,faveData.topic);
+        userFaves?userFaves.push(faveData.topic): console.log('aw geez');
+      }else{
+        console.log("User shouldn't have access to this function if the ID is null, but TS is finicky.");
+      }
+
+    }catch(e :any){
+      console.log(e);
+    }
+  }
+
+  async function removeFave(favorite : String){
+    try{
+      if(props.currentUser?.id){
+        await removeFavorite(props.currentUser?.id, favorite);
+
+        let index = userFaves?.indexOf(favorite);
+        if(index != undefined){
+          userFaves?userFaves.splice(index, 1):console.log('aw geez');
+        }
+
+      }else{
+        console.log("User shouldn't have access to this function if the ID is null, but TS is finicky.");
+      }
+    }catch(e:any){
+      console.log(e);
+    }
+  }
+
+  let handleChange = ( e: any) =>{
+    const {name, value} = e.target;
+    setFaveData({...faveData, [name]: value});
+  }
+
   // For sidebar
-  const userFaves: String[] | undefined = props.currentUser?.favTopics; // This needs to be changed to get user's favorites. Maybe include it with the principal?
+  const userFaves: String[] | undefined = props.currentUser?.favTopics;
   const articleCategories: string[] = ['Business','Entertainment','General','Health','Science','Sports','Technology'];
 
   // For sidebar and search bar
   function setQuery(queryType: string, query: string){
     let articleQuery = {queryType: queryType, query: query};
+    console.log(articleQuery);
     props.setSearchQuery(articleQuery);
   }
 
@@ -283,13 +338,29 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
         <Divider />
         <List>
           {userFaves? userFaves.map((text, index) => (
-            <ListItem button onClick={() =>{setQuery('search',`${text}`)}} key={index}>
-              <ListItemText primary={text} />
-            </ListItem>
+            <>
+              <ListItem button onClick={() =>{setQuery('search',`${text}`)}} key={index}>
+                <ListItemText primary={text} />
+                <ListItemSecondaryAction>
+                  <Button onClick={() => {removeFave(text)}}>x</Button>
+                </ListItemSecondaryAction>
+              </ListItem>
+            </>
           ))
-          :
-          <Typography variant="subtitle2" align="center">Sign in to access saved topics!</Typography>}
+          : 
+          <Typography variant="subtitle2" align="center">Sign in to access saved topics!</Typography>
+          }
         </List>
+        <TextField id="topic-input" label="New Favorite" name="topic" type="text" onChange={handleChange}/>
+          <br/>
+          <Button
+            id="topic-button"
+            onClick={updateFavorites}
+            variant="contained"
+            color="primary"
+            size="small"
+            >Add Favorite</Button>
+            <br/>
         <Divider />
           <Typography variant='h6' align='center'>
               Top Articles

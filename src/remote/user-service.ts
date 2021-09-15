@@ -60,3 +60,11 @@ export const banUser = async (username: string ) => {
 
     let resp = await deltaforceClient.delete(`/user/${username}`)
 };
+
+export const addFavorite = async(uid: string, favorite: string) => {
+    let resp = await deltaforceClient.post(`/user/${uid}/faves?add=${favorite}`)
+}
+
+export const removeFavorite = async(uid: string | undefined, favorite: String | string) => {
+    let resp = await deltaforceClient.delete(`/user/${uid}/faves?remove=${favorite}`)
+}
