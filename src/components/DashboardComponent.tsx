@@ -28,6 +28,7 @@ function DashboardComponent(props: IDashboardProps) {
     // Fetching articles
     const [data, setData] = useState([] as Article[]);
     useEffect(() => {
+
         if (props.currentUser) {
             getPopularArticles().then(articles => {
                 setData(articles);
