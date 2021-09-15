@@ -39,7 +39,7 @@ function AdminControlPanelComponent(props: IUserProfile){
         
         <>{props.currentUser?.role==='admin'?
             <div id="admin-dashboard-component" className={classes.profileContainer}>
-
+                <br/>
                 <Typography align="center" variant="h4">Welcome, Commander!</Typography>
                 <br/>
                 <Typography align="center" variant="h6">Please select an option....</Typography>

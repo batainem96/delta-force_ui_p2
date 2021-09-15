@@ -14,6 +14,7 @@ import EditEmailComponent from './components/EditEmailComponent';
 import EditUsernameComponent from './components/EditUsernameComponent';
 import EditPassComponent from './components/EditPassComponent';
 import AdminControlPanelComponent from './components/AdminControlPanelComponent';
+import BanUserComponent from './components/BanUserComponent';
 
 function App() {
 
@@ -37,7 +38,7 @@ function App() {
             <Route exact path="/editUsername" render={() => <EditUsernameComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             <Route exact path="/editPass" render={() => <EditPassComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             <Route exact path="/admin-dashboard" render={() => <AdminControlPanelComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
-            <Route exact path="/admin-dashboard/ban" render={() => <AdminControlPanelComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
+            <Route exact path="/admin-dashboard/ban" render={() => <BanUserComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
         </Switch>
       </BrowserRouter>
   );

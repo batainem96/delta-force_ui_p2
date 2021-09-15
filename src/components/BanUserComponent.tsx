@@ -1,9 +1,11 @@
-import { Button, Container, responsiveFontSizes, TextField, Typography } from "@material-ui/core";
+import { Button, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Principal } from "../dtos/principal";
 import { banUser } from "../remote/user-service";
 import {Redirect, useHistory} from "react-router-dom";
+import ErrorMessageComponent from "./ErrorMessageComponent";
+import SuccessMessageComponent from "./SuccessMessageComponent";
 
 interface IProfile{
     currentUser: Principal | undefined
@@ -34,6 +36,9 @@ function BanUserComponent (props: IProfile){
     const [formData, setFormData] = useState({
         username: ''
     });
+
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
   
 
     let handleChange = (e: any) => {
@@ -46,8 +51,12 @@ function BanUserComponent (props: IProfile){
 
         try {
             await banUser(formData.username);
-        }catch (e) {
+            setSuccessMessage(`${formData.username} has been banned.`);
+            setErrorMessage('');
+        }catch (e : any) {
             console.log(e);
+            setSuccessMessage('');
+            setErrorMessage('Invalid username provided.');
         }
     }
 
@@ -60,16 +69,18 @@ function BanUserComponent (props: IProfile){
             <>
                 <div id="ban-user" className={classes.profileContainer} >
                 <Typography align="center" variant="h4">Banning a user...</Typography>
-                <TextField id='newEmail' label="Email" name="newEmail" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='password' label="Password" name="password" type="password" onChange={handleChange}/> <br/><br/>
                 <br/><br/>
-
+                <TextField id='username' label="Provide user's username" name="username" type="text" onChange={handleChange}/> <br/><br/>
+                <br/>
+                { successMessage ? <SuccessMessageComponent successMessage={successMessage}/> : <></> }
+                { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }
+                <br/>
                 <Button
                     id="edit-button"
                     onClick={handleBan}
                     variant="contained"
                     color="primary"
-                    size="medium">Save</Button>
+                    size="medium">Ban User</Button>
 
                 <br/><br/>
 
