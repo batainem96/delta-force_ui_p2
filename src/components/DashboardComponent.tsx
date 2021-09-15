@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import { useEffect, useState } from "react";
 import { Article } from "../dtos/article";
 import { Principal } from "../dtos/principal";
-import { getArticles } from "../remote/mock-user-service";
+import { getArticles, getPopularArticles } from "../remote/article-service";
 import ArticleContainerComponent from "./ArticleContainerComponent";
 
 // Current User data
@@ -28,13 +28,16 @@ function DashboardComponent(props: IDashboardProps) {
     // Fetching articles
     const [data, setData] = useState([] as Article[]);
     useEffect(() => {
-        if(props.currentUser) {
-            getArticles().then(articles => {
+
+        if (props.currentUser) {
+            getPopularArticles().then(articles => {
                 setData(articles);
             });
             return () => {
                 setData([]);
             }
+        } else {
+            return;
         }
     }, []);
 
