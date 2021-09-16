@@ -29,7 +29,7 @@ function App() {
             <Route exact path="/">
                 <Redirect to="/dashboard" />
             </Route>
-            <Route exact path="/dashboard" render={() => <DashboardComponent currentUser={currentUser} /> } />
+            <Route exact path="/dashboard" render={() => <DashboardComponent currentUser={currentUser} searchQuery={searchQuery} setSearchQuery={setSearchQuery} /> } />
             <Route exact path="/login" render={() => <LoginComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             <Route exact path="/register" render={() => <RegisterComponent currentUser={currentUser} /> } />
             <Route exact path="/userProfile" render={() => <UserProfileComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
