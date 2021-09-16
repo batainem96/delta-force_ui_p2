@@ -196,13 +196,10 @@ const FAINTGREY = '#9b9b9b';
 const SHADOWGRAY = 'rgba(61,99,140,.08)';
 const HEADERED = '#d34343';
 
-let hover = 'none';
+let hover = {'pointerEvents': 'none'};
+let transform = 'scale(1.025)';
 
-export interface StyleProps {
-    hover: 'none'
-}
-
-const useStyles = makeStyles<StyleProps>({
+const useStyles = makeStyles({
 
     articleContainer: {
         borderRadius: '8px',
@@ -215,8 +212,7 @@ const useStyles = makeStyles<StyleProps>({
         transition: 'all .5s ease-in-out',
 
         '&:hover': {
-            
-            transform: 'scale(1.025)'
+            transform: `${transform}`
         }
     },
 

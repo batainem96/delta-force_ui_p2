@@ -25,7 +25,7 @@ function CommentsComponent(props: ICommentsProps) {
     let comments = props.comments;
 
     comments.forEach( element => {
-        containers.push(
+        containers.unshift(
             <>
                 <Grid container wrap="nowrap" spacing={2}>
                     <Grid item xs zeroMinWidth>
@@ -53,6 +53,29 @@ function CommentsComponent(props: ICommentsProps) {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
       };
+
+      const [shiftKeyDown, setShiftKeyDown] = useState(false);
+
+    const handleKeyDown = (e: any) => {
+        if(e.key === 'Shift') {
+            setShiftKeyDown(true);
+            console.log(e);
+            return;
+        }
+        if(e.key === 'Enter') {
+            if(!shiftKeyDown) {
+                submitComment();
+            } else {
+                // setValue(value+'\n');
+            }
+        }
+    }
+
+    const handleKeyUp = (e: any) => {
+        if(e.key === 'Shift') {
+            setShiftKeyDown(false);
+        }
+    }
 
     async function submitComment() {
 
@@ -96,6 +119,8 @@ function CommentsComponent(props: ICommentsProps) {
                                 maxRows={2}
                                 value={value}
                                 onChange={handleChange}
+                                onKeyDown={handleKeyDown}
+                                onKeyUp={handleKeyUp}
                                 variant="outlined"
                                 InputProps={{
                                     endAdornment: <Button 
@@ -141,7 +166,8 @@ const useStyles = makeStyles ({
         right: '0',
         bottom: '0',
         left: '0',
-        background: `${BGTINT}`
+        background: `${BGTINT}`,
+        zIndex: 3
     },
 
     commentsContainer: {
