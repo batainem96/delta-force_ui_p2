@@ -27,7 +27,7 @@ export const getUserById = async (id : string | undefined) => {
 
 export const registerNewUser = async (newUser: RegisterUserRequest) => {
 
-    let resp = await deltaforceClient.post('/register', newUser);
+    let resp = await deltaforceClient.post('/user', newUser);
 
     if (resp.status >= 400 && resp.status <= 599) {
         throw resp.data;
@@ -61,10 +61,12 @@ export const banUser = async (username: string ) => {
     let resp = await deltaforceClient.delete(`/user/${username}`)
 };
 
-export const addFavorite = async(uid: string, favorite: string) => {
+export const addFavorite = async(uid: string | undefined, favorite: string) => {
     let resp = await deltaforceClient.post(`/user/${uid}/faves?add=${favorite}`)
+    return resp.data;
 }
 
 export const removeFavorite = async(uid: string | undefined, favorite: String | string) => {
     let resp = await deltaforceClient.delete(`/user/${uid}/faves?remove=${favorite}`)
+    return resp.data;
 }
