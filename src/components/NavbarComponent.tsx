@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
@@ -154,34 +154,34 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
     topic:''
   });
 
-  const [userFaves, setUserFaves] = useState(
-    props.currentUser?.favTopics as string[]
-  );
+  const [userFaves, setUserFaves] = useState([] as string[]);
+
+
+  useEffect(() => {
+      if (props.currentUser !== undefined) {
+        setUserFaves(props.currentUser.favTopics);
+      }
+    }, [props.currentUser]);
 
   async function updateFavorites() {
-
-    if(!faveData.topic)
-    {
+    if(!faveData.topic) {
       console.log("it's blank");
       return;
     }
 
-    try{
-        await addFavorite(props.currentUser?.id,faveData.topic);
-        if(userFaves.length>0){
-        setUserFaves([...userFaves, faveData.topic]);
-      }else{setUserFaves([faveData.topic]);}
-
-    }catch(e :any){
-      console.log(e);
+    try {
+        let resp = await addFavorite(props.currentUser?.id, faveData.topic);
+        console.log(resp);
+        setUserFaves(resp);
+    } catch (e: any) {
+        console.log(e);
     }
   }
 
   async function removeFave(favorite : string){
     try{
-        await removeFavorite(props.currentUser?.id, favorite);
-        let index = userFaves.indexOf(favorite);
-        setUserFaves(userFaves!.splice(index, 1));
+        let resp = await removeFavorite(props.currentUser?.id, favorite);
+        setUserFaves(resp);
     }catch(e:any){
       console.log(e);
     }
