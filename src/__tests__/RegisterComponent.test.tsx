@@ -3,6 +3,7 @@ import { mount, shallow } from "enzyme";
 import ErrorMessageComponent from "../components/ErrorMessageComponent";
 import RegisterComponent from "../components/RegisterComponent";
 import { registerNewUser } from "../remote/user-service";
+import {act} from "react-dom/test-utils";
 
 jest.mock("../remote/user-service.ts");
 

@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { shallow } from "enzyme";
 import NavbarComponent from "../components/NavbarComponent";
 import { Principal } from "../dtos/principal";
+import {ArticleQuery} from "../models/acticle-query";
 
 describe("NavbarComponent Test Suite", () => {
 
@@ -13,8 +14,10 @@ describe("NavbarComponent Test Suite", () => {
     it("renders successfully", () => {
         let mockUser = undefined;
         let setMockUserFn = jest.fn();
+        let mockQuery = undefined;
+        let setMockQueryFn = jest.fn();
 
-        const wrapper = shallow(<NavbarComponent currentUser={mockUser} setCurrentUser={setMockUserFn}/>);
+        const wrapper = shallow(<NavbarComponent currentUser={mockUser} setCurrentUser={setMockUserFn} searchQuery={mockQuery} setSearchQuery={setMockQueryFn}/>);
 
         expect(wrapper).toBeTruthy();
     });
@@ -22,8 +25,10 @@ describe("NavbarComponent Test Suite", () => {
     it("renders the expected header", () => {
         let mockUser = undefined;
         let setMockUserFn = jest.fn();
+        let mockQuery = undefined;
+        let setMockQueryFn = jest.fn();
 
-        const wrapper = shallow(<NavbarComponent currentUser={mockUser} setCurrentUser={setMockUserFn}/>);
+        const wrapper = shallow(<NavbarComponent currentUser={mockUser} setCurrentUser={setMockUserFn} searchQuery={mockQuery} setSearchQuery={setMockQueryFn}/>);
 
         const expectedHeader = "DeltaForce News"
 
@@ -33,8 +38,10 @@ describe("NavbarComponent Test Suite", () => {
     it("displays the correct dropdown menu when no user logged in", () => {
         let mockUser = undefined;
         let setMockUserFn = jest.fn();
+        let mockQuery = undefined;
+        let setMockQueryFn = jest.fn();
 
-        const wrapper = shallow(<NavbarComponent currentUser={mockUser} setCurrentUser={setMockUserFn}/>);
+        const wrapper = shallow(<NavbarComponent currentUser={mockUser} setCurrentUser={setMockUserFn} searchQuery={mockQuery} setSearchQuery={setMockQueryFn}/>);
 
         const loginItem = "Login";
         const registerItem = "Register";
@@ -50,10 +57,12 @@ describe("NavbarComponent Test Suite", () => {
     });
 
     it("displays the correct dropdown menu when user is logged in", () => {
-        let mockUser: Principal = {id: "valid", username: "valid", token: "valid", favTopics: []};
+        let mockUser: Principal = {id: "valid", username: "valid", token: "valid", role: "valid", favTopics: []};
         let setMockUserFn = jest.fn();
+        let mockQuery: ArticleQuery = {queryType: "valid", query: "valid"};
+        let setMockQueryFn = jest.fn();
 
-        const wrapper = shallow(<NavbarComponent currentUser={mockUser} setCurrentUser={setMockUserFn}/>);
+        const wrapper = shallow(<NavbarComponent currentUser={mockUser} setCurrentUser={setMockUserFn} searchQuery={mockQuery} setSearchQuery={setMockQueryFn}/>);
 
         const profileItem = "My Profile";
         const logoutItem = "Log out";
