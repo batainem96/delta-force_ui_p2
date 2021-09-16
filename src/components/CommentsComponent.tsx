@@ -2,17 +2,21 @@ import { Container, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Divider, Grid } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useState } from "react";
 
 import { Comment } from "../dtos/comment";
 import { getAge } from "../functions/get-age";
+import { CommentDTO } from "../dtos/comment-dto";
+import { submitCommentOnArticle } from "../remote/article-service";
+import { Principal } from "../dtos/principal";
 
 interface ICommentsProps {
 
+    currentUser: Principal | undefined,
     comments: Comment[],
-    setCommentsOpen: (isCommentsOpen: boolean) => void
+    setComments: (comment: Comment[]) => void,
+    setCommentsOpen: (isCommentsOpen: boolean) => void,
+    id: string
 }
 
 function CommentsComponent(props: ICommentsProps) {
@@ -31,7 +35,7 @@ function CommentsComponent(props: ICommentsProps) {
                         {" "}
                         </p>
                         <p style={{ textAlign: "left", color: "gray" }}>
-                        {getAge(new Date(), new Date(element.time))}
+                            {getAge((new Date(element.timePosted)))}
                         </p>
                     </Grid>
                 </Grid>
@@ -50,8 +54,30 @@ function CommentsComponent(props: ICommentsProps) {
         setValue(event.target.value);
       };
 
-    const submitComment = () => {
-        
+    async function submitComment() {
+
+        if (props.currentUser === undefined) {
+            console.log("No user");
+            return;
+        }
+
+        try {
+
+            let comment = new CommentDTO(props.id, props.currentUser.username, value);
+            let resp = await submitCommentOnArticle(comment);
+
+            if(resp !== null) {
+
+                console.log(resp.comments[0].content);
+                props.setComments(resp.comments);
+
+                setValue('');
+            }
+
+        } catch (e: any) {
+            console.log(e);
+        }
+
     };
 
     return(
@@ -72,7 +98,14 @@ function CommentsComponent(props: ICommentsProps) {
                                 value={value}
                                 onChange={handleChange}
                                 variant="outlined"
-                                InputProps={{endAdornment: <Button variant='contained' color='primary' onClick={submitComment}>submit</Button>}}
+                                InputProps={{
+                                    endAdornment: <Button 
+                                                    variant='contained'
+                                                    color='primary'
+                                                    onClick={submitComment}>
+                                                        submit
+                                                  </Button>
+                                }}
                                 className={classes.commentTextField}
                             />
                         </div>
@@ -80,92 +113,6 @@ function CommentsComponent(props: ICommentsProps) {
                             <div style={{height: '100px'}}></div>
                             
                             {containers}
-
-                            {/* TEST STAHFF */}
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <h4 style={{ margin: 0, textAlign: "left" }}>USERNAME</h4>
-                                    <p style={{ textAlign: "left" }}>
-                                    BLAH BLAH comment stuff talk talk talk comment comment comment yehawyeeyeyeyeyeye sadjksajdlsajd sfhdsfiohewidnsd cdkschkewsjdfnksd vkldf jfidesf kd gm,fdn ikvnfdkjvn reikj gniua.
-                                    {" "}
-                                    </p>
-                                    <p style={{ textAlign: "left", color: "gray" }}>
-                                    </p>
-                                </Grid>
-                            </Grid>
-                            <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <h4 style={{ margin: 0, textAlign: "left" }}>USERNAME</h4>
-                                    <p style={{ textAlign: "left" }}>
-                                    BLAH BLAH comment stuff talk talk talk comment comment comment yehawyeeyeyeyeyeye sadjksajdlsajd sfhdsfiohewidnsd cdkschkewsjdfnksd vkldf jfidesf kd gm,fdn ikvnfdkjvn reikj gniua.
-                                    {" "}
-                                    </p>
-                                    <p style={{ textAlign: "left", color: "gray" }}>
-                                    </p>
-                                </Grid>
-                            </Grid>
-                            <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <h4 style={{ margin: 0, textAlign: "left" }}>USERNAME</h4>
-                                    <p style={{ textAlign: "left" }}>
-                                    BLAH BLAH comment stuff talk talk talk comment comment comment yehawyeeyeyeyeyeye sadjksajdlsajd sfhdsfiohewidnsd cdkschkewsjdfnksd vkldf jfidesf kd gm,fdn ikvnfdkjvn reikj gniua.
-                                    {" "}
-                                    </p>
-                                    <p style={{ textAlign: "left", color: "gray" }}>
-                                    </p>
-                                </Grid>
-                            </Grid>
-                            <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <h4 style={{ margin: 0, textAlign: "left" }}>USERNAME</h4>
-                                    <p style={{ textAlign: "left" }}>
-                                    BLAH BLAH comment stuff talk talk talk comment comment comment yehawyeeyeyeyeyeye sadjksajdlsajd sfhdsfiohewidnsd cdkschkewsjdfnksd vkldf jfidesf kd gm,fdn ikvnfdkjvn reikj gniua.
-                                    {" "}
-                                    </p>
-                                    <p style={{ textAlign: "left", color: "gray" }}>
-                                    </p>
-                                </Grid>
-                            </Grid>
-                            <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <h4 style={{ margin: 0, textAlign: "left" }}>USERNAME</h4>
-                                    <p style={{ textAlign: "left" }}>
-                                    BLAH BLAH comment stuff talk talk talk comment comment comment yehawyeeyeyeyeyeye sadjksajdlsajd sfhdsfiohewidnsd cdkschkewsjdfnksd vkldf jfidesf kd gm,fdn ikvnfdkjvn reikj gniua.
-                                    {" "}
-                                    </p>
-                                    <p style={{ textAlign: "left", color: "gray" }}>
-                                    </p>
-                                </Grid>
-                            </Grid>
-                            <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <h4 style={{ margin: 0, textAlign: "left" }}>USERNAME</h4>
-                                    <p style={{ textAlign: "left" }}>
-                                    BLAH BLAH comment stuff talk talk talk comment comment comment yehawyeeyeyeyeyeye sadjksajdlsajd sfhdsfiohewidnsd cdkschkewsjdfnksd vkldf jfidesf kd gm,fdn ikvnfdkjvn reikj gniua.
-                                    {" "}
-                                    </p>
-                                    <p style={{ textAlign: "left", color: "gray" }}>
-                                    </p>
-                                </Grid>
-                            </Grid>
-                            <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
-                            <Grid container wrap="nowrap" spacing={2}>
-                                <Grid item xs zeroMinWidth>
-                                    <h4 style={{ margin: 0, textAlign: "left" }}>USERNAME</h4>
-                                    <p style={{ textAlign: "left" }}>
-                                    BLAH BLAH comment stuff talk talk talk comment comment comment yehawyeeyeyeyeyeye sadjksajdlsajd sfhdsfiohewidnsd cdkschkewsjdfnksd vkldf jfidesf kd gm,fdn ikvnfdkjvn reikj gniua.
-                                    {" "}
-                                    </p>
-                                    <p style={{ textAlign: "left", color: "gray" }}>
-                                    </p>
-                                </Grid>
-                            </Grid>
-                            <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
 
                             <div style={{height: '60px'}}></div>
 
@@ -260,7 +207,8 @@ const useStyles = makeStyles ({
         height: '30px',
         width: '30px',
         minWidth: '0',
-        justifySelf: 'flex-start'
+        justifySelf: 'flex-start',
+        marginTop: '10px'
     }
 
 });

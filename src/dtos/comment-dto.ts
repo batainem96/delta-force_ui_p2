@@ -1,11 +1,11 @@
 export class CommentDTO {
 
-    url: string;
+    articleId: string;
     username: string;
     content: string;
 
     constructor(url: string, username: string, content: string) {
-        this.url = url;
+        this.articleId = url;
         this.username = username;
         this.content = content;
     }

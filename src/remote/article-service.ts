@@ -1,5 +1,8 @@
 import { ArticleDTO } from "../dtos/article-dto";
+import { CommentDTO } from "../dtos/comment-dto";
+import { Comment } from "../dtos/comment";
 import { deltaforceClient } from "./deltaforce-client";
+import { Article } from "../dtos/article";
 
 export const getPopularArticles = async () => {
     
@@ -61,4 +64,16 @@ export const dislikeArticle = async (username: ArticleDTO, articleId: string) =>
     }
 
     return resp.data;
+}
+
+export const submitCommentOnArticle = async (comment: CommentDTO) => {
+
+    let resp = await deltaforceClient.post(`/article/comment`, comment);
+
+    if (resp.status === 401) {
+        throw resp.data;
+    }
+
+    return resp.data as Article;
+
 }

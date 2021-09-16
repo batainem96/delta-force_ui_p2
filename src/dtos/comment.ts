@@ -2,12 +2,12 @@ export class Comment {
 
     username: string;
     content: string;
-    time: string;
+    timePosted: string;
 
-    constructor(username: string, content: string, time: string) {
+    constructor(username: string, content: string, timePosted: string) {
         this.username = username;
         this.content = content;
-        this.time = time;
+        this.timePosted = timePosted;
     }
     
 }

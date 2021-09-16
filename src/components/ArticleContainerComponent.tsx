@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Container from '@material-ui/core/Container';
 
 import { Article } from '../dtos/article';
-import { Button, ButtonGroup, makeStyles } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import { Principal } from "../dtos/principal";
 import { dislikeArticle, likeArticle } from "../remote/article-service";
 import { Comment } from "../dtos/comment";
@@ -24,10 +24,9 @@ function ArticleContainerComponent(articles: IArticles) {
             content: 'No Comments'
         }
     ] as Comment[])
+    const [artId, setArtId] = useState('');
 
     let containers: JSX.Element[] = [];
-
-    let currentDate = new Date();
 
     // like function
     async function like(currentUser: Principal | undefined, articleId: string) {
@@ -84,13 +83,11 @@ function ArticleContainerComponent(articles: IArticles) {
         }
     }
 
-    function openComments(artComments: Comment[]) {
-        console.log('openComments clicked!')
+    function openComments(artComments: Comment[], id: string) {
         if(!isCommentsOpen) {
 
+            setArtId(id);
             setComments(artComments);
-
-            console.log('openComments clicked (prev: false)');
             setCommentsOpen(true);
             
         }
@@ -99,9 +96,11 @@ function ArticleContainerComponent(articles: IArticles) {
     articles.article.forEach(element => {
         let likes: number = (element?.likes?.length !== undefined) ? element.likes.length : 0;
         let dislikes: number = (element?.dislikes?.length !== undefined) ? element.dislikes.length : 0;
+        var numComments: number = (element?.comments?.length !== undefined) ? element.comments.length : 0;
         
         let likesId = "likes" + element.id;
         let dislikesId = "dislikes" + element.id;
+        var commentsId = "comments" + element.id;
 
 
         let oldDate = new Date(element.publishedAt);
@@ -112,7 +111,7 @@ function ArticleContainerComponent(articles: IArticles) {
                     <p className={classes.headerSource}>{element.source.name}</p>
                     <p className={classes.headerDivider}>|</p>
                     <p className={classes.headerAuthor}>{element.author}</p>
-                    <p className={classes.headerAge}>{getAge(currentDate, oldDate)}</p>
+                    <p className={classes.headerAge}>{getAge(oldDate)}</p>
                 </div>
                 <div className={classes.articleBody}>
                     <h3 className={classes.bodyTitle}>{trimTitle(element.title)}</h3>
@@ -134,7 +133,9 @@ function ArticleContainerComponent(articles: IArticles) {
                             <span id={dislikesId}>{dislikes}</span>
                         </Button>
 
-                        <Button onClick={() => openComments(artComments)}><img src='./outline_chat_black_24dp.png' alt='Comment'/></Button>
+                        <Button onClick={() => openComments(artComments, element.id)}><img src='./outline_chat_black_24dp.png' alt='Comment'/>
+                            <span id={commentsId}>{numComments}</span>
+                        </Button>
                     </div>
                     :
                     null
@@ -149,7 +150,7 @@ function ArticleContainerComponent(articles: IArticles) {
             { 
             isCommentsOpen 
             ? 
-            <CommentsComponent comments={comments} setCommentsOpen={setCommentsOpen} />
+            <CommentsComponent currentUser={articles.currentUser} comments={comments} setCommentsOpen={setCommentsOpen} id={artId} setComments={setComments} />
             :
             null
             }
