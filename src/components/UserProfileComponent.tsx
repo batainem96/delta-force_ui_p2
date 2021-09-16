@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import { useState, useEffect } from "react";
 import { Principal } from "../dtos/principal";
 import {Redirect, useHistory} from "react-router-dom";
-
+import { getUserById } from "../remote/user-service";
 
 interface IUserProfile{
     currentUser: Principal | undefined,
@@ -27,11 +27,12 @@ const useStyles = makeStyles({
 
 function UserProfileComponent(props: IUserProfile){
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [userData, setUserData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        username: ''
+    });
 
     const history = useHistory();
     const classes = useStyles();
@@ -41,23 +42,13 @@ function UserProfileComponent(props: IUserProfile){
         getUsers();
     }, [])
 
-    //displaying user information
-    // TODO: Use the axios function declared in deltaforce-client and user-service to do this
-    async function getUsers() {
-        props.currentUser?
-        await fetch(`http://deltaforcetakeover-env.eba-3fzzi4kr.us-east-2.elasticbeanstalk.com/user/${props.currentUser.id} `)
-
-            .then((result) => {
-                return result.json()
-            }).then((resp) => {
-
-                setFirstName(resp.firstName)
-                setLastName(resp.lastName)
-                setEmail(resp.email)
-                setUsername(resp.username)
-                setPassword(resp.password)
-            })
-            : console.log('test');
+    let getUsers = async () => {
+        try{
+            let userInfo = await getUserById(props.currentUser?.id);
+            setUserData({...userInfo});
+        } catch( e: any){
+            console.log(e);
+        }
     }
 
     const handleNameChange = () => {
@@ -76,44 +67,42 @@ function UserProfileComponent(props: IUserProfile){
         history.push('/editpass');
     }
 
-
     return (
 
         <>
             <div id="register-component" className={classes.profileContainer}>
-
+                <br/>
                 <Typography align="center" variant="h4">Your Profile!</Typography>
                 
-                <TextField id='firstName' label="First Name" value={firstName} name="firstName" type="text" /> <br/><br/>
-                <TextField id='lastName' label="Last Name" value={lastName} name="lastName" type="text" /> <br/><br/>
+                <p>
+                    Name: {userData.firstName} {userData.lastName}
+                </p>
                 <Button 
                     onClick={handleNameChange}
                     variant="contained"
                     color="primary"
-                    size="small"> Edit </Button> <br/><br/>
+                    size="small"> Edit Name </Button> <br/><br/>
 
 
-                <TextField id='email' label="Email" value={email} name="email" type="email" /> <br/><br/>
+                <p>Email: {userData.email}</p>
                 <Button 
                     onClick={handleEmailChange}
                     variant="contained"
                     color="primary"
-                    size="small"> Edit </Button> <br/><br/>
+                    size="small"> Change Email </Button> <br/><br/>
 
-
-                <TextField id='username' label="Username" value={username} name="username" type="text" /> <br/><br/>
+                <p>Username: {userData.username}</p>
                 <Button 
                     onClick={handleUsernameChange}
                     variant="contained"
                     color="primary"
-                    size="small"> Edit </Button> <br/><br/>
+                    size="small"> Change Username </Button> <br/><br/>
 
-                <TextField id='password' label="Password" value={password} name="password" type="password" /> <br/><br/>
                 <Button 
                     onClick={handlePassChange}
                     variant="contained"
                     color="primary"
-                    size="small"> Edit </Button>
+                    size="small"> Change Password </Button>
 
                 <br/><br/>
 
