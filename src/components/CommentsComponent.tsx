@@ -68,7 +68,6 @@ function CommentsComponent(props: ICommentsProps) {
 
             if(resp !== null) {
 
-                console.log(resp.comments[0].content);
                 props.setComments(resp.comments);
 
                 setValue('');

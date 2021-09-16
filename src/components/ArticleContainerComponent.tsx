@@ -28,6 +28,10 @@ function ArticleContainerComponent(articles: IArticles) {
 
     let containers: JSX.Element[] = [];
 
+    useEffect( () => {
+        articles.article.filter(article => { if(article.id === artId) { article.comments = comments } });
+    }, [comments]);
+
     // like function
     async function like(currentUser: Principal | undefined, articleId: string) {
         if (currentUser === undefined) {
