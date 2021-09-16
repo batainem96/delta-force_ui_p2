@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 export const deltaforceClient = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'http://deltaforcetakeover-env.eba-3fzzi4kr.us-east-2.elasticbeanstalk.com/',
     headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('api-token')
+        'Content-Type': 'application/json'
     }
 });
+
+

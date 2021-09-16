@@ -34,15 +34,18 @@ function LoginComponent(props: ILoginProps){
         setFormData({...formData, [name] : value});
     }
 
+    let handleKeyUp = (e : any) => {
+        if(e.key === 'Enter') {
+            login();
+        }
+    }
+
     async function login() {
 
         if (!formData.username || !formData.password) {
             setErrorMessage('You need to provide a username and password');
             return;
         }
-
-        console.log(formData.username);
-        console.log(formData.password);
 
         try{
             let principal = await authenticate({username : formData.username, password : formData.password});
@@ -58,9 +61,9 @@ function LoginComponent(props: ILoginProps){
         <>
             <div className={classes.loginContainer} color="inherit">
                 <Typography align="center" variant="h4">Login</Typography>
-                <TextField id="username-input" label="Username" name="username" type="text" onChange={handleChange}/>
+                <TextField id="username-input" label="Username" name="username" type="text" onChange={handleChange} onKeyUp={handleKeyUp} autoFocus/>
                 <br/>
-                <TextField id="password-input" label="Password" name="password" type="password" onChange={handleChange}/>
+                <TextField id="password-input" label="Password" name="password" type="password" onChange={handleChange} onKeyUp={handleKeyUp}/>
                 <br/><br/>
                 <Button id="login-bt" variant="contained" color="primary" onClick={login}>Login</Button>
                 <br /><br />

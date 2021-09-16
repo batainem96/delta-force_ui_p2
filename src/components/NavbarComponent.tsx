@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
@@ -6,17 +6,22 @@ import { Principal } from '../dtos/principal';
 import { logout } from '../remote/auth-service';
 
 import { alpha, makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, Divider, List, ListItem, ListItemText, Button } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Drawer, Divider, List, ListItem, ListItemText, Button, TextField, ListItemSecondaryAction } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { ArticleQuery } from '../models/acticle-query';
+import { addFavorite, removeFavorite } from '../remote/user-service';
+
 
 interface INavbarProps {
   currentUser: Principal | undefined,
-  setCurrentUser: (nextUser: Principal | undefined) => void
+  setCurrentUser: (nextUser: Principal | undefined) => void,
+
+  searchQuery: ArticleQuery | undefined,
+  setSearchQuery: (nextQuery: ArticleQuery | undefined) => void
 }
 
 const drawerWidth = 240;
@@ -51,6 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
+      cursor: 'pointer',
+      textDecoration: 'none',
+      color: 'white'
     },
     search: {
       position: 'relative',
@@ -129,11 +137,75 @@ const useStyles = makeStyles((theme: Theme) =>
         }),
         marginLeft: 0,
       },
+      favoriteButton:{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%'
+      },
   }),
 );
 
 export default function PrimarySearchAppBar(props: INavbarProps) {
   const classes = useStyles();
+
+  // For adding user faves
+  const [faveData, setFaveData] = useState({
+    topic:''
+  });
+
+  async function updateFavorites() {
+    if(!faveData.topic)
+    {
+      console.log("it's blank");
+    }
+
+    try{
+      if(props.currentUser?.id){
+        await addFavorite(props.currentUser?.id,faveData.topic);
+        userFaves?userFaves.push(faveData.topic): console.log('aw geez');
+      }else{
+        console.log("User shouldn't have access to this function if the ID is null, but TS is finicky.");
+      }
+
+    }catch(e :any){
+      console.log(e);
+    }
+  }
+
+  async function removeFave(favorite : String){
+    try{
+      if(props.currentUser?.id){
+        await removeFavorite(props.currentUser?.id, favorite);
+
+        let index = userFaves?.indexOf(favorite);
+        if(index != undefined){
+          userFaves?userFaves.splice(index, 1):console.log('aw geez');
+        }
+
+      }else{
+        console.log("User shouldn't have access to this function if the ID is null, but TS is finicky.");
+      }
+    }catch(e:any){
+      console.log(e);
+    }
+  }
+
+  let handleChange = ( e: any) =>{
+    const {name, value} = e.target;
+    setFaveData({...faveData, [name]: value});
+  }
+
+  // For sidebar
+  const userFaves: String[] | undefined = props.currentUser?.favTopics;
+  const articleCategories: string[] = ['Business','Entertainment','General','Health','Science','Sports','Technology'];
+
+  // For sidebar and search bar
+  function setQuery(queryType: string, query: string){
+    let articleQuery = {queryType: queryType, query: query};
+    console.log(articleQuery);
+    props.setSearchQuery(articleQuery);
+  }
 
   // For logging out :)
   function doLogout() {
@@ -179,7 +251,10 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
     >
       {props.currentUser? // If User is logged in display these options.
       <div>
-        <MenuItem component={Link} to={'/profile'} onClick={() =>{doLogout(); handleMenuClose();}}>My Profile</MenuItem>
+        {props.currentUser.role==='admin'?
+        <MenuItem component={Link} to={'/admin-dashboard'} onClick={handleMenuClose}>Admin Dashboard</MenuItem>:
+        <></>}
+        <MenuItem component={Link} to={'/userProfile'} onClick={handleMenuClose}>My Profile</MenuItem>
         <MenuItem component={Link} to={'/'} onClick={() =>{doLogout(); handleMenuClose();}}>Log out</MenuItem>
       </div>
       :                   // If User is not logged in, display these options.
@@ -209,7 +284,9 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap
+          component={Link} to={'/dashboard'}
+          >
             DeltaForce News
           </Typography>
           <div className={classes.search}>
@@ -227,19 +304,6 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            {/* <Button 
-              size="small" 
-              variant="contained" 
-              color="default"
-              href="/login"
-            >
-              Log In
-            </Button> */}
-            {/* <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -268,17 +332,43 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          {['one', 'two', 'three', 'four'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+          <Typography variant='h6' align='center'>
+              Saved Topics
+          </Typography>
         <Divider />
         <List>
-          {['one', 'two', 'three'].map((text, index) => (
-            <ListItem button key={text}>
+          {userFaves? userFaves.map((text, index) => (
+            <>
+              <ListItem button onClick={() =>{setQuery('search',`${text}`)}} key={index}>
+                <ListItemText primary={text} />
+                <ListItemSecondaryAction>
+                  <Button onClick={() => {removeFave(text)}}>x</Button>
+                </ListItemSecondaryAction>
+              </ListItem>
+            </>
+          ))
+          : 
+          <Typography variant="subtitle2" align="center">Sign in to access saved topics!</Typography>
+          }
+        </List>
+        <TextField id="topic-input" label="New Favorite" name="topic" type="text" onChange={handleChange}/>
+          <br/>
+          <Button
+            id="topic-button"
+            onClick={updateFavorites}
+            variant="contained"
+            color="primary"
+            size="small"
+            >Add Favorite</Button>
+            <br/>
+        <Divider />
+          <Typography variant='h6' align='center'>
+              Top Articles
+          </Typography>
+        <Divider />
+        <List>
+          {articleCategories.map((text, index) => (
+            <ListItem button onClick={() =>{setQuery('category',`${text}`)}} key={index}>
               <ListItemText primary={text} />
             </ListItem>
           ))}
