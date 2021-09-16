@@ -1,12 +1,11 @@
-import { ArticleDTO } from "../dtos/article-dto";
-import { CommentDTO } from "../dtos/comment-dto";
-import { Comment } from "../dtos/comment";
-import { deltaforceClient } from "./deltaforce-client";
-import { Article } from "../dtos/article";
+import {ArticleDTO} from "../dtos/article-dto";
+import {CommentDTO} from "../dtos/comment-dto";
+import {deltaforceClient} from "./deltaforce-client";
+import {Article} from "../dtos/article";
 
 export const getPopularArticles = async () => {
-    
-    let resp = await(deltaforceClient.get("/news/popular"));
+
+    let resp = await (deltaforceClient.get("/news/popular"));
 
     if (resp.status === 401) {
         throw resp.data;
@@ -15,20 +14,10 @@ export const getPopularArticles = async () => {
     return resp.data;
 };
 
-export const getArticles = async(queryType: string, query: string) => {
-    if(queryType==='search'){
+export const getArticles = async (queryType: string, query: string) => {
+    if (queryType === 'search') {
 
-        let resp = await(deltaforceClient.get(`/news/q?search=${query}`));
-
-        if (resp.status >= 400 && resp.status < 500) {
-            throw resp.data;
-        }
-
-        return resp.data;
-
-    }else if(queryType ==='category'){
-
-        let resp = await(deltaforceClient.get(`/news/${query}`));
+        let resp = await (deltaforceClient.get(`/news/q?search=${query}`));
 
         if (resp.status >= 400 && resp.status < 500) {
             throw resp.data;
@@ -36,10 +25,19 @@ export const getArticles = async(queryType: string, query: string) => {
 
         return resp.data;
 
-    }
-    else
+    } else if (queryType === 'category') {
+
+        let resp = await (deltaforceClient.get(`/news/${query}`));
+
+        if (resp.status >= 400 && resp.status < 500) {
+            throw resp.data;
+        }
+
+        return resp.data;
+
+    } else
         throw console.error("Invalid search parameters provided");
-        
+
 
 }
 
@@ -52,7 +50,7 @@ export const likeArticle = async (username: ArticleDTO, articleId: string) => {
     }
 
     return resp.data;
-    
+
 }
 
 export const dislikeArticle = async (username: ArticleDTO, articleId: string) => {

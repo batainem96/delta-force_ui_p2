@@ -1,17 +1,15 @@
-import { Container, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import { Divider, Grid } from "@material-ui/core";
+import {Button, Container, Divider, Grid} from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
 import TextField from '@material-ui/core/TextField';
-import { useState } from "react";
+import {useState} from "react";
 
-import { Comment } from "../dtos/comment";
-import { getAge } from "../functions/get-age";
-import { CommentDTO } from "../dtos/comment-dto";
-import { submitCommentOnArticle } from "../remote/article-service";
-import { Principal } from "../dtos/principal";
+import {Comment} from "../dtos/comment";
+import {getAge} from "../functions/get-age";
+import {CommentDTO} from "../dtos/comment-dto";
+import {submitCommentOnArticle} from "../remote/article-service";
+import {Principal} from "../dtos/principal";
 
 interface ICommentsProps {
-
     currentUser: Principal | undefined,
     comments: Comment[],
     setComments: (comment: Comment[]) => void,
@@ -24,22 +22,22 @@ function CommentsComponent(props: ICommentsProps) {
     let containers: JSX.Element[] = [];
     let comments = props.comments;
 
-    comments.forEach( element => {
+    comments.forEach(element => {
         containers.push(
             <>
                 <Grid container wrap="nowrap" spacing={2}>
                     <Grid item xs zeroMinWidth>
-                        <h4 style={{ margin: 0, textAlign: "left" }}>{ element.username }</h4>
-                        <p style={{ textAlign: "left" }}>
-                        { element.content }
-                        {" "}
+                        <h4 style={{margin: 0, textAlign: "left"}}>{element.username}</h4>
+                        <p style={{textAlign: "left"}}>
+                            {element.content}
+                            {" "}
                         </p>
-                        <p style={{ textAlign: "left", color: "gray" }}>
+                        <p style={{textAlign: "left", color: "gray"}}>
                             {getAge((new Date(element.timePosted)))}
                         </p>
                     </Grid>
                 </Grid>
-                <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
+                <Divider variant="fullWidth" style={{margin: "30px 0"}}/>
             </>
         );
     });
@@ -52,41 +50,35 @@ function CommentsComponent(props: ICommentsProps) {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
-      };
+    };
 
     async function submitComment() {
-
         if (props.currentUser === undefined) {
             console.log("No user");
             return;
         }
 
         try {
-
             let comment = new CommentDTO(props.id, props.currentUser.username, value);
             let resp = await submitCommentOnArticle(comment);
 
-            if(resp !== null) {
-
+            if (resp !== null) {
                 props.setComments(resp.comments);
-
                 setValue('');
             }
-
         } catch (e: any) {
             console.log(e);
         }
+    }
 
-    };
-
-    return(
+    return (
         <>
             <div className={classes.commentsBox}>
                 <Container fixed maxWidth='md' className={classes.commentsContainer}>
                     <div className={classes.outerPane}>
                         <div className={classes.paneHeader}>
                             <h1 className={classes.commentsHeader}>Comments</h1>
-                            <Button className={classes.closeCommentsButton}onClick={() => closeComments()}>X</Button>
+                            <Button className={classes.closeCommentsButton} onClick={() => closeComments()}>X</Button>
                         </div>
                         <div className={classes.commentSubmitBox}>
                             <TextField
@@ -98,28 +90,23 @@ function CommentsComponent(props: ICommentsProps) {
                                 onChange={handleChange}
                                 variant="outlined"
                                 InputProps={{
-                                    endAdornment: <Button 
-                                                    variant='contained'
-                                                    color='primary'
-                                                    onClick={submitComment}>
-                                                        submit
-                                                  </Button>
+                                    endAdornment: <Button
+                                        variant='contained'
+                                        color='primary'
+                                        onClick={submitComment}>
+                                        submit
+                                    </Button>
                                 }}
                                 className={classes.commentTextField}
                             />
                         </div>
                         <div className={classes.commentsPane}>
                             <div style={{height: '100px'}}></div>
-                            
                             {containers}
-
                             <div style={{height: '60px'}}></div>
-
                         </div>
                     </div>
                 </Container>
-
-            
             </div>
         </>
     );
@@ -131,8 +118,8 @@ const BGTINT = 'rgba(0, 0, 0, 0.5)';
 const FAINTGREY = '#9b9b9b';
 const SHADOWGRAY = 'rgba(61,99,140,.08)';
 
-const useStyles = makeStyles ({
- 
+const useStyles = makeStyles({
+
     commentsBox: {
         display: 'flex',
         flexDirection: 'column',
@@ -191,10 +178,10 @@ const useStyles = makeStyles ({
     },
 
     commentTextField: {
-       width: '100%',
-       marginTop: '4px',
-       marginLeft: '20px',
-       marginBottom: '10px'
+        width: '100%',
+        marginTop: '4px',
+        marginLeft: '20px',
+        marginBottom: '10px'
     },
 
     commentsHeader: {
@@ -209,5 +196,4 @@ const useStyles = makeStyles ({
         justifySelf: 'flex-start',
         marginTop: '10px'
     }
-
 });

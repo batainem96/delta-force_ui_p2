@@ -1,11 +1,11 @@
-import { Alert } from '@material-ui/lab';
+import {Alert} from '@material-ui/lab';
 
 interface ISuccessMessageProps {
-    successMessage : string
+    successMessage: string
 }
 
-function SuccessMessageComponent(props : ISuccessMessageProps) {
-    return(
+function SuccessMessageComponent(props: ISuccessMessageProps) {
+    return (
         <Alert severity='success'>{props.successMessage}</Alert>
     );
 }

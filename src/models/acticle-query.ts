@@ -5,7 +5,7 @@ export class ArticleQuery {
     queryType: string;
     query: string;
 
-    constructor(queryType: string, query: string){
+    constructor(queryType: string, query: string) {
         this.queryType = queryType;
         this.query = query;
     }

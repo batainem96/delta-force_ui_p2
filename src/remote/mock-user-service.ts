@@ -1,5 +1,4 @@
-import { deltaforceClient } from "./deltaforce-client";
-import { mockClient } from "./mock-client";
+import {deltaforceClient} from "./deltaforce-client";
 
 export const getArticles = async () => {
 

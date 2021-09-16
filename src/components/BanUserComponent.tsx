@@ -1,13 +1,13 @@
-import { Button, TextField, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import { useState } from "react";
-import { Principal } from "../dtos/principal";
-import { banUser } from "../remote/user-service";
-import {Redirect, useHistory} from "react-router-dom";
+import {Button, TextField, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
+import {useState} from "react";
+import {Principal} from "../dtos/principal";
+import {banUser} from "../remote/user-service";
+import {useHistory} from "react-router-dom";
 import ErrorMessageComponent from "./ErrorMessageComponent";
 import SuccessMessageComponent from "./SuccessMessageComponent";
 
-interface IProfile{
+interface IProfile {
     currentUser: Principal | undefined
     setCurrentUser: (nextUser: Principal | undefined) => void
 }
@@ -15,12 +15,12 @@ interface IProfile{
 const useStyles = makeStyles({
     profileContainer: {
         textAlign: 'center',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         marginTop: '1rem',
         marginBottom: '3rem',
         marginLeft: '20rem',
         marginRight: '20rem',
-        border: 'double', 
+        border: 'double',
         borderColor: '#4b6fe4',
         borderRadius: '12px',
         borderWidth: '5px 20px',
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 });
 
 
-function BanUserComponent (props: IProfile){
+function BanUserComponent(props: IProfile) {
 
     const classes = useStyles();
     const history = useHistory();
@@ -39,21 +39,18 @@ function BanUserComponent (props: IProfile){
 
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-  
 
     let handleChange = (e: any) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({...formData, [name]: value});
     }
 
-    
     let handleBan = async () => {
-
         try {
             await banUser(formData.username);
             setSuccessMessage(`${formData.username} has been banned.`);
             setErrorMessage('');
-        }catch (e : any) {
+        } catch (e: any) {
             console.log(e);
             setSuccessMessage('');
             setErrorMessage('Invalid username provided.');
@@ -63,17 +60,16 @@ function BanUserComponent (props: IProfile){
     const handleGoBack = () => {
         history.push('/admin-dashboard');
     }
-    
-        return (
 
-            <>
-                <div id="ban-user" className={classes.profileContainer} >
+    return (
+        <>
+            <div id="ban-user" className={classes.profileContainer}>
                 <Typography align="center" variant="h4">Banning a user...</Typography>
                 <br/><br/>
                 <TextField id='username' label="Provide user's username" name="username" type="text" onChange={handleChange}/> <br/><br/>
                 <br/>
-                { successMessage ? <SuccessMessageComponent successMessage={successMessage}/> : <></> }
-                { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }
+                {successMessage ? <SuccessMessageComponent successMessage={successMessage}/> : <></>}
+                {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
                 <br/>
                 <Button
                     id="edit-button"
@@ -81,22 +77,17 @@ function BanUserComponent (props: IProfile){
                     variant="contained"
                     color="primary"
                     size="medium">Ban User</Button>
-
                 <br/><br/>
-
                 <Button
                     id="edit-button"
                     onClick={handleGoBack}
                     variant="contained"
                     color="primary"
                     size="medium">Back</Button>
-
                 <br/><br/>
-
-                </div>
-            
-            </>
-        );
-    
+            </div>
+        </>
+    );
 }
+
 export default BanUserComponent;

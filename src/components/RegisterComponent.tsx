@@ -1,12 +1,11 @@
 import {useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
 
-import {Button, FormControl, Input, InputLabel, makeStyles, Typography} from "@material-ui/core";
+import {Button, makeStyles, TextField, Typography} from "@material-ui/core";
 
 import ErrorMessageComponent from "./ErrorMessageComponent";
 import {Principal} from "../dtos/principal";
 import {registerNewUser} from "../remote/user-service";
-import { TextField } from "@material-ui/core";
 
 interface IRegisterProps {
     currentUser: Principal | undefined
@@ -36,7 +35,7 @@ function RegisterComponent(props: IRegisterProps) {
     const [errorMessage, setErrorMessage] = useState('');
 
     let handleChange = (e: any) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({...formData, [name]: value});
     }
 
@@ -52,7 +51,6 @@ function RegisterComponent(props: IRegisterProps) {
     }
 
     let register = async () => {
-
         if (!isFormValid()) {
             setErrorMessage('You need to complete the registration form!');
             return;
@@ -64,40 +62,36 @@ function RegisterComponent(props: IRegisterProps) {
         } catch (e) {
             if (e instanceof Error) {
                 setErrorMessage(e.message);
-              } else {
+            } else {
                 console.error("🤷‍♂️"); // Who knows?
-              }
+            }
         }
     }
 
     return (
-
         props.currentUser ? <Redirect to="/dashboard"/> :
-
             <div id="register-component" className={classes.registerContainer}>
                 <Typography align="center" variant="h4">Register for a DeltaForce News Account!</Typography>
-                <TextField id='firstName' label="First Name" name="firstName" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='lastName' label="Last Name" name="lastName" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='email' label="Email" name="email" type="email" onChange={handleChange}/> <br/><br/>
-                <TextField id='username' label="Username" name="username" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='password' label="Password" name="password" type="password" onChange={handleChange}/> <br/><br/>
+                <TextField id='firstName' label="First Name" name="firstName" type="text" onChange={handleChange}/>
                 <br/><br/>
-
+                <TextField id='lastName' label="Last Name" name="lastName" type="text" onChange={handleChange}/>
+                <br/><br/>
+                <TextField id='email' label="Email" name="email" type="email" onChange={handleChange}/> <br/><br/>
+                <TextField id='username' label="Username" name="username" type="text" onChange={handleChange}/>
+                <br/><br/>
+                <TextField id='password' label="Password" name="password" type="password" onChange={handleChange}/>
+                <br/><br/>
+                <br/><br/>
                 <Button
                     id="register-button"
                     onClick={register}
                     variant="contained"
                     color="primary"
                     size="medium">Register</Button>
-
                 <br/><br/>
-
-                { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }
-
+                {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
             </div>
-
     );
-
 }
 
 export default RegisterComponent;
