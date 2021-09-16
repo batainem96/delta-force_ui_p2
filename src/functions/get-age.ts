@@ -1,7 +1,9 @@
 import { differenceInMinutes, differenceInHours, differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
 
 // Calculate the age of the article and return the highest order representation (year > month > day > hour > minute)
-export function getAge(current: Date, old: Date): string {
+export function getAge(old: Date): string {
+
+    let current = new Date();
 
     let years = differenceInYears(current, old);
     let months = differenceInMonths(current, old);
