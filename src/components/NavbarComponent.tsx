@@ -203,6 +203,19 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
     props.setSearchQuery(articleQuery);
   }
 
+  const [searchValue, setSearchValue] = useState('');
+
+  let handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  }
+
+  let handleSearchKeyUp = (e: any) => {
+    if(e.key === 'Enter') {
+      props.setSearchQuery(new ArticleQuery('search', searchValue));
+      e.target.value = '';
+    }
+  }
+
   // For logging out :)
   function doLogout() {
         logout(props.setCurrentUser);
@@ -282,6 +295,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap
           component={Link} to={'/dashboard'}
+          onClick={() => {props.setSearchQuery(undefined)}}
           >
             DeltaForce News
           </Typography>
@@ -295,6 +309,8 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              onKeyUp={handleSearchKeyUp}
+              onChange={handleSearchChange}
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
