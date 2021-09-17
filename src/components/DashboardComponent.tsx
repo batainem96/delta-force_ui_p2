@@ -3,15 +3,16 @@ import { makeStyles } from "@material-ui/styles";
 import { useEffect, useState } from "react";
 import { Article } from "../dtos/article";
 import { Principal } from "../dtos/principal";
-import { ArticleQuery } from "../models/acticle-query";
 import { getArticles, getPopularArticles } from "../remote/article-service";
 import ArticleContainerComponent from "./ArticleContainerComponent";
+import {PrincipalJWT} from "../dtos/jwt-dto";
+import jwt from "jwt-decode";
+import {deltaforceClient} from "../remote/deltaforce-client";
 
 // Current User data
 interface IDashboardProps {
     currentUser : Principal | undefined,
-    searchQuery: ArticleQuery | undefined,
-    setSearchQuery: (articleQuery: ArticleQuery | undefined) => void
+    setCurrentUser: (nextUser: Principal | undefined) => void
 }
 
 // Styling
@@ -30,29 +31,33 @@ function DashboardComponent(props: IDashboardProps) {
 
     // Fetching articles
     const [data, setData] = useState([] as Article[]);
+
     useEffect(() => {
-
-        if(props.currentUser) {
-            if(!props.searchQuery || props.searchQuery.query === '') {
-                getPopularArticles().then(articles => {
-                    setData(articles);
-                });
-                return () => {
-                    setData([]);
-                }
+        if (!props.currentUser) {
+            let token = localStorage.getItem("api-token");
+            if (token) {
+                let parsedUser: PrincipalJWT = jwt(token);
+                let authUser: Principal = {
+                    id: parsedUser.jti,
+                    username: parsedUser.sub,
+                    token: token,
+                    role: parsedUser.role,
+                    favTopics: []
+                };
+                deltaforceClient.defaults.headers["Authorization"] = token;
+                props.setCurrentUser(authUser);
             } else {
-                getArticles(props.searchQuery.queryType, props.searchQuery.query).then(articles => {
-                    setData(articles);
-                });
-                return () => {
-                    setData([]);
-                }
+                console.log("No user, get out of here");
+                return;
             }
-        } else {
-            return;
         }
-
-    }, [props.searchQuery]);
+        getPopularArticles().then(articles => {
+            setData(articles);
+        });
+        return () => {
+            setData([]);
+        }
+    }, []);
 
     return (
         // If currentUser is undefined or not logged in

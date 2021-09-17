@@ -4,11 +4,9 @@ import DashboardComponent from './components/DashboardComponent';
 import LoginComponent from './components/LoginComponent';
 import NavbarComponent from "./components/NavbarComponent";
 import RegisterComponent from './components/RegisterComponent';
-import { Principal } from './dtos/principal';
+import {Principal} from './dtos/principal';
 import UserProfileComponent from './components/UserProfileComponent';
-
-import { ArticleQuery } from './models/acticle-query';
-
+import {ArticleQuery} from './models/acticle-query';
 import EditProfileComponent from './components/EditProfileComponent';
 import EditEmailComponent from './components/EditEmailComponent';
 import EditUsernameComponent from './components/EditUsernameComponent';
@@ -29,7 +27,7 @@ function App() {
             <Route exact path="/">
                 <Redirect to="/dashboard" />
             </Route>
-            <Route exact path="/dashboard" render={() => <DashboardComponent currentUser={currentUser} searchQuery={searchQuery} setSearchQuery={setSearchQuery} /> } />
+            <Route exact path="/dashboard" render={() => <DashboardComponent currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
             <Route exact path="/login" render={() => <LoginComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             <Route exact path="/register" render={() => <RegisterComponent currentUser={currentUser} /> } />
             <Route exact path="/userProfile" render={() => <UserProfileComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
