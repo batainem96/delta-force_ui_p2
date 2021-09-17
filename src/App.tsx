@@ -14,22 +14,11 @@ import EditUsernameComponent from './components/EditUsernameComponent';
 import EditPassComponent from './components/EditPassComponent';
 import AdminControlPanelComponent from './components/AdminControlPanelComponent';
 import BanUserComponent from './components/BanUserComponent';
-import { PrincipalJWT } from './dtos/jwt-dto';
 
 function App() {
 
   let [currentUser, setCurrentUser] = useState(undefined as Principal | undefined);
   let [searchQuery, setSearchQuery] = useState(undefined as ArticleQuery | undefined);
-
-  useEffect(() => {
-      const loggedInUser = localStorage.getItem('api-token');
-      if (loggedInUser){
-        let user : PrincipalJWT = jwt(loggedInUser);
-        let authUser : Principal = new Principal(user.jti, user.sub, user.role, loggedInUser, []);
-        console.log(authUser);
-        setCurrentUser(authUser);
-      }
-  }, []);
 
   return (
       <BrowserRouter>
@@ -39,7 +28,7 @@ function App() {
             <Route exact path="/">
                 <Redirect to="/dashboard" />
             </Route>
-            <Route exact path="/dashboard" render={() => <DashboardComponent currentUser={currentUser} /> } />
+            <Route exact path="/dashboard" render={() => <DashboardComponent currentUser={currentUser} setCurrentUser={setCurrentUser} /> } />
             <Route exact path="/login" render={() => <LoginComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
             <Route exact path="/register" render={() => <RegisterComponent currentUser={currentUser} /> } />
             <Route exact path="/userProfile" render={() => <UserProfileComponent currentUser={currentUser} setCurrentUser={setCurrentUser}/> } />
