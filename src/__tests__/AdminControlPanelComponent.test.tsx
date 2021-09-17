@@ -2,6 +2,16 @@ import {mount, shallow} from "enzyme";
 import AdminControlPanelComponent from "../components/AdminControlPanelComponent";
 import {Typography} from "@material-ui/core";
 import {Principal} from "../dtos/principal";
+import {act} from "@testing-library/react";
+
+const mockHistoryPush = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useHistory: () => ({
+        push: mockHistoryPush
+    })
+}));
 
 describe("AdminControlPanelComponent Test Suite", () => {
 
@@ -28,7 +38,7 @@ describe("AdminControlPanelComponent Test Suite", () => {
         expect(wrapper.contains(expectedHeader)).toBe(true);
     });
 
-    it("renders ban menu on button click", () => {
+    it("changes url on button click", () => {
         let mockUser: Principal = {id: "valid", username: "valid", token: "valid", role: "admin", favTopics: []};
         let setMockUserFn = jest.fn();
 
@@ -38,7 +48,6 @@ describe("AdminControlPanelComponent Test Suite", () => {
         const button = wrapper.find("button").at(0);
 
         button.simulate("click");
-
-        console.log(button.debug());
+        expect(mockHistoryPush).toHaveBeenCalledWith("/admin-dashboard/ban");
     });
 })
