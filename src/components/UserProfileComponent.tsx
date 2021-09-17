@@ -7,7 +7,14 @@ import { getUserById } from "../remote/user-service";
 
 interface IUserProfile{
     currentUser: Principal | undefined,
-    setCurrentUser: (nextUser: Principal | undefined) => void
+    setCurrentUser: (nextUser: Principal | undefined) => void,
+    userInfo: {
+        firstName: string,
+        lastName: string,
+        email: string,
+        username: string
+    },
+    setUserInfo: (userInfo: {firstName: string, lastName: string, email: string, username: string}) => void
 }
 
 const FAINTGREY = '#9b9b9b';
@@ -16,10 +23,6 @@ const useStyles = makeStyles({
     profileContainer: {
         textAlign: 'center',
         justifyContent: 'center', 
-        // marginTop: '1rem',
-        // marginBottom: '3rem',
-        // marginLeft: '20rem',
-        // marginRight: '20rem',
         border: `solid ${FAINTGREY}`,
         borderRadius: '12px',
         borderWidth: '1px',
@@ -32,13 +35,6 @@ const useStyles = makeStyles({
 
 function UserProfileComponent(props: IUserProfile){
 
-    const [userData, setUserData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        username: ''
-    });
-
     const history = useHistory();
     const classes = useStyles();
 
@@ -50,7 +46,7 @@ function UserProfileComponent(props: IUserProfile){
     let getUsers = async () => {
         try{
             let userInfo = await getUserById(props.currentUser?.id);
-            setUserData({...userInfo});
+            props.setUserInfo({...userInfo});
         } catch( e: any){
             console.log(e);
         }
@@ -85,7 +81,7 @@ function UserProfileComponent(props: IUserProfile){
                     id="standard-read-only-input"
                     label="Name"
                     className={classes.profileEntry}
-                    value={userData.firstName + ' ' + userData.lastName}
+                    value={props.userInfo.firstName + ' ' + props.userInfo.lastName}
                     InputProps={{
                         readOnly: true,
                         endAdornment: (
@@ -106,7 +102,7 @@ function UserProfileComponent(props: IUserProfile){
                     id="standard-read-only-input"
                     label="Email"
                     className={classes.profileEntry}
-                    value={userData.email}
+                    value={props.userInfo.email}
                     InputProps={{
                         readOnly: true,
                         endAdornment: (
@@ -127,7 +123,7 @@ function UserProfileComponent(props: IUserProfile){
                     id="standard-read-only-input"
                     label="Username"
                     className={classes.profileEntry}
-                    value={userData.username}
+                    value={props.userInfo.username}
                     InputProps={{
                         readOnly: true,
                         endAdornment: (
@@ -149,7 +145,7 @@ function UserProfileComponent(props: IUserProfile){
                     label="Password"
                     type="password"
                     className={classes.profileEntry}
-                    value={userData.username}
+                    value={props.userInfo.username}
                     InputProps={{
                         readOnly: true,
                         endAdornment: (
