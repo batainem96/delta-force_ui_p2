@@ -5,10 +5,14 @@ import { Article } from "../dtos/article";
 import { Principal } from "../dtos/principal";
 import { getArticles, getPopularArticles } from "../remote/article-service";
 import ArticleContainerComponent from "./ArticleContainerComponent";
+import {PrincipalJWT} from "../dtos/jwt-dto";
+import jwt from "jwt-decode";
+import {deltaforceClient} from "../remote/deltaforce-client";
 
 // Current User data
 interface IDashboardProps {
-    currentUser : Principal | undefined
+    currentUser : Principal | undefined,
+    setCurrentUser: (nextUser: Principal | undefined) => void
 }
 
 // Styling
@@ -27,17 +31,31 @@ function DashboardComponent(props: IDashboardProps) {
 
     // Fetching articles
     const [data, setData] = useState([] as Article[]);
-    useEffect(() => {
 
-        if (props.currentUser) {
-            getPopularArticles().then(articles => {
-                setData(articles);
-            });
-            return () => {
-                setData([]);
+    useEffect(() => {
+        if (!props.currentUser) {
+            let token = localStorage.getItem("api-token");
+            if (token) {
+                let parsedUser: PrincipalJWT = jwt(token);
+                let authUser: Principal = {
+                    id: parsedUser.jti,
+                    username: parsedUser.sub,
+                    token: token,
+                    role: parsedUser.role,
+                    favTopics: []
+                };
+                deltaforceClient.defaults.headers["Authorization"] = token;
+                props.setCurrentUser(authUser);
+            } else {
+                console.log("No user, get out of here");
+                return;
             }
-        } else {
-            return;
+        }
+        getPopularArticles().then(articles => {
+            setData(articles);
+        });
+        return () => {
+            setData([]);
         }
     }, []);
 
