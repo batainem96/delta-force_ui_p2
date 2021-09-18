@@ -72,7 +72,7 @@ function BanUserComponent(props: IProfile) {
                     {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
                     <br/>
                     <Button
-                        id="edit-button"
+                        id="ban-button"
                         onClick={handleBan}
                         variant="contained"
                         color="primary"
@@ -80,7 +80,7 @@ function BanUserComponent(props: IProfile) {
                     <br/><br/>
 
                     <Button
-                        id="edit-button"
+                        id="back-button"
                         onClick={handleGoBack}
                         variant="contained"
                         color="primary"

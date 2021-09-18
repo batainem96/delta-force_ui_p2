@@ -85,13 +85,28 @@ describe("BanUserComponent Test Suite", () => {
         const wrapper = mount(<BanUserComponent currentUser={mockUser} setCurrentUser={setMockUserFn} />);
 
         let username = wrapper.find("#username").at(0);
-        let banButton = wrapper.find("#edit-button").at(0);
+        let banButton = wrapper.find("#ban-button").at(0);
 
-        act(() => {
-            username.simulate("change", {target: {name: "username", value: "test-username"}});
-            banButton.simulate("click");
-        });
-
+        username.simulate("change", {target: {name: "username", value: "test-username"}});
+        banButton.simulate("click");
         expect(banUser).toBeCalledTimes(1);
+    });
+
+    it("goes back when back button is clicked", () => {
+        let mockUser = {
+            id: "valid",
+            username: "valid",
+            token: "valid",
+            role: "valid",
+            favTopics: []
+        };
+        let setMockUserFn = jest.fn();
+
+        const wrapper = mount(<BanUserComponent currentUser={mockUser} setCurrentUser={setMockUserFn} />);
+
+        let backButton = wrapper.find("#back-button").at(0);
+        backButton.simulate("click");
+
+        expect(mockHistoryPush).toHaveBeenCalledWith("/admin-dashboard");
     });
 });
