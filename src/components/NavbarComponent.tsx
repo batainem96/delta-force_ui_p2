@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
@@ -154,38 +154,34 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
     topic:''
   });
 
+  const [userFaves, setUserFaves] = useState([] as string[]);
+
+
+  useEffect(() => {
+      if (props.currentUser !== undefined) {
+        setUserFaves(props.currentUser.favTopics);
+      }
+    }, [props.currentUser]);
+
   async function updateFavorites() {
-    if(!faveData.topic)
-    {
+    if(!faveData.topic) {
       console.log("it's blank");
+      return;
     }
 
-    try{
-      if(props.currentUser?.id){
-        await addFavorite(props.currentUser?.id,faveData.topic);
-        userFaves?userFaves.push(faveData.topic): console.log('aw geez');
-      }else{
-        console.log("User shouldn't have access to this function if the ID is null, but TS is finicky.");
-      }
-
-    }catch(e :any){
-      console.log(e);
+    try {
+        let resp = await addFavorite(props.currentUser?.id, faveData.topic);
+        console.log(resp);
+        setUserFaves(resp);
+    } catch (e: any) {
+        console.log(e);
     }
   }
 
-  async function removeFave(favorite : String){
+  async function removeFave(favorite : string){
     try{
-      if(props.currentUser?.id){
-        await removeFavorite(props.currentUser?.id, favorite);
-
-        let index = userFaves?.indexOf(favorite);
-        if(index != undefined){
-          userFaves?userFaves.splice(index, 1):console.log('aw geez');
-        }
-
-      }else{
-        console.log("User shouldn't have access to this function if the ID is null, but TS is finicky.");
-      }
+        let resp = await removeFavorite(props.currentUser?.id, favorite);
+        setUserFaves(resp);
     }catch(e:any){
       console.log(e);
     }
@@ -197,7 +193,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
   }
 
   // For sidebar
-  const userFaves: String[] | undefined = props.currentUser?.favTopics;
+  // const userFaves: String[] | undefined = props.currentUser?.favTopics;
   const articleCategories: string[] = ['Business','Entertainment','General','Health','Science','Sports','Technology'];
 
   // For sidebar and search bar
@@ -205,6 +201,19 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
     let articleQuery = {queryType: queryType, query: query};
     console.log(articleQuery);
     props.setSearchQuery(articleQuery);
+  }
+
+  const [searchValue, setSearchValue] = useState('');
+
+  let handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  }
+
+  let handleSearchKeyUp = (e: any) => {
+    if(e.key === 'Enter') {
+      props.setSearchQuery(new ArticleQuery('search', searchValue));
+      e.target.value = '';
+    }
   }
 
   // For logging out :)
@@ -286,6 +295,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap
           component={Link} to={'/dashboard'}
+          onClick={() => {props.setSearchQuery(undefined)}}
           >
             DeltaForce News
           </Typography>
@@ -299,6 +309,8 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              onKeyUp={handleSearchKeyUp}
+              onChange={handleSearchChange}
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
@@ -336,8 +348,10 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
               Saved Topics
           </Typography>
         <Divider />
+        {props.currentUser?
+        <>
         <List>
-          {userFaves? userFaves.map((text, index) => (
+          {userFaves?.map((text, index) => (
             <>
               <ListItem button onClick={() =>{setQuery('search',`${text}`)}} key={index}>
                 <ListItemText primary={text} />
@@ -346,10 +360,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
                 </ListItemSecondaryAction>
               </ListItem>
             </>
-          ))
-          : 
-          <Typography variant="subtitle2" align="center">Sign in to access saved topics!</Typography>
-          }
+          ))}
         </List>
         <TextField id="topic-input" label="New Favorite" name="topic" type="text" onChange={handleChange}/>
           <br/>
@@ -361,6 +372,14 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
             size="small"
             >Add Favorite</Button>
             <br/>
+            </>
+            :
+            <>
+              <br/>
+                <Typography variant="subtitle2" align="center">Sign in to access saved topics!</Typography>
+              <br/>
+            </>
+            }
         <Divider />
           <Typography variant='h6' align='center'>
               Top Articles
