@@ -81,34 +81,47 @@ function EditEmailComponent (props: IProfile){
                 <TextField
                     id='standard-read-only-input'
                     label='Current Email'
+                    style={{pointerEvents: 'none'}}
                     className={classes.profileEntry}
                     value={props.userInfo.email}
-                    onChange={handleChange}
                 />
                 
                 <br/><br/>
+
+                <TextField
+                    id='standard-input'
+                    label='New Email*'
+                    name='newEmail'
+                    className={classes.profileEntry}
+                    onChange={handleChange}
+                />
+
+                <br/><br/>
                 
-                <TextField id='password' className={classes.profileEntry} label="Password" name="password" type="password" onChange={handleChange}/>
+                <TextField id='standard-password-input-required' className={classes.profileEntry} label="Password*" name="password" type="password" onChange={handleChange}/>
                 
                 <br/><br/>
 
                 <br/><br/>
 
-                <Button
-                    id="edit-button"
-                    onClick={name}
-                    variant="contained"
-                    color="primary"
-                    size="medium">Save</Button>
+                <div style={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
+                    <Button
+                        style={{marginRight: '20px'}}
+                        id="edit-button"
+                        onClick={name}
+                        variant="contained"
+                        color="primary"
+                        size="medium">Submit</Button>
 
-                <br/><br/>
+                    <br/><br/>
 
-                <Button
-                    id="edit-button"
-                    onClick={handleGoBack}
-                    variant="contained"
-                    color="primary"
-                    size="medium">back</Button>
+                    <Button
+                        id="edit-button"
+                        onClick={handleGoBack}
+                        variant="contained"
+                        color="primary"
+                        size="medium">back</Button>
+                </div>
 
                 <br/><br/>
 

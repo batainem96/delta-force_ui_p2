@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
 
-import {Button, FormControl, Input, InputLabel, makeStyles, Typography} from "@material-ui/core";
+import {Button, Container, FormControl, Input, InputLabel, makeStyles, Typography} from "@material-ui/core";
 
 import ErrorMessageComponent from "./ErrorMessageComponent";
 import {Principal} from "../dtos/principal";
@@ -17,6 +17,10 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         textAlign: 'center',
         marginTop: '3rem',
+    },
+
+    registerEntry: {
+        marginBottom: '20px'
     }
 });
 
@@ -34,6 +38,11 @@ function RegisterComponent(props: IRegisterProps) {
     });
 
     const [errorMessage, setErrorMessage] = useState('');
+    const [firstError, setFirstError] = useState(false);
+    const [lastError, setLastError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [usernameError, setUsernameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     let handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -41,14 +50,22 @@ function RegisterComponent(props: IRegisterProps) {
     }
 
     let isFormValid = () => {
+
+        setFirstError(formData.firstName? false : true);
+        setLastError(formData.lastName? false : true);
+        setEmailError(formData.email? false : true);
+        setUsernameError(formData.username? false : true);
+        setPasswordError(formData.password? false : true);
+
+        let isValid = true;
         for (let field in formData) {
             // TODO: Make TypeScript behave.
             //@ts-ignore
             if (!formData[field]) {
-                return false;
+                isValid = false;
             }
         }
-        return true;
+        return isValid;
     }
 
     let register = async () => {
@@ -74,14 +91,20 @@ function RegisterComponent(props: IRegisterProps) {
 
         props.currentUser ? <Redirect to="/dashboard"/> :
 
-            <div id="register-component" className={classes.registerContainer}>
+            <Container fixed maxWidth="sm" id="register-component" className={classes.registerContainer}>
                 <Typography align="center" variant="h4">Register for a DeltaForce News Account!</Typography>
-                <TextField id='firstName' label="First Name" name="firstName" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='lastName' label="Last Name" name="lastName" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='email' label="Email" name="email" type="email" onChange={handleChange}/> <br/><br/>
-                <TextField id='username' label="Username" name="username" type="text" onChange={handleChange}/> <br/><br/>
-                <TextField id='password' label="Password" name="password" type="password" onChange={handleChange}/> <br/><br/>
+
                 <br/><br/>
+
+                <div style={{display:"flex", justifyContent:"space-between", marginLeft:"20px", marginRight:"20px", marginBottom:"20px"}}>
+                    <TextField error={firstError} id='firstName' label="First Name*" name="firstName" variant="outlined" onChange={handleChange}/>
+                    <TextField error={lastError} id='lastName' label="Last Name*" name="lastName" variant="outlined" onChange={handleChange}/>
+                </div>
+                <div style={{display:"flex", flexDirection:"column", alignContent:"space-evenly", marginLeft:"20px", marginRight: "20px"}}>
+                    <TextField error={emailError} id='email' label="Email*" name="email" variant="outlined" onChange={handleChange} className={classes.registerEntry}/>
+                    <TextField error={usernameError} id='username' label="Username*" name="username" variant="outlined" onChange={handleChange} className={classes.registerEntry}/>
+                    <TextField error={passwordError} id='password' label="Password*" name="password" variant="outlined" onChange={handleChange} className={classes.registerEntry}/>
+                </div>
 
                 <Button
                     id="register-button"
@@ -94,7 +117,7 @@ function RegisterComponent(props: IRegisterProps) {
 
                 { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }
 
-            </div>
+            </Container>
 
     );
 
