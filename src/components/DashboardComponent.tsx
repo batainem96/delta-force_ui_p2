@@ -36,6 +36,8 @@ function DashboardComponent(props: IDashboardProps) {
             if(!props.searchQuery || props.searchQuery.query === '') {
                 getPopularArticles().then(articles => {
                     setData(articles);
+                }).catch((e: any) => {
+                    console.log(e);
                 });
                 return () => {
                     setData([]);
@@ -43,6 +45,8 @@ function DashboardComponent(props: IDashboardProps) {
             } else {
                 getArticles(props.searchQuery.queryType, props.searchQuery.query).then(articles => {
                     setData(articles);
+                }).catch((e: any) => {
+                    console.log(e);
                 });
                 return () => {
                     setData([]);

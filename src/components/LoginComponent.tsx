@@ -1,6 +1,6 @@
 import { Button, makeStyles, TextField, Typography } from "@material-ui/core";
 import { useState } from "react";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import {Principal} from "../dtos/principal";
 import {authenticate} from "../remote/auth-service";
 import ErrorMessageComponent from "./ErrorMessageComponent";
@@ -56,19 +56,26 @@ function LoginComponent(props: ILoginProps){
         }
     }
 
+    const history = useHistory();
+
+    let navToRegister = () => {
+        history.push('/register');
+    }
+
     return(
         props.currentUser ? <Redirect to="/"/> :
         <>
             <div className={classes.loginContainer} color="inherit">
                 <Typography align="center" variant="h4">Login</Typography>
+                <br/>
                 <TextField id="username-input" label="Username" name="username" type="text" onChange={handleChange} onKeyUp={handleKeyUp} autoFocus/>
                 <br/>
+                <br/>
                 <TextField id="password-input" label="Password" name="password" type="password" onChange={handleChange} onKeyUp={handleKeyUp}/>
+                <br/>
                 <br/><br/>
                 <Button id="login-bt" variant="contained" color="primary" onClick={login}>Login</Button>
-                <br /><br />
-                <p>No account yet?</p>
-                <Button id="register-bt" variant="contained" color="primary" href="/register">Register!</Button>
+                <p>No account yet?<span style={{color:"#0000EE", cursor:"pointer", textDecoration:"underline"}} onClick={navToRegister}> Sign Up</span></p>
             </div>
             <br/>
             { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }

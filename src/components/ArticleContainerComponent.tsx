@@ -124,9 +124,7 @@ function ArticleContainerComponent(articles: IArticles) {
                 </div>
                 <div className={classes.articleFooter}>
                     <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
-                    {
-                    !isCommentsOpen
-                    ?
+                    
                     <div>
                         <Button onClick={() => like(articles.currentUser, element.id)}>
                             <img src='./outline_thumb_up_black_24dp.png' alt='Like'/>
@@ -141,9 +139,7 @@ function ArticleContainerComponent(articles: IArticles) {
                             <span id={commentsId}>{numComments}</span>
                         </Button>
                     </div>
-                    :
-                    null
-                    }
+                    
                 </div>
             </Container>   
         );
