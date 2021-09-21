@@ -13,5 +13,4 @@ export class RegisterUserRequest {
         this.username = un;
         this.password = pw;
     }
-
 }

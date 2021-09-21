@@ -9,5 +9,4 @@ export class CommentDTO {
         this.username = username;
         this.content = content;
     }
-    
 }

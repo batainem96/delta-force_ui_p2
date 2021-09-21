@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Container from '@material-ui/core/Container';
-
-import { Article } from '../dtos/article';
-import { Button, makeStyles } from "@material-ui/core";
-import { Principal } from "../dtos/principal";
-import { dislikeArticle, likeArticle } from "../remote/article-service";
-import { Comment } from "../dtos/comment";
+import {Article} from '../dtos/article';
+import {Button, makeStyles} from "@material-ui/core";
+import {Principal} from "../dtos/principal";
+import {dislikeArticle, likeArticle} from "../remote/article-service";
+import {Comment} from "../dtos/comment";
 import CommentsComponent from "./CommentsComponent";
-
-import { getAge } from "../functions/get-age";
+import {getAge} from "../functions/get-age";
 
 interface IArticles {
     currentUser: Principal | undefined;
@@ -28,8 +26,12 @@ function ArticleContainerComponent(articles: IArticles) {
 
     let containers: JSX.Element[] = [];
 
-    useEffect( () => {
-        articles.article.filter(article => { if(article.id === artId) { article.comments = comments } });
+    useEffect(() => {
+        articles.article.filter(article => {
+            if (article.id === artId) {
+                article.comments = comments
+            }
+        });
     }, [comments]);
 
     // like function
@@ -53,7 +55,6 @@ function ArticleContainerComponent(articles: IArticles) {
             if (dislikeCountElement !== null) {
                 dislikeCountElement.innerText = resp.dislikes.length;
             }
-
         } catch (e: any) {
             console.log(e);
         }
@@ -69,7 +70,7 @@ function ArticleContainerComponent(articles: IArticles) {
 
         try {
             let resp = await dislikeArticle({username: currentUser.username}, articleId);
-            
+
             let likeCountId = "likes" + articleId;
             let likeCountElement: HTMLElement | null = document.getElementById(`${likeCountId}`);
             if (likeCountElement !== null) {
@@ -81,34 +82,30 @@ function ArticleContainerComponent(articles: IArticles) {
             if (dislikeCountElement !== null) {
                 dislikeCountElement.innerText = resp.dislikes.length;
             }
-
         } catch (e: any) {
             console.log(e);
         }
     }
 
     function openComments(artComments: Comment[], id: string) {
-        if(!isCommentsOpen) {
-
+        if (!isCommentsOpen) {
             setArtId(id);
             setComments(artComments);
             setCommentsOpen(true);
-            
         }
     }
 
     articles.article.forEach(element => {
         let likes: number = (element?.likes?.length !== undefined) ? element.likes.length : 0;
         let dislikes: number = (element?.dislikes?.length !== undefined) ? element.dislikes.length : 0;
-        var numComments: number = (element?.comments?.length !== undefined) ? element.comments.length : 0;
-        
+        let numComments: number = (element?.comments?.length !== undefined) ? element.comments.length : 0;
+
         let likesId = "likes" + element.id;
         let dislikesId = "dislikes" + element.id;
-        var commentsId = "comments" + element.id;
-
+        let commentsId = "comments" + element.id;
 
         let oldDate = new Date(element.publishedAt);
-        let artComments = element.comments? element.comments : [];
+        let artComments = element.comments ? element.comments : [];
         containers.push(
             <Container fixed maxWidth='sm' className={classes.articleContainer}>
                 <div className={classes.articleHeader}>
@@ -124,7 +121,7 @@ function ArticleContainerComponent(articles: IArticles) {
                 </div>
                 <div className={classes.articleFooter}>
                     <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
-                    
+
                     <div>
                         <Button onClick={() => like(articles.currentUser, element.id)}>
                             <img src='./outline_thumb_up_black_24dp.png' alt='Like'/>
@@ -135,27 +132,27 @@ function ArticleContainerComponent(articles: IArticles) {
                             <span id={dislikesId}>{dislikes}</span>
                         </Button>
 
-                        <Button onClick={() => openComments(artComments, element.id)}><img src='./outline_chat_black_24dp.png' alt='Comment'/>
+                        <Button onClick={() => openComments(artComments, element.id)}><img
+                            src='./outline_chat_black_24dp.png' alt='Comment'/>
                             <span id={commentsId}>{numComments}</span>
                         </Button>
                     </div>
-                    
                 </div>
-            </Container>   
+            </Container>
         );
-
     });
+
     return (
         <>
-            { 
-            isCommentsOpen 
-            ? 
-            <CommentsComponent currentUser={articles.currentUser} comments={comments} setCommentsOpen={setCommentsOpen} id={artId} setComments={setComments} />
-            :
-            null
+            {
+                isCommentsOpen
+                    ?
+                    <CommentsComponent currentUser={articles.currentUser} comments={comments}
+                                       setCommentsOpen={setCommentsOpen} id={artId} setComments={setComments}/>
+                    :
+                    null
             }
             {containers}
-            
         </>
     );
 }
@@ -165,10 +162,10 @@ export default ArticleContainerComponent;
 // Remove the source at the end of the title (follows a dash)
 function trimTitle(title: string | null): string {
     let result = '';
-    if(title) {
+    if (title) {
         let titleSplit = title.split('-');
         result = titleSplit[0];
-        for(let i = 1; i < titleSplit.length-1; i++) { // Put non-closing dashes back in the string
+        for (let i = 1; i < titleSplit.length - 1; i++) { // Put non-closing dashes back in the string
             result += '-' + titleSplit[i];
         }
     }
@@ -179,10 +176,10 @@ function trimTitle(title: string | null): string {
 function trimContent(content: string | null): string {
     return (
         content
-        ?
-        content.split("…")[0] + '...'
-        :
-        ''
+            ?
+            content.split("…")[0] + '...'
+            :
+            ''
     );
 }
 
@@ -206,7 +203,6 @@ const useStyles = makeStyles({
         padding: '1.5rem',
         marginTop: '1rem',
         transition: 'all .5s ease-in-out',
-
         '&:hover': {
             transform: `${transform}`
         }

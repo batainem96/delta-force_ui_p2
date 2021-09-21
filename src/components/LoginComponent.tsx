@@ -1,5 +1,5 @@
-import { Button, makeStyles, TextField, Typography } from "@material-ui/core";
-import { useState } from "react";
+import {Button, makeStyles, TextField, Typography} from "@material-ui/core";
+import {useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
 import {Principal} from "../dtos/principal";
 import {authenticate} from "../remote/auth-service";
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     }
 });
 
-function LoginComponent(props: ILoginProps){
+function LoginComponent(props: ILoginProps) {
 
     const classes = useStyles();
 
@@ -29,29 +29,28 @@ function LoginComponent(props: ILoginProps){
 
     const [errorMessage, setErrorMessage] = useState('');
 
-    let handleChange = (e : any) => {
-        const { name, value } = e.target;
-        setFormData({...formData, [name] : value});
+    let handleChange = (e: any) => {
+        const {name, value} = e.target;
+        setFormData({...formData, [name]: value});
     }
 
-    let handleKeyUp = (e : any) => {
-        if(e.key === 'Enter') {
+    let handleKeyUp = (e: any) => {
+        if (e.key === 'Enter') {
             login();
         }
     }
 
     async function login() {
-
         if (!formData.username || !formData.password) {
             setErrorMessage('You need to provide a username and password');
             return;
         }
 
-        try{
-            let principal = await authenticate({username : formData.username, password : formData.password});
+        try {
+            let principal = await authenticate({username: formData.username, password: formData.password});
             console.log(principal);
             props.setCurrentUser(principal);
-        }catch (e : any){
+        } catch (e: any) {
             setErrorMessage(e.message);
         }
     }
@@ -62,26 +61,28 @@ function LoginComponent(props: ILoginProps){
         history.push('/register');
     }
 
-    return(
+    return (
         props.currentUser ? <Redirect to="/"/> :
-        <>
-            <div className={classes.loginContainer} color="inherit">
-                <Typography align="center" variant="h4">Login</Typography>
+            <>
+                <div className={classes.loginContainer} color="inherit">
+                    <Typography align="center" variant="h4">Login</Typography>
+                    <br/>
+                    <TextField id="username-input" label="Username" name="username" type="text" onChange={handleChange}
+                               onKeyUp={handleKeyUp} autoFocus/>
+                    <br/>
+                    <br/>
+                    <TextField id="password-input" label="Password" name="password" type="password"
+                               onChange={handleChange} onKeyUp={handleKeyUp}/>
+                    <br/>
+                    <br/><br/>
+                    <Button id="login-bt" variant="contained" color="primary" onClick={login}>Login</Button>
+                    <p>No account yet?<span style={{color: "#0000EE", cursor: "pointer", textDecoration: "underline"}}
+                                            onClick={navToRegister}> Sign Up</span></p>
+                </div>
                 <br/>
-                <TextField id="username-input" label="Username" name="username" type="text" onChange={handleChange} onKeyUp={handleKeyUp} autoFocus/>
-                <br/>
-                <br/>
-                <TextField id="password-input" label="Password" name="password" type="password" onChange={handleChange} onKeyUp={handleKeyUp}/>
-                <br/>
-                <br/><br/>
-                <Button id="login-bt" variant="contained" color="primary" onClick={login}>Login</Button>
-                <p>No account yet?<span style={{color:"#0000EE", cursor:"pointer", textDecoration:"underline"}} onClick={navToRegister}> Sign Up</span></p>
-            </div>
-            <br/>
-            { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }
-        </>
+                {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
+            </>
     );
-
 }
 
 export default LoginComponent;

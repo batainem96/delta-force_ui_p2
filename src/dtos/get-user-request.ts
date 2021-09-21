@@ -13,5 +13,4 @@ export class GetUserRequest {
         this.email = email;
         this.username = un;
     }
-
 }

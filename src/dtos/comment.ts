@@ -9,5 +9,4 @@ export class Comment {
         this.content = content;
         this.timePosted = timePosted;
     }
-    
 }
