@@ -46,13 +46,12 @@ function LoginComponent(props: ILoginProps) {
             return;
         }
 
-        try {
-            let principal = await authenticate({username: formData.username, password: formData.password});
-            console.log(principal);
+        try{
+            let principal = await authenticate({username : formData.username, password : formData.password});
             props.setCurrentUser(principal);
-        } catch (e: any) {
-            setErrorMessage(e.message);
-        }
+        } catch (error: any) {
+            setErrorMessage(error.message);
+        };
     }
 
     const history = useHistory();
