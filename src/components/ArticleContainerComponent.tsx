@@ -107,7 +107,7 @@ function ArticleContainerComponent(articles: IArticles) {
         let oldDate = new Date(element.publishedAt);
         let artComments = element.comments ? element.comments : [];
         containers.push(
-            <Container fixed maxWidth='sm' className={classes.articleContainer}>
+            <Container fixed maxWidth='sm' key={element.id} className={classes.articleContainer}>
                 <div className={classes.articleHeader}>
                     <p className={classes.headerSource}>{element.source.name}</p>
                     <p className={classes.headerDivider}>|</p>

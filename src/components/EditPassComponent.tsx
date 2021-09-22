@@ -4,6 +4,8 @@ import {useState} from "react";
 import {Principal} from "../dtos/principal";
 import {updatePass} from "../remote/user-service";
 import {useHistory} from "react-router-dom";
+import SuccessMessageComponent from "./SuccessMessageComponent";
+import ErrorMessageComponent from "./ErrorMessageComponent";
 
 interface IProfile {
     currentUser: Principal | undefined
@@ -44,6 +46,9 @@ function EditPassComponent(props: IProfile) {
         password: ''
     });
 
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
     const [confirmPassword, setConfirmPassword] = useState('');
 
     let handleChange = (e: any) => {
@@ -55,16 +60,37 @@ function EditPassComponent(props: IProfile) {
         setConfirmPassword(e.target.value);
     }
 
-    let name = async () => {
-        if (confirmPassword === formData.newPassword) {
+    let handleKeyUp = (e: any) => {
+        if(e.key === 'Enter') {
+            updateNewPassword();
+        }
+    }
+
+    let updateNewPassword = async () => {
+        if (!formData.password || !formData.newPassword || !confirmPassword) {
+            setErrorMessage('Password fields cannot be blank!')
+        } else if (confirmPassword !== formData.newPassword) {
+            setErrorMessage('New password fields must match!')
+        } else {
             try {
                 await updatePass(formData);
+                setSuccessMessage('Password successfully updated!')
+                setErrorMessage('');
+                await sleep(800);
+                handleGoBack();
             } catch (e) {
-                console.log(e);
+                if(e === 400) {
+                    setErrorMessage('New password is not valid!');
+                } else if(e === 401) {
+                    setErrorMessage('Password was incorrect!')
+                }
+                setSuccessMessage('');
             }
-        } else {
-            console.log('Passwords did not match.')
         }
+    }
+
+    const sleep = (milliseconds: number) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
     const handleGoBack = () => {
@@ -78,17 +104,17 @@ function EditPassComponent(props: IProfile) {
                 <Typography align="center" variant="h4">Edit Password</Typography>
                 <br/><br/>
                 <TextField id='password' label="Current Password*" name="password" type="password"
-                           onChange={handleChange}/> <br/><br/>
+                           onChange={handleChange} onKeyUp={handleKeyUp}/> <br/><br/>
                 <TextField id='newPassword' label="New Password*" name="newPassword" type="password"
-                           onChange={handleChange}/> <br/><br/>
-                <TextField id='newPassword' label="Confirm Password*" name="confirmPassword" type="password"
-                           onChange={handleChangeConfirm}/> <br/><br/>
+                           onChange={handleChange} onKeyUp={handleKeyUp}/> <br/><br/>
+                <TextField id='newPassword' label="Confirm New Password*" name="confirmPassword" type="password"
+                           onChange={handleChangeConfirm} onKeyUp={handleKeyUp}/> <br/><br/>
                 <br/><br/>
                 <div style={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
                     <Button
                         style={{marginRight: '20px'}}
                         id="edit-button"
-                        onClick={name}
+                        onClick={updateNewPassword}
                         variant="contained"
                         color="primary"
                         size="medium">Submit</Button>
@@ -100,7 +126,11 @@ function EditPassComponent(props: IProfile) {
                         color="primary"
                         size="medium">back</Button>
                 </div>
-                <br/><br/>
+                
+                <br/>
+                {successMessage ? <SuccessMessageComponent successMessage={successMessage}/> : <></>}
+                {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
+                <br/>
             </Container>
         </>
     );

@@ -4,6 +4,8 @@ import {useState} from "react";
 import {Principal} from "../dtos/principal";
 import {updateUsername} from "../remote/user-service";
 import {useHistory} from "react-router-dom";
+import SuccessMessageComponent from "./SuccessMessageComponent";
+import ErrorMessageComponent from "./ErrorMessageComponent";
 
 interface IProfile {
     currentUser: Principal | undefined
@@ -44,17 +46,47 @@ function EditUsernameComponent(props: IProfile) {
         password: ''
     });
 
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
     let handleChange = (e: any) => {
         const {name, value} = e.target;
         setFormData({...formData, [name]: value});
     }
 
-    let name = async () => {
-        try {
-            await updateUsername(formData);
-        } catch (e) {
-            console.log(e);
+    let handleKeyUp = (e: any) => {
+        if(e.key === 'Enter') {
+            updateNewUsername();
         }
+    }
+
+    let updateNewUsername = async () => {
+        if(!formData.newUsername) {
+            setErrorMessage('Username field required!');
+        } else if(!formData.password) {
+            setErrorMessage('Password is empty!');
+        } else {
+            try {
+                await updateUsername(formData);
+                setSuccessMessage('Username successfully updated!')
+                setErrorMessage('');
+                await sleep(800);
+                handleGoBack();
+            } catch (e) {
+                if(e === 400) {
+                    setErrorMessage('Username is not valid!');
+                } else if(e === 401) {
+                    setErrorMessage('Password incorrect!')
+                } else if(e === 409) {
+                    setErrorMessage('Username is already in use!')
+                }
+                setSuccessMessage('');
+            }
+        }
+    }
+
+    const sleep = (milliseconds: number) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
     const handleGoBack = () => {
@@ -73,19 +105,19 @@ function EditUsernameComponent(props: IProfile) {
                            value={props.userInfo.username}/>
                 <br/><br/>
                 <TextField id='newUsername' label="New Username*" name="newUsername" type="text"
-                           onChange={handleChange}/> <br/><br/>
+                           onChange={handleChange} onKeyUp={handleKeyUp}/> <br/><br/>
                 <input name="fakeusernameremembered" type="text"
                        style={{display: 'none'}}/> {/* Hacky solution for browser credential fill */}
                 <input name="fakepasswordremembered" type="password"
                        style={{display: 'none'}}/> {/* -------------------------------------- */}
-                <TextField id='password' label="Password*" name="password" type="password" onChange={handleChange}/>
+                <TextField id='password' label="Password*" name="password" type="password" onChange={handleChange} onKeyUp={handleKeyUp}/>
                 <br/><br/>
                 <br/><br/>
                 <div style={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
                     <Button
                         style={{marginRight: '20px'}}
                         id="edit-button"
-                        onClick={name}
+                        onClick={updateNewUsername}
                         variant="contained"
                         color="primary"
                         size="medium">Submit</Button>
@@ -97,7 +129,11 @@ function EditUsernameComponent(props: IProfile) {
                         color="primary"
                         size="medium">back</Button>
                 </div>
-                <br/><br/>
+                
+                <br/>
+                {successMessage ? <SuccessMessageComponent successMessage={successMessage}/> : <></>}
+                {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
+                <br/>
             </Container>
         </>
     );

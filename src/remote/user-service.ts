@@ -22,19 +22,95 @@ export const registerNewUser = async (newUser: RegisterUserRequest) => {
 
 
 export const updateName = async (newName: UserNewNameRequest) => {
-    let resp = await deltaforceClient.put('/user/edit/userinfo', newName);
+    return deltaforceClient.put('/user/edit/userinfo', newName)
+        .then((resp) => {
+            return resp.data;
+        })
+        .catch(function (error) {
+            if (error.response) {
+                // Request made and server responded
+                // throw(error.response.data);
+                throw(error.response.status);
+
+            } else if (error.request) {
+                // The request was made but no response was received
+                // console.log(error.request);
+
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                // console.log('Error', error.message);
+
+            }
+        });
 };
 
 export const updateEmail = async (newEmail: UserNewEmailRequest) => {
-    let resp = await deltaforceClient.put('/user/edit/email', newEmail);
+    return deltaforceClient.put('/user/edit/email', newEmail)
+        .then((resp) => {
+            return resp.data;
+        })
+        .catch(function (error) {
+            if (error.response) {
+                // Request made and server responded
+                // throw(error.response.data);
+                throw(error.response.status);
+
+            } else if (error.request) {
+                // The request was made but no response was received
+                // console.log(error.request);
+
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                // console.log('Error', error.message);
+
+            }
+        });
 };
 
 export const updateUsername = async (newUsername: UserNewUsernameRequest) => {
-    let resp = await deltaforceClient.put('/user/edit/username', newUsername);
+    return deltaforceClient.put('/user/edit/username', newUsername)
+        .then((resp) => {
+            return resp.data;
+        })
+        .catch(function (error) {
+            if (error.response) {
+                // Request made and server responded
+                // throw(error.response.data);
+                throw(error.response.status);
+
+            } else if (error.request) {
+                // The request was made but no response was received
+                // console.log(error.request);
+
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                // console.log('Error', error.message);
+
+            }
+        });
 };
 
 export const updatePass = async (newPass: UserNewPassRequest) => {
-    let resp = await deltaforceClient.put('/user/edit/password', newPass);
+    return deltaforceClient.put('/user/edit/password', newPass)
+        .then((resp) => {
+            return resp.data;
+        })
+        .catch(function (error) {
+            if (error.response) {
+                // Request made and server responded
+                // throw(error.response.data);
+                throw(error.response.status);
+
+            } else if (error.request) {
+                // The request was made but no response was received
+                // console.log(error.request);
+
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                // console.log('Error', error.message);
+
+            }
+        });
 };
 
 export const banUser = async (username: string) => {

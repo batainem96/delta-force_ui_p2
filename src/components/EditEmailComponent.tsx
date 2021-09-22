@@ -4,6 +4,9 @@ import {useState} from "react";
 import {Principal} from "../dtos/principal";
 import {updateEmail} from "../remote/user-service";
 import {useHistory} from "react-router-dom";
+import SuccessMessageComponent from "./SuccessMessageComponent";
+import ErrorMessageComponent from "./ErrorMessageComponent";
+import { sleep } from "react-query/types/core/utils";
 
 interface IProfile {
     currentUser: Principal | undefined,
@@ -46,18 +49,48 @@ function EditEmailComponent(props: IProfile) {
         password: ''
     });
 
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
     let handleChange = (e: any) => {
         const {name, value} = e.target;
         setFormData({...formData, [name]: value});
     }
 
-
-    let name = async () => {
-        try {
-            await updateEmail(formData);
-        } catch (e) {
-            console.log(e);
+    let handleKeyUp = (e: any) => {
+        if(e.key === 'Enter') {
+            updateNewEmail();
         }
+    }
+
+
+    let updateNewEmail = async () => {
+        if(!formData.newEmail) {
+            setErrorMessage('Email field required!');
+        } else if(!formData.password) {
+            setErrorMessage('Password is empty!');
+        } else {
+            try {
+                await updateEmail(formData);
+                setSuccessMessage('Email successfully updated!')
+                setErrorMessage('');
+                await sleep(800);
+                handleGoBack();
+            } catch (e) {
+                if(e === 400) {
+                    setErrorMessage('Email is not valid!');
+                } else if(e === 401) {
+                    setErrorMessage('Password incorrect!')
+                } else if(e === 409) {
+                    setErrorMessage('Email is already in use!')
+                }
+                setSuccessMessage('');
+            }
+        }
+    }
+
+    const sleep = (milliseconds: number) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
     const handleGoBack = () => {
@@ -84,17 +117,18 @@ function EditEmailComponent(props: IProfile) {
                     name='newEmail'
                     className={classes.profileEntry}
                     onChange={handleChange}
+                    onKeyUp={handleKeyUp}
                 />
                 <br/><br/>
                 <TextField id='standard-password-input-required' className={classes.profileEntry} label="Password*"
-                           name="password" type="password" onChange={handleChange}/>
+                           name="password" type="password" onChange={handleChange} onKeyUp={handleKeyUp}/>
                 <br/><br/>
                 <br/><br/>
                 <div style={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
                     <Button
                         style={{marginRight: '20px'}}
                         id="edit-button"
-                        onClick={name}
+                        onClick={updateNewEmail}
                         variant="contained"
                         color="primary"
                         size="medium">Submit</Button>
@@ -106,7 +140,11 @@ function EditEmailComponent(props: IProfile) {
                         color="primary"
                         size="medium">back</Button>
                 </div>
-                <br/><br/>
+
+                <br/>
+                {successMessage ? <SuccessMessageComponent successMessage={successMessage}/> : <></>}
+                {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
+                <br/>
             </Container>
         </>
     );

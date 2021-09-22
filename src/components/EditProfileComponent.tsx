@@ -4,6 +4,9 @@ import {useState} from "react";
 import {Principal} from "../dtos/principal";
 import {updateName} from "../remote/user-service";
 import {useHistory} from "react-router-dom";
+import SuccessMessageComponent from "./SuccessMessageComponent";
+import ErrorMessageComponent from "./ErrorMessageComponent";
+import WarningMessageComponent from "./WarningMessageComponent";
 
 interface IEditProfile {
     currentUser: Principal | undefined,
@@ -44,17 +47,51 @@ function EditProfileComponent(props: IEditProfile) {
         password: ''
     });
 
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [warningMessage, setWarningMessage] = useState('');
+
     let handleChange = (e: any) => {
         const {name, value} = e.target;
         setFormData({...formData, [name]: value});
     }
 
-    let name = async () => {
-        try {
-            await updateName(formData);
-        } catch (error) {
-            console.log(error);
+    let handleKeyUp = (e: any) => {
+        if(e.key === 'Enter') {
+            updateNewInfo();
         }
+    }
+
+    let updateNewInfo = async () => {
+
+        setErrorMessage('');
+        setWarningMessage('');
+        setSuccessMessage('');
+
+        if(!formData.newFirstName || !formData.newLastName) {
+            setErrorMessage('Name fields cannot be blank!');
+        } else if(!formData.password) {
+            setErrorMessage('Password field cannot be blank!');
+        } else if(formData.newFirstName === props.userInfo.firstName && formData.newLastName === props.userInfo.lastName) {
+            setWarningMessage('You haven\'t changed your information.')
+        } else {
+            try {
+                await updateName(formData);
+                setSuccessMessage('Information successfully updated!')
+                await sleep(800);
+                handleGoBack();
+            } catch (e) {
+                if(e === 400) {
+                    setErrorMessage('Inputted information is not valid!');
+                } else if(e === 401) {
+                    setErrorMessage('Password was incorrect!')
+                }
+            }
+        }
+    }
+
+    const sleep = (milliseconds: number) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
     const handleGoBack = () => {
@@ -68,17 +105,17 @@ function EditProfileComponent(props: IEditProfile) {
                 <Typography align="center" variant="h4">Edit Name</Typography>
                 <br/><br/>
                 <TextField id='newFirstName' label="First Name" name="newFirstName" type="text"
-                           defaultValue={props.userInfo.firstName} onChange={handleChange}/> <br/><br/>
+                           defaultValue={props.userInfo.firstName} onChange={handleChange} onKeyUp={handleKeyUp}/> <br/><br/>
                 <TextField id='newLastName' label="Last Name" name="newLastName" type="text"
-                           defaultValue={props.userInfo.lastName} onChange={handleChange}/> <br/><br/>
-                <TextField id='password' label="Password" name="password" type="password" onChange={handleChange}/>
+                           defaultValue={props.userInfo.lastName} onChange={handleChange} onKeyUp={handleKeyUp}/> <br/><br/>
+                <TextField id='password' label="Password" name="password" type="password" onChange={handleChange} onKeyUp={handleKeyUp}/>
                 <br/><br/>
                 <br/><br/>
                 <div style={{display: 'flex', justifyContent: 'flex-end', width: '100%'}}>
                     <Button
                         style={{marginRight: '20px'}}
                         id="edit-button"
-                        onClick={name}
+                        onClick={updateNewInfo}
                         variant="contained"
                         color="primary"
                         size="medium">Submit</Button>
@@ -90,7 +127,12 @@ function EditProfileComponent(props: IEditProfile) {
                         color="primary"
                         size="medium">back</Button>
                 </div>
-                <br/><br/>
+
+                <br/>
+                {successMessage ? <SuccessMessageComponent successMessage={successMessage}/> : <></>}
+                {warningMessage ? <WarningMessageComponent warnMessage={warningMessage}/> : <></>}
+                {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
+                <br/>
             </Container>
         </>
     );
