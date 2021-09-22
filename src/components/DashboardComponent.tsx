@@ -37,7 +37,7 @@ function DashboardComponent(props: IDashboardProps) {
                 getPopularArticles().then(articles => {
                     setData(articles);
                 }).catch((e: any) => {
-                    console.log(e);
+                    // console.log(e);
                 });
                 return () => {
                     setData([]);
@@ -46,7 +46,7 @@ function DashboardComponent(props: IDashboardProps) {
                 getArticles(props.searchQuery.queryType, props.searchQuery.query).then(articles => {
                     setData(articles);
                 }).catch((e: any) => {
-                    console.log(e);
+                    // console.log(e);
                 });
                 return () => {
                     setData([]);
@@ -62,15 +62,16 @@ function DashboardComponent(props: IDashboardProps) {
         !props.currentUser
             ?
             <>
-                <Container className={classes.welcomeContainer}>
+                <Container fixed maxWidth="md" className={classes.welcomeContainer}>
                     <Typography variant="h4">
                         Welcome to DeltaForce News!
                     </Typography>
                     <br/>
                     <img
-                        src='https://listimg.pinclipart.com/picdir/s/566-5666099_transparent-delta-symbol-png-delta-greek-letter-png.png'
-                        alt='logo'/>
-                    <br/>
+                        src='delta-symbol.png'
+                        alt='logo'
+                        width='500rem'/>
+                    <br/><br/>
                     <Typography variant="subtitle1">
                         Log in or register now to begin setting up your very own personalized News Feed!
                     </Typography>
