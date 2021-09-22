@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/styles";
 import {useState} from "react";
 import {Principal} from "../dtos/principal";
 import {updateUsername} from "../remote/user-service";
-import {useHistory} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import SuccessMessageComponent from "./SuccessMessageComponent";
 import ErrorMessageComponent from "./ErrorMessageComponent";
 
@@ -95,6 +95,7 @@ function EditUsernameComponent(props: IProfile) {
 
     return (
         <>
+            {props.currentUser ?
             <Container fixed maxWidth='sm' id="edit-profile" className={classes.profileContainer}>
                 <br/>
                 <Typography align="center" variant="h4">Edit Username</Typography>
@@ -135,6 +136,9 @@ function EditUsernameComponent(props: IProfile) {
                 {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
                 <br/>
             </Container>
+            :
+            <Redirect to='/'/>
+            }
         </>
     );
 }

@@ -384,8 +384,8 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
                                 </>
                             ))}
                         </List>
-                        <TextField id="topic-input" label="New Favorite" name="topic" type="text"
-                                   onChange={handleChange}/>
+                        <TextField id="topic-input" label="New Favorite" name="topic" type="text" variant='filled' size='small'
+                                   onChange={handleChange} style={{margin: '.5rem .5rem 0 .5rem'}}/>
                         <br/>
                         <Button
                             id="topic-button"
@@ -393,6 +393,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
                             variant="contained"
                             color="primary"
                             size="small"
+                            style={{margin: '.5rem'}}
                         >Add Favorite</Button>
                         <br/>
                     </>

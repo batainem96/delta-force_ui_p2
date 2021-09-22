@@ -2,7 +2,7 @@ import {Button, Container, InputAdornment, TextField, Typography} from "@materia
 import {makeStyles} from "@material-ui/styles";
 import {useEffect} from "react";
 import {Principal} from "../dtos/principal";
-import {useHistory} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import {getUserById} from "../remote/user-service";
 
 interface IUserProfile {
@@ -40,6 +40,7 @@ function UserProfileComponent(props: IUserProfile) {
 
     useEffect(() => {
         getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     let getUsers = async () => {
@@ -69,6 +70,7 @@ function UserProfileComponent(props: IUserProfile) {
 
     return (
         <>
+            {props.currentUser ?
             <Container fixed maxWidth='md' id="register-component" className={classes.profileContainer}>
                 <br/>
                 <Typography align="center" variant="h4">Profile Settings</Typography>
@@ -153,6 +155,9 @@ function UserProfileComponent(props: IUserProfile) {
                 <br/><br/>
                 <br/><br/>
             </Container>
+            :
+            <Redirect to='/'/>
+            }
         </>
     );
 }

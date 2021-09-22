@@ -143,7 +143,6 @@ function CommentsComponent(props: ICommentsProps) {
 export default CommentsComponent;
 
 const BGTINT = 'rgba(0, 0, 0, 0.5)';
-const FAINTGREY = '#9b9b9b';
 const SHADOWGRAY = 'rgba(61,99,140,.08)';
 
 const useStyles = makeStyles({

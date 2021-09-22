@@ -27,11 +27,13 @@ function ArticleContainerComponent(articles: IArticles) {
     let containers: JSX.Element[] = [];
 
     useEffect(() => {
+        // eslint-disable-next-line array-callback-return
         articles.article.filter(article => {
             if (article.id === artId) {
                 article.comments = comments
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [comments]);
 
     // like function
@@ -120,7 +122,8 @@ function ArticleContainerComponent(articles: IArticles) {
                     <img className={classes.bodyImg} src={element.urlToImage} alt=""/>
                 </div>
                 <div className={classes.articleFooter}>
-                    <a className={classes.footerURL} href={element.url} target='_blank'>Read Full Story Here</a>
+                    
+                    <a className={classes.footerURL} href={element.url} target='_blank' rel="noreferrer">Read Full Story Here</a>
 
                     <div>
                         <Button onClick={() => like(articles.currentUser, element.id)}>
@@ -189,7 +192,6 @@ const FAINTGREY = '#9b9b9b';
 const SHADOWGRAY = 'rgba(61,99,140,.08)';
 const HEADERED = '#d34343';
 
-let hover = {'pointerEvents': 'none'};
 let transform = 'scale(1.025)';
 
 const useStyles = makeStyles({

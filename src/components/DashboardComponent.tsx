@@ -55,7 +55,7 @@ function DashboardComponent(props: IDashboardProps) {
         } else {
             return;
         }
-    }, [props.searchQuery]);
+    }, [props.searchQuery, props.currentUser]);
 
     return (
         // If currentUser is undefined or not logged in

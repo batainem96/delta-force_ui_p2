@@ -3,10 +3,9 @@ import {makeStyles} from "@material-ui/styles";
 import {useState} from "react";
 import {Principal} from "../dtos/principal";
 import {updateEmail} from "../remote/user-service";
-import {useHistory} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import SuccessMessageComponent from "./SuccessMessageComponent";
 import ErrorMessageComponent from "./ErrorMessageComponent";
-import { sleep } from "react-query/types/core/utils";
 
 interface IProfile {
     currentUser: Principal | undefined,
@@ -99,6 +98,7 @@ function EditEmailComponent(props: IProfile) {
 
     return (
         <>
+            {props.currentUser ?
             <Container fixed maxWidth='sm' id="edit-profile" className={classes.profileContainer}>
                 <br/>
                 <Typography align="center" variant="h4">Edit Email</Typography>
@@ -146,6 +146,9 @@ function EditEmailComponent(props: IProfile) {
                 {errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></>}
                 <br/>
             </Container>
+            :
+            <Redirect to='/'/>
+            }
         </>
     );
 }

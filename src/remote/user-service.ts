@@ -114,7 +114,7 @@ export const updatePass = async (newPass: UserNewPassRequest) => {
 };
 
 export const banUser = async (username: string) => {
-    let resp = await deltaforceClient.delete(`/user/${username}`)
+    await deltaforceClient.delete(`/user/${username}`)
 };
 
 export const addFavorite = async (uid: string | undefined, favorite: string) => {
