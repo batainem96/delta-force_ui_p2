@@ -48,7 +48,7 @@ function BanUserComponent(props: IProfile) {
             setSuccessMessage(`${formData.username} has been banned.`);
             setErrorMessage('');
         } catch (e: any) {
-            console.log(e);
+            // console.log(e);
             setSuccessMessage('');
             setErrorMessage('Invalid username provided.');
         }

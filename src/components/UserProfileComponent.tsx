@@ -48,7 +48,7 @@ function UserProfileComponent(props: IUserProfile) {
             let userInfo = await getUserById(props.currentUser?.id);
             props.setUserInfo({...userInfo});
         } catch (e: any) {
-            console.log(e);
+            // console.log(e);
         }
     }
 

@@ -177,16 +177,15 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
 
     async function updateFavorites() {
         if (!faveData.topic) {
-            console.log("it's blank");
             return;
         }
 
         try {
             let resp = await addFavorite(props.currentUser?.id, faveData.topic);
-            console.log(resp);
+            // console.log(resp);
             setUserFaves(resp);
         } catch (e: any) {
-            console.log(e);
+            // console.log(e);
         }
     }
 
@@ -195,7 +194,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
             let resp = await removeFavorite(props.currentUser?.id, favorite);
             setUserFaves(resp);
         } catch (e: any) {
-            console.log(e);
+            // console.log(e);
         }
     }
 
@@ -211,7 +210,7 @@ export default function PrimarySearchAppBar(props: INavbarProps) {
     // For sidebar and search bar
     function setQuery(queryType: string, query: string) {
         let articleQuery = {queryType: queryType, query: query};
-        console.log(articleQuery);
+        // console.log(articleQuery);
         props.setSearchQuery(articleQuery);
     }
 

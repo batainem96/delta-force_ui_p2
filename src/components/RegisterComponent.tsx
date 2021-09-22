@@ -77,7 +77,7 @@ function RegisterComponent(props: IRegisterProps) {
             if (e instanceof Error) {
                 setErrorMessage(e.message);
             } else {
-                console.error("🤷‍♂️"); // Who knows?
+                // console.error("🤷‍♂️"); // Who knows?
             }
         }
     }

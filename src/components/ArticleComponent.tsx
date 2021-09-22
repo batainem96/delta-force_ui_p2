@@ -23,17 +23,11 @@ const useStyles = makeStyles({
 function ArticleComponent(props: IArticleProps) {
     // Fetch articles [Testing Article Containers - Marwan]
     const [articles, setData] = useState([] as Article[]);
-    const [test, setTest] = useState('one');
 
     useEffect(() => {
         getArticles().then(articles => {
             setData(articles);
         });
-        setTest('two');
-        console.log(test);//
-        return () => {
-            setData([]);
-        }
     }, []);
 
     // Get Styles
