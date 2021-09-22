@@ -56,7 +56,7 @@ function CommentsComponent(props: ICommentsProps) {
     const handleKeyDown = (e: any) => {
         if (e.key === 'Shift') {
             setShiftKeyDown(true);
-            console.log(e);
+            // console.log(e);
             return;
         }
 
@@ -77,7 +77,7 @@ function CommentsComponent(props: ICommentsProps) {
 
     async function submitComment() {
         if (props.currentUser === undefined) {
-            console.log("No user");
+            // console.log("No user");
             return;
         }
 
@@ -90,7 +90,7 @@ function CommentsComponent(props: ICommentsProps) {
                 setValue('');
             }
         } catch (e: any) {
-            console.log(e);
+            // console.log(e);
         }
     };
 

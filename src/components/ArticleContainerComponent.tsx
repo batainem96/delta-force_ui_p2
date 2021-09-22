@@ -39,7 +39,6 @@ function ArticleContainerComponent(articles: IArticles) {
     // like function
     async function like(currentUser: Principal | undefined, articleId: string) {
         if (currentUser === undefined) {
-            console.log("No user");
             return;
         }
 
@@ -58,7 +57,7 @@ function ArticleContainerComponent(articles: IArticles) {
                 dislikeCountElement.innerText = resp.dislikes.length;
             }
         } catch (e: any) {
-            console.log(e);
+            // console.log(e);
         }
 
     }
@@ -66,7 +65,6 @@ function ArticleContainerComponent(articles: IArticles) {
     // dislike function
     async function dislike(currentUser: Principal | undefined, articleId: string) {
         if (currentUser === undefined) {
-            console.log("No User");
             return;
         }
 
@@ -85,7 +83,7 @@ function ArticleContainerComponent(articles: IArticles) {
                 dislikeCountElement.innerText = resp.dislikes.length;
             }
         } catch (e: any) {
-            console.log(e);
+            // console.log(e);
         }
     }
 
