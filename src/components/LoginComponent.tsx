@@ -1,4 +1,4 @@
-import { Button, makeStyles, TextField, Typography } from "@material-ui/core";
+import { Button, Container, makeStyles, TextField, Typography } from "@material-ui/core";
 import { useState } from "react";
 import {Redirect, useHistory} from "react-router-dom";
 import {Principal} from "../dtos/principal";
@@ -49,11 +49,10 @@ function LoginComponent(props: ILoginProps){
 
         try{
             let principal = await authenticate({username : formData.username, password : formData.password});
-            console.log(principal);
             props.setCurrentUser(principal);
-        }catch (e : any){
-            setErrorMessage(e.message);
-        }
+        }catch (error: any) {
+            setErrorMessage(error.message);
+        };
     }
 
     const history = useHistory();
@@ -65,7 +64,7 @@ function LoginComponent(props: ILoginProps){
     return(
         props.currentUser ? <Redirect to="/"/> :
         <>
-            <div className={classes.loginContainer} color="inherit">
+            <Container fixed maxWidth='sm' className={classes.loginContainer} color="inherit">
                 <Typography align="center" variant="h4">Login</Typography>
                 <br/>
                 <TextField id="username-input" label="Username" name="username" type="text" onChange={handleChange} onKeyUp={handleKeyUp} autoFocus/>
@@ -76,9 +75,12 @@ function LoginComponent(props: ILoginProps){
                 <br/><br/>
                 <Button id="login-bt" variant="contained" color="primary" onClick={login}>Login</Button>
                 <p>No account yet?<span style={{color:"#0000EE", cursor:"pointer", textDecoration:"underline"}} onClick={navToRegister}> Sign Up</span></p>
-            </div>
-            <br/>
-            { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }
+
+                <br/>
+
+                { errorMessage ? <ErrorMessageComponent errorMessage={errorMessage}/> : <></> }
+            </Container>
+            
         </>
     );
 

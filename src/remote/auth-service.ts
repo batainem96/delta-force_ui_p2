@@ -1,23 +1,33 @@
 import {Credentials} from "../dtos/credentials";
 import {deltaforceClient} from "./deltaforce-client";
 import {Principal} from "../dtos/principal";
+import { responsiveFontSizes } from "@material-ui/core";
+import axios, { AxiosError } from "axios";
 
 
 export const authenticate = async (credentials: Credentials) => {
 
-    let resp = await deltaforceClient.post('/auth', credentials);
+    return deltaforceClient.post('/auth', credentials)
+        .then((resp) => {
+            localStorage.setItem('api-token', resp.headers['authorization']);
+            deltaforceClient.defaults.headers["Authorization"] = localStorage.getItem("api-token");
+            return resp.data;
+        })
+        .catch(function (error) {
+            if (error.response) {
+                // Request made and server responded
+                throw(error.response.data);
 
-    if (resp.status === 401) {
-        throw resp.data;
-    }
+            } else if (error.request) {
+                // The request was made but no response was received
+                // console.log(error.request);
 
-    localStorage.setItem('api-token', resp.headers['authorization']);
-    console.log(resp.headers['authorization']);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                // console.log('Error', error.message);
 
-    deltaforceClient.defaults.headers["Authorization"] = localStorage.getItem("api-token");
-
-    return resp.data;
-
+            }
+        });
 }
 
 export const logout = (setCurrentUser: (nextUser: Principal | undefined) => void) => {
