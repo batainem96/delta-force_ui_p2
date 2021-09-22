@@ -9,5 +9,4 @@ export class UserNewEmailRequest {
         this.newEmail = email;
         this.password = pw;
     }
-
 }

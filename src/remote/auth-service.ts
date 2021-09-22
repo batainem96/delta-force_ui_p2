@@ -1,12 +1,8 @@
 import {Credentials} from "../dtos/credentials";
 import {deltaforceClient} from "./deltaforce-client";
 import {Principal} from "../dtos/principal";
-import { responsiveFontSizes } from "@material-ui/core";
-import axios, { AxiosError } from "axios";
-
 
 export const authenticate = async (credentials: Credentials) => {
-
     return deltaforceClient.post('/auth', credentials)
         .then((resp) => {
             localStorage.setItem('api-token', resp.headers['authorization']);

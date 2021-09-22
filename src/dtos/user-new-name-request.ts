@@ -11,5 +11,4 @@ export class UserNewNameRequest {
         this.newLastName = ln;
         this.password = pw;
     }
-
 }

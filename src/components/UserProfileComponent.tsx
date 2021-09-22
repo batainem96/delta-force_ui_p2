@@ -1,11 +1,11 @@
-import { Button, Container, InputAdornment, responsiveFontSizes, TextField, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import { useState, useEffect } from "react";
-import { Principal } from "../dtos/principal";
-import {Redirect, useHistory} from "react-router-dom";
-import { getUserById } from "../remote/user-service";
+import {Button, Container, InputAdornment, TextField, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
+import {useEffect} from "react";
+import {Principal} from "../dtos/principal";
+import {useHistory} from "react-router-dom";
+import {getUserById} from "../remote/user-service";
 
-interface IUserProfile{
+interface IUserProfile {
     currentUser: Principal | undefined,
     setCurrentUser: (nextUser: Principal | undefined) => void,
     userInfo: {
@@ -14,7 +14,7 @@ interface IUserProfile{
         email: string,
         username: string
     },
-    setUserInfo: (userInfo: {firstName: string, lastName: string, email: string, username: string}) => void
+    setUserInfo: (userInfo: { firstName: string, lastName: string, email: string, username: string }) => void
 }
 
 const FAINTGREY = '#9b9b9b';
@@ -22,7 +22,7 @@ const FAINTGREY = '#9b9b9b';
 const useStyles = makeStyles({
     profileContainer: {
         textAlign: 'center',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         border: `solid ${FAINTGREY}`,
         borderRadius: '12px',
         borderWidth: '1px',
@@ -33,21 +33,20 @@ const useStyles = makeStyles({
     }
 });
 
-function UserProfileComponent(props: IUserProfile){
+function UserProfileComponent(props: IUserProfile) {
 
     const history = useHistory();
     const classes = useStyles();
 
-    
     useEffect(() => {
         getUsers();
     }, [])
 
     let getUsers = async () => {
-        try{
+        try {
             let userInfo = await getUserById(props.currentUser?.id);
             props.setUserInfo({...userInfo});
-        } catch( e: any){
+        } catch (e: any) {
             console.log(e);
         }
     }
@@ -69,14 +68,11 @@ function UserProfileComponent(props: IUserProfile){
     }
 
     return (
-
         <>
             <Container fixed maxWidth='md' id="register-component" className={classes.profileContainer}>
                 <br/>
                 <Typography align="center" variant="h4">Profile Settings</Typography>
-
                 <br/><br/>
-
                 <TextField
                     id="standard-read-only-input"
                     label="Name"
@@ -86,18 +82,16 @@ function UserProfileComponent(props: IUserProfile){
                         readOnly: true,
                         endAdornment: (
                             <InputAdornment position="end">
-                                <Button 
+                                <Button
                                     onClick={handleNameChange}
                                     color="primary"
                                     size="small"> Edit
                                 </Button>
                             </InputAdornment>
-                          )
+                        )
                     }}
                 />
-
                 <br/><br/>
-
                 <TextField
                     id="standard-read-only-input"
                     label="Email"
@@ -107,18 +101,16 @@ function UserProfileComponent(props: IUserProfile){
                         readOnly: true,
                         endAdornment: (
                             <InputAdornment position="end">
-                                <Button 
+                                <Button
                                     onClick={handleEmailChange}
                                     color="primary"
                                     size="small"> Edit
                                 </Button>
                             </InputAdornment>
-                          )
+                        )
                     }}
                 />
-
                 <br/><br/>
-
                 <TextField
                     id="standard-read-only-input"
                     label="Username"
@@ -128,18 +120,16 @@ function UserProfileComponent(props: IUserProfile){
                         readOnly: true,
                         endAdornment: (
                             <InputAdornment position="end">
-                                <Button 
+                                <Button
                                     onClick={handleUsernameChange}
                                     color="primary"
                                     size="small"> Edit
                                 </Button>
                             </InputAdornment>
-                          )
+                        )
                     }}
                 />
-
                 <br/><br/>
-
                 <TextField
                     id="standard-read-only-input"
                     label="Password"
@@ -150,24 +140,21 @@ function UserProfileComponent(props: IUserProfile){
                         readOnly: true,
                         endAdornment: (
                             <InputAdornment position="end">
-                                <Button 
+                                <Button
                                     onClick={handlePassChange}
                                     color="primary"
                                     size="small"> Edit
                                 </Button>
                             </InputAdornment>
-                          )
+                        )
                     }}
                 />
-
                 <br/><br/>
                 <br/><br/>
                 <br/><br/>
-
             </Container>
-        
         </>
     );
-
 }
+
 export default UserProfileComponent;
