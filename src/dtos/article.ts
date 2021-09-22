@@ -1,7 +1,6 @@
-import { Comment } from "./comment";
+import {Comment} from "./comment";
 
 export class Article {
-
     id: string;
     source: {
         id: string | undefined;
@@ -18,21 +17,20 @@ export class Article {
     dislikes: string[];
     comments: Comment[];
 
-    constructor(id: string, source: {id: string, name: string}, author: string, title: string, description: string, url: string, urlToImage: string, publishedAt: string,
-        content: string, likes: string[], dislikes: string[], comments: Comment[]) {
-            this.id = id;
-            this.source = source;
-            this.author = author;
-            this.title = title;
-            this.description = description;
-            this.url = url;
-            this.urlToImage = urlToImage;
-            this.publishedAt = publishedAt;
-            this.content = content;
-            
-            this.likes = likes? likes : [];
-            this.dislikes = dislikes? dislikes : [];
-            this.comments = comments? comments : [];
-        }
+    constructor(id: string, source: { id: string, name: string }, author: string, title: string, description: string, url: string, urlToImage: string, publishedAt: string,
+                content: string, likes: string[], dislikes: string[], comments: Comment[]) {
+        this.id = id;
+        this.source = source;
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.url = url;
+        this.urlToImage = urlToImage;
+        this.publishedAt = publishedAt;
+        this.content = content;
 
+        this.likes = likes ? likes : [];
+        this.dislikes = dislikes ? dislikes : [];
+        this.comments = comments ? comments : [];
+    }
 }

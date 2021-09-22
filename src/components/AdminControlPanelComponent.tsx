@@ -1,63 +1,60 @@
-import { Button, Container, responsiveFontSizes, TextField, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
-import { useState, useEffect } from "react";
-import { Principal } from "../dtos/principal";
+import {Button, Container, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/styles";
+import {Principal} from "../dtos/principal";
 import {Redirect, useHistory} from "react-router-dom";
 
-
-interface IUserProfile{
+interface IUserProfile {
     currentUser: Principal | undefined,
     setCurrentUser: (nextUser: Principal | undefined) => void
 }
 
+const FAINTGREY = '#9b9b9b';
+
 const useStyles = makeStyles({
     profileContainer: {
         textAlign: 'center',
-        justifyContent: 'center', 
-        marginTop: '1rem',
-        marginBottom: '3rem',
-        marginLeft: '20rem',
-        marginRight: '20rem',
-        border: 'double', 
-        borderColor: '#4b6fe4',
+        justifyContent: 'center',
+        border: `solid ${FAINTGREY}`,
         borderRadius: '12px',
-        borderWidth: '5px 20px',
+        borderWidth: '1px',
+        background: '#D3D3D3'
     }
 });
 
-function AdminControlPanelComponent(props: IUserProfile){
+function AdminControlPanelComponent(props: IUserProfile) {
 
     const history = useHistory();
     const classes = useStyles();
-    const userRole = props.currentUser?.role;
 
     const renderBanMenu = () => {
         history.push('/admin-dashboard/ban');
     }
 
     return (
-        
-        <>{props.currentUser?.role==='admin'?
-            <div id="admin-dashboard-component" className={classes.profileContainer}>
+        <>
+            {props.currentUser?.role === 'admin' ?
+            <Container fixed maxWidth='sm' id="admin-dashboard-component" className={classes.profileContainer}>
                 <br/>
                 <Typography align="center" variant="h4">Welcome, Commander!</Typography>
                 <br/>
                 <Typography align="center" variant="h6">Please select an option....</Typography>
-                <br/>
-                <Button 
+                <br/><br/>
+               
+
+                <Button
                     onClick={renderBanMenu}
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     size="small"> Ban a User </Button>
-                    <br/><br/>
 
-            </div>
-            : 
-            <Redirect to ='/' />}
+                <br/><br/>
+                <br/><br/>
+
+            </Container>
+            :
+            <Redirect to='/'/>}
         </>
     );
-    
-
 }
 
 export default AdminControlPanelComponent;

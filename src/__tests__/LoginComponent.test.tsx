@@ -1,9 +1,8 @@
-import { Typography } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
-import { mount, shallow } from "enzyme";
+import {Typography} from "@material-ui/core";
+import {mount, shallow} from "enzyme";
 import ErrorMessageComponent from "../components/ErrorMessageComponent";
 import LoginComponent from "../components/LoginComponent";
-import { authenticate } from "../remote/auth-service";
+import {authenticate} from "../remote/auth-service";
 
 jest.mock("../remote/auth-service");
 
@@ -55,7 +54,8 @@ describe("LoginComponent Test Suite", () => {
 
         loginBtnWrapper.simulate("click");
 
-        let expectedErrorComponent = <ErrorMessageComponent errorMessage="You need to provide a username and password"/>;
+        let expectedErrorComponent = <ErrorMessageComponent
+            errorMessage="You need to provide a username and password"/>;
 
         expect(wrapper.contains(expectedErrorComponent)).toBe(true);
     });

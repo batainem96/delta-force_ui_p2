@@ -1,9 +1,8 @@
-import { Typography } from "@material-ui/core";
-import { mount, shallow } from "enzyme";
+import {Typography} from "@material-ui/core";
+import {mount, shallow} from "enzyme";
 import ErrorMessageComponent from "../components/ErrorMessageComponent";
 import RegisterComponent from "../components/RegisterComponent";
-import { registerNewUser } from "../remote/user-service";
-import {act} from "react-dom/test-utils";
+import {registerNewUser} from "../remote/user-service";
 
 jest.mock("../remote/user-service.ts");
 
@@ -25,8 +24,9 @@ describe("RegisterComponent Test Suite", () => {
         let mockUser = undefined;
 
         const wrapper = shallow(<RegisterComponent currentUser={mockUser}/>);
-        
-        const expectedHeader = <Typography align="center" variant="h4">Register for a DeltaForce News Account!</Typography>
+
+        const expectedHeader = <Typography align="center" variant="h4">Register for a DeltaForce News
+            Account!</Typography>
 
         expect(wrapper.contains(expectedHeader)).toEqual(true);
     });
@@ -58,7 +58,8 @@ describe("RegisterComponent Test Suite", () => {
 
         registerBtn.simulate("click");
 
-        let expectedErrorComponent = <ErrorMessageComponent errorMessage="You need to complete the registration form!"/>;
+        let expectedErrorComponent = <ErrorMessageComponent
+            errorMessage="You need to complete the registration form!"/>;
 
         expect(wrapper.contains(expectedErrorComponent)).toBe(true);
     });
